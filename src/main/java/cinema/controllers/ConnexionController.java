@@ -40,7 +40,13 @@ public class ConnexionController implements Initializable {
         UtilisateurDAO userDAO = new UtilisateurDAO();
         // TODO
         Utilisateur user = userDAO.authenticate(truc, chose);
-        showAccueil(user.getLogin());
+
+        /* Correction de l'argument qui était l'adresse
+        email de l'utilisateur qui pouvait être une faille
+        de sécurité si une personne voyait son login.
+        Remplacement de l'argument par le prénom et le nom
+        de l'utilisateur */
+        showAccueil(user.getPrenom() + " " + user.getNom());
     }
 
     private void showAccueil(String name) {
