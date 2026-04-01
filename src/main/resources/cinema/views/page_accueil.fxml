@@ -62,8 +62,12 @@
                                 </ImageView>
                             </graphic>
                             <items>
-                                <MenuItem fx:id="bListeSalle" mnemonicParsing="false" onAction="#bListeSalleClick" text="Liste cours" />
-                                <MenuItem fx:id="bAjouterSalle" mnemonicParsing="false" onAction="#bAjouterSalleClick" text="Ajouter un cours" />
+                                <!-- Erreur dans le 'text' des deux
+                                'MenuItem' ci-dessous, 'Liste cours'
+                                et 'Ajouter un cours' à la place de
+                                'Liste salles' et 'Ajouter une salle' -->
+                                <MenuItem fx:id="bListeSalle" mnemonicParsing="false" onAction="#bListeSalleClick" text="Liste salles" />
+                                <MenuItem fx:id="bAjouterSalle" mnemonicParsing="false" onAction="#bAjouterSalleClick" text="Ajouter une salle" />
                             </items>
                         </Menu>
                         <Menu fx:id="bAutres" mnemonicParsing="false" text="Autres">
@@ -95,12 +99,13 @@
                    stroke="BLACK"
                    strokeType="INSIDE"
                    strokeWidth="0.0" />
+        <!-- attribut 'text' initialisé avec la valeur "BIENVENUE" peu utile ici car déjà
+         initialisé dans 'AccueilController.java' jean-->
         <Label fx:id="bienvenue"
                alignment="TOP_CENTER"
                layoutY="172.0"
                prefHeight="40.0"
                prefWidth="729.0"
-               text="BIENVENUE"
                textFill="#024010">
             <font>
                 <Font name="Franklin Gothic Medium" size="40.0" />

@@ -13,6 +13,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -57,8 +58,12 @@ public class ModifierCinemaController extends MenuController implements Initiali
             Stage stage = new Stage();
             stage.setTitle("Liste franchises");
             stage.setScene(new Scene(root));
+            // Ajout de l'icone cinema dans la page 'Accueil'
+            stage.getIcons().add(new Image("/cinema/images/cinema_32x32.png"));
 
-            stage.initModality(Modality.APPLICATION_MODAL);
+            // Configurer la fenêtre en tant que modal
+            // Cette ligne ci dessous a été commenté car elle empêchait de minimiser la fenêtre
+            //stage.initModality(Modality.APPLICATION_MODAL);
 
             stage.show();
 
@@ -89,8 +94,12 @@ public class ModifierCinemaController extends MenuController implements Initiali
                     Stage stage = new Stage();
                     stage.setTitle("Liste franchises");
                     stage.setScene(new Scene(root));
+                    // Ajout de l'icone cinema dans la page 'Accueil'
+                    stage.getIcons().add(new Image("/cinema/images/cinema_32x32.png"));
 
-                    stage.initModality(Modality.APPLICATION_MODAL);
+                    // Configurer la fenêtre en tant que modal
+                    // Cette ligne ci dessous a été commenté car elle empêchait de minimiser la fenêtre
+                    //stage.initModality(Modality.APPLICATION_MODAL);
 
                     stage.show();
 
@@ -109,9 +118,12 @@ public class ModifierCinemaController extends MenuController implements Initiali
                 Stage stage = new Stage();
                 stage.setTitle("Pop-up");
                 stage.setScene(new Scene(root));
+                // Ajout de l'icone cinema dans la page 'Accueil'
+                stage.getIcons().add(new Image("/cinema/images/cinema_32x32.png"));
 
                 // Configurer la fenêtre en tant que modal
-                stage.initModality(Modality.APPLICATION_MODAL);
+                // Cette ligne ci dessous a été commenté car elle empêchait de minimiser la fenêtre
+                //stage.initModality(Modality.APPLICATION_MODAL);
 
                 // Afficher la fenêtre et attendre qu'elle se ferme
                 stage.show();

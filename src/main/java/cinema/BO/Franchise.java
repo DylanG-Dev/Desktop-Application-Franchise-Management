@@ -48,10 +48,6 @@ public class Franchise {
         this.siegeSocial.set(siegeSocial);
     }
 
-    public StringProperty nomFranchiseProperty() {
-        return nomFranchise;
-    }
-
     public StringProperty siegeSocialProperty() {
         return siegeSocial;
     }

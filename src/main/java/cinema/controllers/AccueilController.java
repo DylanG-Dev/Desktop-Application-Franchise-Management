@@ -17,6 +17,7 @@ public class AccueilController extends MenuController implements Initializable {
 
     }
     // nameUti qui renvoie l'adresse email de l'utilisateur connecté actuellement
+    // edit, c'est corrigé
     public void setBienvenue() {
         bienvenue.setText("BIENVENUE " + nameUti.toUpperCase());
     }

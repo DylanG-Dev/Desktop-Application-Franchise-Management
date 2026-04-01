@@ -57,11 +57,15 @@
                         </ImageView>
                     </graphic>
                     <items>
+                        <!-- Erreur dans le 'text' des deux
+                                'MenuItem' ci-dessous, 'Liste cours'
+                                et 'Ajouter un cours' à la place de
+                                'Liste salles' et 'Ajouter une salle' -->
                         <MenuItem fx:id="bListeSalle"
-                            text="Liste cours"
+                            text="Liste salles"
                             onAction="#bListeSalleClick" />
                         <MenuItem fx:id="bAjouterSalle"
-                            text="Ajouter un cours"
+                            text="Ajouter une salle"
                             onAction="#bAjouterSalleClick" />
                     </items>
                 </Menu>
