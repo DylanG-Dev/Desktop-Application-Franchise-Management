@@ -40,11 +40,15 @@
                         </ImageView>
                     </graphic>
                     <items>
+                        <!-- Erreur dans le 'text' des deux
+                                'MenuItem' ci-dessous, 'Liste sections'
+                                et 'Ajouter une section' à la place de
+                                'Liste cinémas' et 'Ajouter un cinéma' -->
                         <MenuItem fx:id="bListeCinema"
-                            text="Liste des sections"
+                            text="Liste des cinémas"
                             onAction="#bListeCinemaClick" />
                         <MenuItem fx:id="bAjouterCinema"
-                            text="Ajouter une section"
+                            text="Ajouter un cinéma"
                             onAction="#bAjouterCinemaClick" />
                     </items>
                 </Menu>

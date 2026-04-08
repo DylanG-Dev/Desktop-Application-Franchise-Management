@@ -115,12 +115,11 @@ public class ModifierFranchiseController extends MenuController implements Initi
                 Stage stage = new Stage();
                 stage.setTitle("Pop-up");
                 stage.setScene(new Scene(root));
-                // Ajout de l'icone cinema dans la page 'Accueil'
+                // Ajout de l'icone cinema dans la popup 'erreur_modification_franchise'
                 stage.getIcons().add(new Image("/cinema/images/cinema_32x32.png"));
 
                 // Configurer la fenêtre en tant que modal
-                // Cette ligne ci dessous a été commenté car elle empêchait de minimiser la fenêtre
-                //stage.initModality(Modality.APPLICATION_MODAL);
+                stage.initModality(Modality.APPLICATION_MODAL);
 
                 // Afficher la fenêtre et attendre qu'elle se ferme
                 stage.show();

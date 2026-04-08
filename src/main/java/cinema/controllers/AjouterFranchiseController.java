@@ -67,7 +67,8 @@ public class AjouterFranchiseController extends MenuController implements Initia
 
             // Créer une nouvelle fenêtre (Stage)
             Stage stage = new Stage();
-            stage.setTitle("Liste franchises");
+            // Correction du titre qui doit être 'Accueil' au lieu de 'Liste franchises'
+            stage.setTitle("Accueil");
             stage.setScene(new Scene(root));
             // Ajout de l'icone cinema dans la page 'Accueil'
             stage.getIcons().add(new Image("/cinema/images/cinema_32x32.png"));
@@ -87,21 +88,23 @@ public class AjouterFranchiseController extends MenuController implements Initia
 
     @FXML
     public void bEnregistrerClick(ActionEvent event) {
+        // Correction des noms de variables 'x' et 'y' qui doivent se nommer 'nomFranchise' et 'siegeSocial'
+        String nomFranchise = tfNomFranchise.getText();
+        String siegeSocial = tfSiegeSocial.getText();
 
-        String x = tfNomFranchise.getText();
-        String y = tfSiegeSocial.getText();
-
+        // Correction du nom de variable 'z' qui doit se nommer '?
         int z = 1;
-        Franchise bloup = new Franchise(0, x, y, z);
+
+        // Correction du nom de variable 'bloup' qui doit se nommer 'franchise'
+        Franchise franchise = new Franchise(0, nomFranchise, siegeSocial, z);
 
         FranchiseDAO franchiseDAO = new FranchiseDAO();
-        boolean controle = franchiseDAO.create(bloup);
+        boolean controle = franchiseDAO.create(franchise);
         if (controle) {
             tfNomFranchise.clear();
             tfSiegeSocial.clear();
             lvGerantFranchise.getSelectionModel().clearSelection();
         }
-
     }
 
     @FXML

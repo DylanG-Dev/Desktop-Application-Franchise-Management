@@ -1,23 +1,27 @@
 package cinema.BO;
 
+// suppression du mot de passe
+// dans l'objet 'Utilisateur'
+// pour ne pas stocker le mot
+// de passe en mémoire
+
 public class Utilisateur {
 
     private int idUtilisateur;
     private String nom;
     private String prenom;
     private String login;
-    private String mdp;
 
     public Utilisateur() {
     }
 
     // Correction des affectations du constructeurs qui étaient en désordre
-    public Utilisateur(int idUtilisateur, String nom, String prenom, String login, String mdp) {
+    // ne jamais avoir le mot de passe dans un constructeur 'Utilisateur'
+    public Utilisateur(int idUtilisateur, String nom, String prenom, String login) {
         this.idUtilisateur = idUtilisateur;
         this.nom = nom;
         this.prenom = prenom;
         this.login = login;
-        this.mdp = mdp;
     }
 
     public int getIdUtilisateur() {
@@ -53,17 +57,9 @@ public class Utilisateur {
         this.login = login;
     }
 
-    public String getMdp() {
-        return mdp;
-    }
-
-    public void setMdp(String mdp) {
-        this.mdp = mdp;
-    }
-
     @Override
     public String toString() {
         return "Utilisateur [idUtilisateur=" + idUtilisateur + ", nom=" + nom + ", prenom="
-                + prenom + ", login=" + login + ", mdp=" + mdp + "]";
+                + prenom + ", login=" + login + "]";
     }
 }

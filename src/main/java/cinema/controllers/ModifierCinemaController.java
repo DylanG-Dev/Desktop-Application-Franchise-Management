@@ -19,10 +19,12 @@ import javafx.stage.Stage;
 
 public class ModifierCinemaController extends MenuController implements Initializable {
 
+    // Correction du nommage de l'attribut 'TextArea' nommé 'taLibSec' par 'taDenomination'
     @FXML
-    private TextArea taLibSec;
+    private TextArea taDenomination, taAdresse, taVille;
 
-    private int idSec;
+    private int idCinema;
+    private int idFranchise;
 
     @FXML
     private Button bRetour, bEnregistrer;
@@ -32,14 +34,19 @@ public class ModifierCinemaController extends MenuController implements Initiali
 
     }
 
-    public void setIdSec(int idSec) {
-        this.idSec = idSec;
+    public void setIdCinema(int idCinema) {
+        this.idCinema = idCinema;
     }
 
-    public void setAttrinuts() {
-        CinemaDAO sectionDAO = new CinemaDAO();
-        Cinema sec = sectionDAO.find(idSec);
-        taLibSec.setText(sec.getDenomination());
+    // Correction du nom de la méthode nommé 'setAttrinut'
+    // par 'setAttributes'
+    // Correction de la méthode complète
+    public void setAttributes(Cinema cinema) {
+        taDenomination.setText(cinema.getDenomination());
+        taAdresse.setText(cinema.getAdresse());
+        taVille.setText(cinema.getVille());
+        this.idCinema = cinema.getIdCinema();
+        this.idFranchise = cinema.getIdFranchise();
     }
 
     @FXML
@@ -56,7 +63,8 @@ public class ModifierCinemaController extends MenuController implements Initiali
             listeCinemaController.setName(nameUti);
 
             Stage stage = new Stage();
-            stage.setTitle("Liste franchises");
+            // Correction du titre du stage nommé 'Liste franchises' par 'Liste cinémas
+            stage.setTitle("Liste cinémas");
             stage.setScene(new Scene(root));
             // Ajout de l'icone cinema dans la page 'Accueil'
             stage.getIcons().add(new Image("/cinema/images/cinema_32x32.png"));
@@ -74,11 +82,18 @@ public class ModifierCinemaController extends MenuController implements Initiali
 
     @FXML
     private void bEnregistrerClick(ActionEvent event) {
-        String lib = taLibSec.getText();
-        if (!lib.trim().isEmpty()) {
-            Cinema sec = new Cinema(idSec, lib, lib, lib, idSec);
-            CinemaDAO sectionDAO = new CinemaDAO();
-            boolean controle = sectionDAO.update(sec);
+        // Ajout des attributs pour l'enregistrement
+        String denomination = taDenomination.getText();
+        String adresse = taAdresse.getText();
+        String ville = taVille.getText();
+        if (!denomination.trim().isEmpty() && !adresse.trim().isEmpty() && !ville.trim().isEmpty()) {
+            // Correction des paramètres de l'objet
+            // Correction du nommage de la variable nommé 'sec' par 'newCinema'
+            Cinema newCinema = new Cinema(this.idCinema, denomination, adresse, ville, idFranchise);
+            // Modification du nom de la variable 'sectionDAO' par 'cinemaDAO'
+            CinemaDAO cinemaDAO = new CinemaDAO();
+            // Mise à jour du nouveau cinéma créé
+            boolean controle = cinemaDAO.update(newCinema);
             if (controle) {
                 Stage stageP = (Stage) bRetour.getScene().getWindow();
                 stageP.close();
@@ -92,7 +107,8 @@ public class ModifierCinemaController extends MenuController implements Initiali
                     listeCinemaController.setName(nameUti);
 
                     Stage stage = new Stage();
-                    stage.setTitle("Liste franchises");
+                    // Remplacement du titre 'Liste franchises' par 'Liste cinémas'
+                    stage.setTitle("Liste cinémas");
                     stage.setScene(new Scene(root));
                     // Ajout de l'icone cinema dans la page 'Accueil'
                     stage.getIcons().add(new Image("/cinema/images/cinema_32x32.png"));
@@ -111,6 +127,7 @@ public class ModifierCinemaController extends MenuController implements Initiali
             try {
                 // Charger le fichier FXML
                 FXMLLoader fxmlLoader = new FXMLLoader(
+                        // Popup ajoutEtu non existante
                         getClass().getResource("/cinema/views/popup_ajout_etu.fxml"));
                 Parent root = fxmlLoader.load();
 

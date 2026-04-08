@@ -22,12 +22,16 @@ public class MainApplication extends Application {
 
             // paramétrage du stage (fenêtre principale)
             primaryStage.setTitle("Application de gestion de franchise - Authentification");
+            // Est-ce qu'il est nécessaire de pouvoir modifier la taille
+            // de la fenêtre de connexion ? Responsivité à faire dans ce
+            // cas
             primaryStage.setResizable(false);
             primaryStage.centerOnScreen();
             primaryStage.getIcons().add(new Image("/cinema/images/cinema_32x32.png"));
             primaryStage.setScene(scene);
 
-            primaryStage.setAlwaysOnTop(true);   // Toujours au-dessus des autres fenêtres
+            // Toujours au-dessus des autres fenêtres
+            primaryStage.setAlwaysOnTop(true);
             // affichage
             primaryStage.show();
             primaryStage.setAlwaysOnTop(false);

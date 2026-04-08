@@ -70,7 +70,8 @@ public class ListeCinemaController extends MenuController implements Initializab
 
             // Créer une nouvelle fenêtre (Stage)
             Stage stage = new Stage();
-            stage.setTitle("Liste franchises");
+            // Correction du titre qui doit être 'Accueil' au lieu de 'Liste franchises'
+            stage.setTitle("Accueil");
             stage.setScene(new Scene(root));
             // Ajout de l'icone cinema dans la page 'Accueil'
             stage.getIcons().add(new Image("/cinema/images/cinema_32x32.png"));
@@ -131,11 +132,13 @@ public class ListeCinemaController extends MenuController implements Initializab
             {
                 btn.setOnAction(event -> {
                     Cinema cinema = getTableView().getItems().get(getIndex());
-                    FranchiseDAO etudiantDAO = new FranchiseDAO();
-                    if (etudiantDAO.getNbFranchiseByIdGerant(cinema.getIdCinema()) >= 1) {
+                    // Nom de la variable quoi doit se nommer 'franchiseDAO' à la place de 'etudiantDAO'
+                    FranchiseDAO franchiseDAO = new FranchiseDAO();
+                    if (franchiseDAO.getNbFranchiseByIdGerant(cinema.getIdCinema()) >= 1) {
                         try {
                             // Charger le fichier FXML
                             FXMLLoader fxmlLoader = new FXMLLoader(
+                                    // Popup non existante
                                     getClass().getResource("/cinema/views/popup_cinema.fxml"));
                             Parent root = fxmlLoader.load();
 

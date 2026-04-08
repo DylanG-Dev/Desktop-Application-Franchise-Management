@@ -77,16 +77,20 @@ public class ListeFranchiseController extends MenuController implements Initiali
 
         addButtonModifierToTable();
         addButtonSupprimerToTable();
+
+        // Ajout de la responsivité pour la balise 'TableView'
+        tvFranchises.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
     }
 
     private ObservableList<Franchise> getFranchiseList() {
 
-        FranchiseDAO var1 = new FranchiseDAO();
-        List<Franchise> var2 = var1.findAll();
+        // Renommage des variables 'var1' et 'var2' par 'franchiseDAO' et 'franchises'
+        FranchiseDAO franchiseDAO = new FranchiseDAO();
+        List<Franchise> franchises = franchiseDAO.findAll();
 
         ObservableList<Franchise> list = FXCollections.observableArrayList();
-        if (var2 != null) {
-            list.addAll(var2);
+        if (franchises != null) {
+            list.addAll(franchises);
         }
         return list;
     }
@@ -107,7 +111,8 @@ public class ListeFranchiseController extends MenuController implements Initiali
 
             // Créer une nouvelle fenêtre (Stage)
             Stage stage = new Stage();
-            stage.setTitle("Liste franchises");
+            // Correction du titre qui doit être 'Accueil' au lieu de 'Liste franchises'
+            stage.setTitle("Accueil");
             stage.setScene(new Scene(root));
             // Ajout de l'icone cinema dans la page 'Accueil'
             stage.getIcons().add(new Image("/cinema/images/cinema_32x32.png"));

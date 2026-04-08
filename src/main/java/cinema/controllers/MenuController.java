@@ -29,6 +29,31 @@ public class MenuController {
     public void bAccueilClick(ActionEvent event) {
         Stage StageE = (Stage) ((MenuItem) event.getSource()).getParentPopup().getOwnerWindow();
         StageE.close();
+        // Résolution du problème qui stoppait l'application lors du clique sur le bouton 'Accueil'
+        try {
+            // Charger le fichier FXML
+            FXMLLoader fxmlLoader = new FXMLLoader(
+                    getClass().getResource("/cinema/views/page_accueil.fxml"));
+            Parent root = fxmlLoader.load();
+
+            // Obtenir le contrôleur de la nouvelle fenetre
+            AccueilController accueilController = fxmlLoader.getController();
+            accueilController.setName(nameUti);
+            accueilController.setBienvenue();
+
+            // Créer une nouvelle fenêtre (Stage)
+            Stage stage = new Stage();
+            stage.setTitle("Accueil");
+            stage.setScene(new Scene(root));
+            // Ajout de l'icone cinema dans la page 'Liste franchises'
+            stage.getIcons().add(new Image("/cinema/images/cinema_32x32.png"));
+
+            // Afficher la fenêtre et attendre qu'elle se ferme
+            stage.show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -105,7 +130,8 @@ public class MenuController {
         try {
 
             FXMLLoader fxmlLoader = new FXMLLoader(
-                    getClass().getResource("/cinema/views/page_liste_cinemaa.fxml"));
+                    // Erreur de syntaxe 'page_liste_cinemaa.fxml' au lieu de 'page_liste_cinema.fxml'
+                    getClass().getResource("/cinema/views/page_liste_cinema.fxml"));
             Parent root = fxmlLoader.load();
 
             ListeCinemaController listeSectionController = fxmlLoader.getController();
@@ -135,11 +161,13 @@ public class MenuController {
         try {
 
             FXMLLoader fxmlLoader = new FXMLLoader(
+                    // Erreur de syntaxe 'page_ajout_section.fxml' au lieu de 'page_ajout_cinema.fxml'
                     getClass().getResource("/cinema/views/page_ajout_section.fxml"));
             Parent root = fxmlLoader.load();
 
             Stage stage = new Stage();
-            stage.setTitle("Ajout d'une Section");
+            // Erreur de syntaxe dans le titre, 'Ajouter d'une Section' au lieu de 'Ajout d'un cinéma'
+            stage.setTitle("Ajout d'un cinéma");
             stage.setScene(new Scene(root));
             // Ajout de l'icone cinema dans la page 'Ajouter un cinéma'
             stage.getIcons().add(new Image("/cinema/images/cinema_32x32.png"));
@@ -163,12 +191,14 @@ public class MenuController {
 
             // Charger le fichier FXML
             FXMLLoader fxmlLoader = new FXMLLoader(
-                    getClass().getResource("/cinema/views/page_liste_cours.fxml"));
+                    // Erreur de syntaxe 'page_liste_cours.fxml' au lieu de 'page_liste_salle.fxml'
+                    getClass().getResource("/cinema/views/page_liste_salle.fxml"));
             Parent root = fxmlLoader.load();
 
             // Créer une nouvelle fenêtre (Stage)
             Stage stage = new Stage();
-            stage.setTitle("Liste cours");
+            // Erreur de syntaxe dans le titre, 'Liste cours' au lieu de 'Liste salles'
+            stage.setTitle("Liste salles");
             stage.setScene(new Scene(root));
             // Ajout de l'icone cinema dans la page 'Liste salles'
             stage.getIcons().add(new Image("/cinema/images/cinema_32x32.png"));
@@ -197,12 +227,14 @@ public class MenuController {
 
             // Charger le fichier FXML
             FXMLLoader fxmlLoader = new FXMLLoader(
-                    getClass().getResource("/cinema/views/page_ajout_cours.fxml"));
+                    // Erreur de syntaxe 'page_ajout_cours.fxml' au lieu de 'page_ajout_salle.fxml'
+                    getClass().getResource("/cinema/views/page_ajout_salle.fxml"));
             Parent root = fxmlLoader.load();
 
             // Créer une nouvelle fenêtre (Stage)
             Stage stage = new Stage();
-            stage.setTitle("Ajout d'un cours");
+            // Erreur de syntaxe dans le titre, 'Ajout d'un cours' au lieu de 'Ajout d'une salle'
+            stage.setTitle("Ajout d'une salle");
             stage.setScene(new Scene(root));
             // Ajout de l'icone cinema dans la page 'Ajouter une salle'
             stage.getIcons().add(new Image("/cinema/images/cinema_32x32.png"));
