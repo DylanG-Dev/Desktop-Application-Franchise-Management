@@ -115,7 +115,7 @@ public class ListeFranchiseController extends MenuController implements Initiali
             stage.setTitle("Accueil");
             stage.setScene(new Scene(root));
             // Ajout de l'icone cinema dans la page 'Accueil'
-            stage.getIcons().add(new Image("/cinema/images/cinema_32x32.png"));
+            stage.getIcons().add(new Image("/cinema/images/cinema_logo.png"));
 
             // Configurer la fenêtre en tant que modal
             // Cette ligne ci dessous a été commenté car elle empêchait de minimiser la fenêtre
@@ -151,7 +151,7 @@ public class ListeFranchiseController extends MenuController implements Initiali
                         stage.setTitle("Modification franchise");
                         stage.setScene(new Scene(root));
                         // Ajout de l'icone cinema dans la page 'Modification franchise'
-                        stage.getIcons().add(new Image("/cinema/images/cinema_32x32.png"));
+                        stage.getIcons().add(new Image("/cinema/images/cinema_logo.png"));
 
                         // Configurer la fenêtre en tant que modal
                         // Cette ligne ci dessous a été commenté car elle empêchait de minimiser la fenêtre

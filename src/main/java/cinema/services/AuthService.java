@@ -11,7 +11,9 @@ public class AuthService {
     // avec une instance de la classe 'UtilisateurDAO'
     private UtilisateurDAO utilisateurDAO = new UtilisateurDAO();
 
-    // Initialisation d'un attribut privé nommé '
+    // Initialisation et déclaration d'un attribut privé nommé 'encoder'
+    // pour hacher les mots de passe qui ne peut pas être réassigné après
+    // initialisation
     private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
     // Fonction authenticate qui permet d'authentifier un
@@ -44,6 +46,7 @@ public class AuthService {
     }
 
     // Fonction qui permet de hacher un mot de passe
+    // saisis par l'utilisateur
     public static String hash(String password) {
         return encoder.encode(password);
     }

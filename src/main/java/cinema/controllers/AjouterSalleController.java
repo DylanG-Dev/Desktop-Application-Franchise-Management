@@ -4,9 +4,13 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import cinema.BO.Cinema;
 import cinema.BO.Franchise;
+import cinema.BO.Salle;
 import cinema.BO.Utilisateur;
+import cinema.DAO.CinemaDAO;
 import cinema.DAO.FranchiseDAO;
+import cinema.DAO.SalleDAO;
 import cinema.DAO.UtilisateurDAO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,36 +22,40 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class AjouterFranchiseController extends MenuController implements Initializable {
+public class AjouterSalleController extends MenuController implements Initializable {
 
     @FXML
-    private TextField tfNomFranchise, tfSiegeSocial;
+    private TextField tfDescription;
+
+    @FXML
+    private Spinner spNumero, spNbPlace;
 
     @FXML
     private Button bRetour, bEnregistrer;
 
     @FXML
-    private ListView<Utilisateur> lvGerantFranchise;
+    private ListView<Cinema> lvCinema;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        ObservableList<Utilisateur> utilisateurs = getUtilisateurList();
+        ObservableList<Cinema> cinemas = getCinemaList();
 
-        lvGerantFranchise.setItems(utilisateurs);
+        lvCinema.setItems(cinemas);
     }
 
-    private ObservableList<Utilisateur> getUtilisateurList() {
+    private ObservableList<Cinema> getCinemaList() {
 
-        UtilisateurDAO utilisateurDAO = new UtilisateurDAO();
-        List<Utilisateur> utilisateurs = utilisateurDAO.findAll();
+        CinemaDAO cinemaDAO = new CinemaDAO();
+        List<Cinema> cinemas = cinemaDAO.findAll();
 
-        ObservableList<Utilisateur> list = FXCollections.observableArrayList(utilisateurs);
+        ObservableList<Cinema> list = FXCollections.observableArrayList(cinemas);
         return list;
     }
 
@@ -90,31 +98,35 @@ public class AjouterFranchiseController extends MenuController implements Initia
 
     @FXML
     public void bEnregistrerClick(ActionEvent event) {
-        // Correction des noms de variables 'x' et 'y' qui doivent se nommer 'nomFranchise' et 'siegeSocial'
-        String nomFranchise = tfNomFranchise.getText();
-        String siegeSocial = tfSiegeSocial.getText();
 
-        // Correction du nom de variable 'z' qui doit se nommer '?
-        int z = 1;
+        int numero = (int) spNumero.getValue();
 
-        // Correction du nom de variable 'bloup' qui doit se nommer 'franchise'
-        Franchise franchise = new Franchise(0, nomFranchise, siegeSocial, z);
+        String description = tfDescription.getText();
 
-        FranchiseDAO franchiseDAO = new FranchiseDAO();
-        boolean controle = franchiseDAO.create(franchise);
+        int nbPlace = (int) spNbPlace.getValue();
+
+        int idCinema = lvCinema.getSelectionModel().getSelectedItem().getIdCinema();
+
+        Salle salle = new Salle(numero, description, nbPlace, idCinema);
+
+        SalleDAO salleDAO = new SalleDAO();
+        boolean controle = salleDAO.create(salle);
         if (controle) {
-            tfNomFranchise.clear();
-            tfSiegeSocial.clear();
-            lvGerantFranchise.getSelectionModel().clearSelection();
+            spNumero.getValueFactory().setValue(0);
+            tfDescription.clear();
+            spNbPlace.getValueFactory().setValue(0);
+            lvCinema.getSelectionModel().clearSelection();
         }
     }
 
     @FXML
     public void bEffacerClick(ActionEvent event) {
-        if (tfNomFranchise != null)
-            tfNomFranchise.clear();
-        if (tfSiegeSocial != null)
-            tfSiegeSocial.clear();
-        lvGerantFranchise.getSelectionModel().clearSelection();
+        if (tfDescription != null)
+            tfDescription.clear();
+        if (spNumero != null)
+            spNumero.getValueFactory().setValue(0);
+        if (spNbPlace != null)
+            spNbPlace.getValueFactory().setValue(0);
+        lvCinema.getSelectionModel().clearSelection();
     }
 }

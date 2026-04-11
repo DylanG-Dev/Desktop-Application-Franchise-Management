@@ -4,8 +4,10 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import cinema.BO.Cinema;
 import cinema.BO.Franchise;
 import cinema.BO.Utilisateur;
+import cinema.DAO.CinemaDAO;
 import cinema.DAO.FranchiseDAO;
 import cinema.DAO.UtilisateurDAO;
 import javafx.collections.FXCollections;
@@ -23,31 +25,31 @@ import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class AjouterFranchiseController extends MenuController implements Initializable {
+public class AjouterCinemaController extends MenuController implements Initializable {
 
     @FXML
-    private TextField tfNomFranchise, tfSiegeSocial;
+    private TextField tfDenomination, tfAdresse, tfVille;
 
     @FXML
     private Button bRetour, bEnregistrer;
 
     @FXML
-    private ListView<Utilisateur> lvGerantFranchise;
+    private ListView<Franchise> lvFranchise;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        ObservableList<Utilisateur> utilisateurs = getUtilisateurList();
+        ObservableList<Franchise> franchises = getFranchiseList();
 
-        lvGerantFranchise.setItems(utilisateurs);
+        lvFranchise.setItems(franchises);
     }
 
-    private ObservableList<Utilisateur> getUtilisateurList() {
+    private ObservableList<Franchise> getFranchiseList() {
 
-        UtilisateurDAO utilisateurDAO = new UtilisateurDAO();
-        List<Utilisateur> utilisateurs = utilisateurDAO.findAll();
+        FranchiseDAO franchiseDAO = new FranchiseDAO();
+        List<Franchise> franchises = franchiseDAO.findAll();
 
-        ObservableList<Utilisateur> list = FXCollections.observableArrayList(utilisateurs);
+        ObservableList<Franchise> list = FXCollections.observableArrayList(franchises);
         return list;
     }
 
@@ -90,31 +92,34 @@ public class AjouterFranchiseController extends MenuController implements Initia
 
     @FXML
     public void bEnregistrerClick(ActionEvent event) {
-        // Correction des noms de variables 'x' et 'y' qui doivent se nommer 'nomFranchise' et 'siegeSocial'
-        String nomFranchise = tfNomFranchise.getText();
-        String siegeSocial = tfSiegeSocial.getText();
+        String denomination = tfDenomination.getText();
+        String adresse = tfAdresse.getText();
+        String ville = tfVille.getText();
+        int idFranchise = lvFranchise.getSelectionModel().getSelectedItem().getIdFranchise();
 
-        // Correction du nom de variable 'z' qui doit se nommer '?
-        int z = 1;
+
 
         // Correction du nom de variable 'bloup' qui doit se nommer 'franchise'
-        Franchise franchise = new Franchise(0, nomFranchise, siegeSocial, z);
+        Cinema cinema = new Cinema(denomination, adresse, ville, idFranchise);
 
-        FranchiseDAO franchiseDAO = new FranchiseDAO();
-        boolean controle = franchiseDAO.create(franchise);
+        CinemaDAO cinemaDAO = new CinemaDAO();
+        boolean controle = cinemaDAO.create(cinema);
         if (controle) {
-            tfNomFranchise.clear();
-            tfSiegeSocial.clear();
-            lvGerantFranchise.getSelectionModel().clearSelection();
+            tfDenomination.clear();
+            tfAdresse.clear();
+            tfVille.clear();
+            lvFranchise.getSelectionModel().clearSelection();
         }
     }
 
     @FXML
     public void bEffacerClick(ActionEvent event) {
-        if (tfNomFranchise != null)
-            tfNomFranchise.clear();
-        if (tfSiegeSocial != null)
-            tfSiegeSocial.clear();
-        lvGerantFranchise.getSelectionModel().clearSelection();
+        if (tfDenomination != null)
+            tfDenomination.clear();
+        if (tfAdresse != null)
+            tfAdresse.clear();
+        if (tfVille != null)
+            tfVille.clear();
+        lvFranchise.getSelectionModel().clearSelection();
     }
 }

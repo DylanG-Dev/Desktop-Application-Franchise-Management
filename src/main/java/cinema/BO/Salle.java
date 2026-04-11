@@ -10,7 +10,7 @@ public class Salle {
     public Salle() {
     }
 
-    public Salle(int idSalle, int numero, String description, int nbPlaces, int idCinema) {
+    public Salle(int numero, String description, int nbPlaces, int idCinema) {
         this.idSalle = idSalle;
         this.numero = numero;
         this.description = description;

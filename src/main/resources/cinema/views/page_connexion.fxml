@@ -50,7 +50,7 @@
                             </image>
                         </ImageView>
 
-               
+
                     </children>
                 </HBox>
                 <Separator prefWidth="200.0" style="-fx-background-color: #024010;">
@@ -105,15 +105,15 @@
                 </HBox>
 
                 <!-- Ajouter une option mot de passe oublié ici -->
-                <HBox>
-                    <children>
-                        <Hyperlink text="Mot de passe oublié" onAction="#showResetPassword">
-                            <HBox.margin>
-                                <Insets bottom="0" left="170.0" top="-12" />
-                            </HBox.margin>
-                        </Hyperlink>
-                    </children>
-                </HBox>
+<!--                <HBox>-->
+<!--                    <children>-->
+<!--                        <Hyperlink text="Mot de passe oublié" onAction="#showResetPassword">-->
+<!--                            <HBox.margin>-->
+<!--                                <Insets bottom="0" left="170.0" top="-12" />-->
+<!--                            </HBox.margin>-->
+<!--                        </Hyperlink>-->
+<!--                    </children>-->
+<!--                </HBox>-->
                 <Separator prefWidth="200.0" style="-fx-background-color: #024010;" />
                 <StackPane prefHeight="150.0" prefWidth="200.0">
                     <children>

@@ -91,7 +91,7 @@ public class ModifierFranchiseController extends MenuController implements Initi
                     stage.setTitle("Liste franchises");
                     stage.setScene(new Scene(root));
                     // Ajout de l'icone cinema dans la page 'Accueil'
-                    stage.getIcons().add(new Image("/cinema/images/cinema_32x32.png"));
+                    stage.getIcons().add(new Image("/cinema/images/cinema_logo.png"));
 
                     // Configurer la fenêtre en tant que modal
                     // Cette ligne ci dessous a été commenté car elle empêchait de minimiser la fenêtre
@@ -116,7 +116,7 @@ public class ModifierFranchiseController extends MenuController implements Initi
                 stage.setTitle("Pop-up");
                 stage.setScene(new Scene(root));
                 // Ajout de l'icone cinema dans la popup 'erreur_modification_franchise'
-                stage.getIcons().add(new Image("/cinema/images/cinema_32x32.png"));
+                stage.getIcons().add(new Image("/cinema/images/cinema_logo.png"));
 
                 // Configurer la fenêtre en tant que modal
                 stage.initModality(Modality.APPLICATION_MODAL);
@@ -151,7 +151,7 @@ public class ModifierFranchiseController extends MenuController implements Initi
             stage.setTitle("Liste franchises");
             stage.setScene(new Scene(root));
             // Ajout de l'icone cinema dans la page 'Accueil'
-            stage.getIcons().add(new Image("/cinema/images/cinema_32x32.png"));
+            stage.getIcons().add(new Image("/cinema/images/cinema_logo.png"));
 
             // Configurer la fenêtre en tant que modal
             // Cette ligne ci dessous a été commenté car elle empêchait de minimiser la fenêtre

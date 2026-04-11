@@ -46,7 +46,7 @@ public class MenuController {
             stage.setTitle("Accueil");
             stage.setScene(new Scene(root));
             // Ajout de l'icone cinema dans la page 'Liste franchises'
-            stage.getIcons().add(new Image("/cinema/images/cinema_32x32.png"));
+            stage.getIcons().add(new Image("/cinema/images/cinema_logo.png"));
 
             // Afficher la fenêtre et attendre qu'elle se ferme
             stage.show();
@@ -77,7 +77,7 @@ public class MenuController {
             stage.setTitle("Liste franchises");
             stage.setScene(new Scene(root));
             // Ajout de l'icone cinema dans la page 'Liste franchises'
-            stage.getIcons().add(new Image("/cinema/images/cinema_32x32.png"));
+            stage.getIcons().add(new Image("/cinema/images/cinema_logo.png"));
 
             // Configurer la fenêtre en tant que modal
             // Cette ligne ci dessous a été commenté car elle empêchait de minimiser la fenêtre
@@ -109,7 +109,7 @@ public class MenuController {
             stage.setTitle("Ajouter une franchise");
             stage.setScene(new Scene(root));
             // Ajout de l'icone cinema dans la page 'Ajout une franchise'
-            stage.getIcons().add(new Image("/cinema/images/cinema_32x32.png"));
+            stage.getIcons().add(new Image("/cinema/images/cinema_logo.png"));
 
             // Configurer la fenêtre en tant que modal
             // Cette ligne ci dessous a été commenté car elle empêchait de minimiser la fenêtre
@@ -141,7 +141,7 @@ public class MenuController {
             stage.setTitle("Liste cinéma");
             stage.setScene(new Scene(root));
             // Ajout de l'icone cinema dans la page 'Liste cinemas'
-            stage.getIcons().add(new Image("/cinema/images/cinema_32x32.png"));
+            stage.getIcons().add(new Image("/cinema/images/cinema_logo.png"));
 
             // Configurer la fenêtre en tant que modal
             // Cette ligne ci dessous a été commenté car elle empêchait de minimiser la fenêtre
@@ -170,7 +170,7 @@ public class MenuController {
             stage.setTitle("Ajout d'un cinéma");
             stage.setScene(new Scene(root));
             // Ajout de l'icone cinema dans la page 'Ajouter un cinéma'
-            stage.getIcons().add(new Image("/cinema/images/cinema_32x32.png"));
+            stage.getIcons().add(new Image("/cinema/images/cinema_logo.png"));
 
             // Configurer la fenêtre en tant que modal
             // Cette ligne ci dessous a été commenté car elle empêchait de minimiser la fenêtre
@@ -201,7 +201,7 @@ public class MenuController {
             stage.setTitle("Liste salles");
             stage.setScene(new Scene(root));
             // Ajout de l'icone cinema dans la page 'Liste salles'
-            stage.getIcons().add(new Image("/cinema/images/cinema_32x32.png"));
+            stage.getIcons().add(new Image("/cinema/images/cinema_logo.png"));
 
             // Configurer la fenêtre en tant que modal
             // Cette ligne ci dessous a été commenté car elle empêchait de minimiser la fenêtre
@@ -237,7 +237,7 @@ public class MenuController {
             stage.setTitle("Ajout d'une salle");
             stage.setScene(new Scene(root));
             // Ajout de l'icone cinema dans la page 'Ajouter une salle'
-            stage.getIcons().add(new Image("/cinema/images/cinema_32x32.png"));
+            stage.getIcons().add(new Image("/cinema/images/cinema_logo.png"));
 
             // Configurer la fenêtre en tant que modal
             // Cette ligne ci dessous a été commenté car elle empêchait de minimiser la fenêtre

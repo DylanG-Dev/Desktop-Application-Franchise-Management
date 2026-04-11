@@ -16,7 +16,7 @@ public class UtilisateurDAO extends DAO<Utilisateur> {
     @Override
     public boolean create(Utilisateur obj) {
         throw new UnsupportedOperationException(
-                "Utiliser createWithHashedPassword(Utilisateur obj, String password)"
+                "Utiliser la fonction booléenne createWithHashedPassword(Utilisateur obj, String password)"
         );
     }
 
