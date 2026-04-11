@@ -31,7 +31,7 @@
                             onAction="#bAjouterFranchiseClick" />
                     </items>
                 </Menu>
-                <Menu fx:id="gestionCinema" mnemonicParsing="false" text="Gestion section">
+                <Menu fx:id="gestionCinema" mnemonicParsing="false" text="Gestion cinema">
                     <graphic>
                         <ImageView fitHeight="16" fitWidth="16">
                             <image>
@@ -139,17 +139,17 @@
             </padding>
 
             <Button fx:id="bRetour"
-                text="bRetour"
+                text="Retour"
                 onAction="#bRetourClick"
                 styleClass="action-button" />
 
             <Button fx:id="bEffacer"
-                text="bEffacer"
+                text="Effacer"
                 onAction="#bEffacerClick"
                 styleClass="action-button" />
 
             <Button fx:id="bEnregistrer"
-                text="bEnregistrer"
+                text="Enregistrer"
                 onAction="#bEnregistrerClick"
                 styleClass="action-button" />
         </HBox>

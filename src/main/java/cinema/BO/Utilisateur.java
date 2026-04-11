@@ -39,9 +39,9 @@ public class Utilisateur {
         return idUtilisateur;
     }
 
-    public void setIdUtilisateur(int idUtilisateur) {
+    /*public void setIdUtilisateur(int idUtilisateur) {
         this.idUtilisateur = idUtilisateur;
-    }
+    }*/
 
     public String getMdp() {
         return mdp;
@@ -58,4 +58,9 @@ public class Utilisateur {
     public void setLogin(String login) {
         this.login = login;
     }
+    @Override
+    public String toString(){
+        return nom +' '+prenom;
+    }
+
 }

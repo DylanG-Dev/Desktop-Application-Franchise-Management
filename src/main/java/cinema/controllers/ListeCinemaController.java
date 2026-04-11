@@ -44,6 +44,8 @@ public class ListeCinemaController extends MenuController implements Initializab
         tcFranchise.setCellValueFactory(new PropertyValueFactory<>("franchise"));
         ObservableList<Cinema> data = getCinema();
         tvCinema.setItems(data);
+
+
     }
 
     private ObservableList<Cinema> getCinema() {

@@ -79,13 +79,13 @@ public class ListeFranchiseController extends MenuController implements Initiali
     }
 
     private ObservableList<Franchise> getFranchiseList() {
-
-        FranchiseDAO var1 = new FranchiseDAO();
-        List<Franchise> var2 = var1.findAll();
+        //Anomalie #51 - renommage des variables (Var1,Var2) en Franchise et ListFracnhise
+        FranchiseDAO Franchise = new FranchiseDAO();
+        List<Franchise> ListFranchise = Franchise.findAll();
 
         ObservableList<Franchise> list = FXCollections.observableArrayList();
-        if (var2 != null) {
-            list.addAll(var2);
+        if (ListFranchise != null) {
+            list.addAll(ListFranchise);
         }
         return list;
     }
@@ -157,6 +157,7 @@ public class ListeFranchiseController extends MenuController implements Initiali
                 setGraphic(empty ? null : btn);
             }
         });
+        tcModifier.setSortable(false);
     }
 
     private void addButtonSupprimerToTable() {
@@ -179,6 +180,7 @@ public class ListeFranchiseController extends MenuController implements Initiali
                 setGraphic(empty ? null : btn);
             }
         });
+        tcSupprimer.setSortable(false);
     }
 
 }

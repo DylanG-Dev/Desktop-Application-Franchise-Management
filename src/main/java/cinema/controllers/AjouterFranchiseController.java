@@ -83,19 +83,30 @@ public class AjouterFranchiseController extends MenuController implements Initia
     @FXML
     public void bEnregistrerClick(ActionEvent event) {
 
-        String x = tfNomFranchise.getText();
-        String y = tfSiegeSocial.getText();
+        String nom = tfNomFranchise.getText();
+        String adresse = tfSiegeSocial.getText();
 
-        int z = 1;
-        Franchise bloup = new Franchise(0, x, y, z);
+        Utilisateur SelectGerant = lvGerantFranchise.getSelectionModel().getSelectedItem();
 
-        FranchiseDAO franchiseDAO = new FranchiseDAO();
+        if (!nom.trim().isEmpty() && !adresse.trim().isEmpty() && SelectGerant != null){
+            int Gerant =SelectGerant.getIdUtilisateur();
+            Franchise franchise = new Franchise(0, nom, adresse, Gerant);
+            FranchiseDAO franchiseDAO = new FranchiseDAO();
+            boolean controle = franchiseDAO.create(franchise);
+            if (controle) {
+                tfNomFranchise.clear();
+                tfSiegeSocial.clear();
+                lvGerantFranchise.getSelectionModel().clearSelection();
+            }
+
+        }
+        /*FranchiseDAO franchiseDAO = new FranchiseDAO();
         boolean controle = franchiseDAO.create(bloup);
         if (controle) {
             tfNomFranchise.clear();
             tfSiegeSocial.clear();
             lvGerantFranchise.getSelectionModel().clearSelection();
-        }
+        }*/
 
     }
 

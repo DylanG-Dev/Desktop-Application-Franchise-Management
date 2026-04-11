@@ -19,9 +19,9 @@ import javafx.stage.Stage;
 public class ModifierCinemaController extends MenuController implements Initializable {
 
     @FXML
-    private TextArea taLibSec;
+    private TextArea taLibCinema;
 
-    private int idSec;
+    private int idCinema;
 
     @FXML
     private Button bRetour, bEnregistrer;
@@ -31,14 +31,14 @@ public class ModifierCinemaController extends MenuController implements Initiali
 
     }
 
-    public void setIdSec(int idSec) {
-        this.idSec = idSec;
+    public void setIdCinema(int idCinema) {
+        this.idCinema = idCinema;
     }
 
-    public void setAttrinuts() {
-        CinemaDAO sectionDAO = new CinemaDAO();
-        Cinema sec = sectionDAO.find(idSec);
-        taLibSec.setText(sec.getDenomination());
+    public void setAttributs() {
+        CinemaDAO cinemaDAO = new CinemaDAO();
+        Cinema cinema = cinemaDAO.find(idCinema);
+        taLibCinema.setText(cinema.getDenomination());
     }
 
     @FXML
@@ -69,11 +69,11 @@ public class ModifierCinemaController extends MenuController implements Initiali
 
     @FXML
     private void bEnregistrerClick(ActionEvent event) {
-        String lib = taLibSec.getText();
+        String lib = taLibCinema.getText();
         if (!lib.trim().isEmpty()) {
-            Cinema sec = new Cinema(idSec, lib, lib, lib, idSec);
-            CinemaDAO sectionDAO = new CinemaDAO();
-            boolean controle = sectionDAO.update(sec);
+            Cinema cinema = new Cinema(idCinema, lib, lib, lib, idCinema);
+            CinemaDAO cinemaDAO = new CinemaDAO();
+            boolean controle = cinemaDAO.update(cinema);
             if (controle) {
                 Stage stageP = (Stage) bRetour.getScene().getWindow();
                 stageP.close();

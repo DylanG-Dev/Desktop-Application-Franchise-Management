@@ -104,7 +104,7 @@ public class ModifierFranchiseController extends MenuController implements Initi
             try {
                 // Charger le fichier FXML
                 FXMLLoader fxmlLoader = new FXMLLoader(
-                        getClass().getResource("/cinema/views/popup_ajout_etu.fxml"));
+                        getClass().getResource("/cinema/views/popup_erreur_saisie.fxml"));
                 Parent root = fxmlLoader.load();
 
                 // Créer une nouvelle fenêtre (Stage)

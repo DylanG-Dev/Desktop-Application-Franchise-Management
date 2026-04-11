@@ -34,12 +34,12 @@ public class ConnexionController implements Initializable {
 
     @FXML
     public void bConnexionClick(ActionEvent event) {
-        String truc = tfLogin.getText();
-        String chose = tfMDP.getText();
+        String login = tfLogin.getText();
+        String password = tfMDP.getText();
 
         UtilisateurDAO userDAO = new UtilisateurDAO();
         // TODO
-        Utilisateur user = userDAO.authenticate(truc, chose);
+        Utilisateur user = userDAO.authenticate(login, password);
         showAccueil(user.getLogin());
     }
 
