@@ -20,6 +20,7 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -44,8 +45,6 @@ public class ListeCinemaController extends MenuController implements Initializab
         tcFranchise.setCellValueFactory(new PropertyValueFactory<>("franchise"));
         ObservableList<Cinema> data = getCinema();
         tvCinema.setItems(data);
-
-
     }
 
     private ObservableList<Cinema> getCinema() {
@@ -71,11 +70,15 @@ public class ListeCinemaController extends MenuController implements Initializab
 
             // Créer une nouvelle fenêtre (Stage)
             Stage stage = new Stage();
-            stage.setTitle("Liste franchises");
+            // Correction du titre qui doit être 'Accueil' au lieu de 'Liste franchises'
+            stage.setTitle("Accueil");
             stage.setScene(new Scene(root));
+            // Ajout de l'icone cinema dans la page 'Accueil'
+            stage.getIcons().add(new Image("/cinema/images/cinema_logo.png"));
 
             // Configurer la fenêtre en tant que modal
-            stage.initModality(Modality.APPLICATION_MODAL);
+            // Cette ligne ci dessous a été commenté car elle empêchait de minimiser la fenêtre
+            //stage.initModality(Modality.APPLICATION_MODAL);
 
             // Afficher la fenêtre et attendre qu'elle se ferme
             stage.show();
@@ -101,8 +104,12 @@ public class ListeCinemaController extends MenuController implements Initializab
                         Stage stage = new Stage();
                         stage.setTitle("Modification cinema");
                         stage.setScene(new Scene(root));
+                        // Ajout de l'icone cinema dans la page 'Modification cinema'
+                        stage.getIcons().add(new Image("/cinema/images/cinema_logo.png"));
 
-                        stage.initModality(Modality.APPLICATION_MODAL);
+                        // Configurer la fenêtre en tant que modal
+                        // Cette ligne ci dessous a été commenté car elle empêchait de minimiser la fenêtre
+                        //stage.initModality(Modality.APPLICATION_MODAL);
 
                         stage.show();
                     } catch (Exception e) {
@@ -125,11 +132,13 @@ public class ListeCinemaController extends MenuController implements Initializab
             {
                 btn.setOnAction(event -> {
                     Cinema cinema = getTableView().getItems().get(getIndex());
-                    FranchiseDAO etudiantDAO = new FranchiseDAO();
-                    if (etudiantDAO.getNbFranchiseByIdGerant(cinema.getIdCinema()) >= 1) {
+                    // Nom de la variable quoi doit se nommer 'franchiseDAO' à la place de 'etudiantDAO'
+                    FranchiseDAO franchiseDAO = new FranchiseDAO();
+                    if (franchiseDAO.getNbFranchiseByIdGerant(cinema.getIdCinema()) >= 1) {
                         try {
                             // Charger le fichier FXML
                             FXMLLoader fxmlLoader = new FXMLLoader(
+                                    // Popup non existante
                                     getClass().getResource("/cinema/views/popup_cinema.fxml"));
                             Parent root = fxmlLoader.load();
 
@@ -137,9 +146,12 @@ public class ListeCinemaController extends MenuController implements Initializab
                             Stage stage = new Stage();
                             stage.setTitle("Pop-up");
                             stage.setScene(new Scene(root));
+                            // Ajout de l'icone cinema dans la popup 'cinema'
+                            stage.getIcons().add(new Image("/cinema/images/cinema_logo.png"));
 
                             // Configurer la fenêtre en tant que modal
-                            stage.initModality(Modality.APPLICATION_MODAL);
+                            // Cette ligne ci dessous a été commenté car elle empêchait de minimiser la fenêtre
+                            //stage.initModality(Modality.APPLICATION_MODAL);
 
                             // Afficher la fenêtre et attendre qu'elle se ferme
                             stage.show();

@@ -7,15 +7,16 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
+import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class MenuController {
 
     @FXML
-    protected MenuItem bListeFranchise, bAjouterFranchise, bListeCinema, bAjouterCinema, bQuitter, bAccueil,
-            bListeSalle,
-            bAjouterSalle;
+    protected MenuItem bListeFranchise, bAjouterFranchise,
+            bListeCinema, bAjouterCinema, bQuitter,
+            bAccueil, bListeSalle, bAjouterSalle;
 
     protected String nameUti;
 
@@ -28,7 +29,31 @@ public class MenuController {
     public void bAccueilClick(ActionEvent event) {
         Stage StageE = (Stage) ((MenuItem) event.getSource()).getParentPopup().getOwnerWindow();
         StageE.close();
+        // Résolution du problème qui stoppait l'application lors du clique sur le bouton 'Accueil'
+        try {
+            // Charger le fichier FXML
+            FXMLLoader fxmlLoader = new FXMLLoader(
+                    getClass().getResource("/cinema/views/page_accueil.fxml"));
+            Parent root = fxmlLoader.load();
 
+            // Obtenir le contrôleur de la nouvelle fenetre
+            AccueilController accueilController = fxmlLoader.getController();
+            accueilController.setName(nameUti);
+            accueilController.setBienvenue();
+
+            // Créer une nouvelle fenêtre (Stage)
+            Stage stage = new Stage();
+            stage.setTitle("Accueil");
+            stage.setScene(new Scene(root));
+            // Ajout de l'icone cinema dans la page 'Liste franchises'
+            stage.getIcons().add(new Image("/cinema/images/cinema_logo.png"));
+
+            // Afficher la fenêtre et attendre qu'elle se ferme
+            stage.show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -42,6 +67,7 @@ public class MenuController {
                     getClass().getResource("/cinema/views/page_liste_franchise.fxml"));
             Parent root = fxmlLoader.load();
 
+
             // Obtenir le contrôleur de la nouvelle fenetre
             ListeFranchiseController listeFranchiseController = fxmlLoader.getController();
             listeFranchiseController.setName(nameUti);
@@ -50,9 +76,12 @@ public class MenuController {
             Stage stage = new Stage();
             stage.setTitle("Liste franchises");
             stage.setScene(new Scene(root));
+            // Ajout de l'icone cinema dans la page 'Liste franchises'
+            stage.getIcons().add(new Image("/cinema/images/cinema_logo.png"));
 
             // Configurer la fenêtre en tant que modal
-            stage.initModality(Modality.APPLICATION_MODAL);
+            // Cette ligne ci dessous a été commenté car elle empêchait de minimiser la fenêtre
+            //stage.initModality(Modality.APPLICATION_MODAL);
 
             // Afficher la fenêtre et attendre qu'elle se ferme
             stage.show();
@@ -79,9 +108,12 @@ public class MenuController {
             Stage stage = new Stage();
             stage.setTitle("Ajouter une franchise");
             stage.setScene(new Scene(root));
+            // Ajout de l'icone cinema dans la page 'Ajout une franchise'
+            stage.getIcons().add(new Image("/cinema/images/cinema_logo.png"));
 
             // Configurer la fenêtre en tant que modal
-            stage.initModality(Modality.APPLICATION_MODAL);
+            // Cette ligne ci dessous a été commenté car elle empêchait de minimiser la fenêtre
+            //stage.initModality(Modality.APPLICATION_MODAL);
 
             // Afficher la fenêtre et attendre qu'elle se ferme
             stage.show();
@@ -98,6 +130,7 @@ public class MenuController {
         try {
 
             FXMLLoader fxmlLoader = new FXMLLoader(
+                    // Erreur de syntaxe 'page_liste_cinemaa.fxml' au lieu de 'page_liste_cinema.fxml'
                     getClass().getResource("/cinema/views/page_liste_cinema.fxml"));
             Parent root = fxmlLoader.load();
 
@@ -107,8 +140,12 @@ public class MenuController {
             Stage stage = new Stage();
             stage.setTitle("Liste cinéma");
             stage.setScene(new Scene(root));
+            // Ajout de l'icone cinema dans la page 'Liste cinemas'
+            stage.getIcons().add(new Image("/cinema/images/cinema_logo.png"));
 
-            stage.initModality(Modality.APPLICATION_MODAL);
+            // Configurer la fenêtre en tant que modal
+            // Cette ligne ci dessous a été commenté car elle empêchait de minimiser la fenêtre
+            //stage.initModality(Modality.APPLICATION_MODAL);
 
             stage.show();
 
@@ -124,14 +161,20 @@ public class MenuController {
         try {
 
             FXMLLoader fxmlLoader = new FXMLLoader(
-                    getClass().getResource("/cinema/views/page_ajout_cinema.fxml"));
+                    // Erreur de syntaxe 'page_ajout_section.fxml' au lieu de 'page_ajout_cinema.fxml'
+                    getClass().getResource("/cinema/views/page_ajout_section.fxml"));
             Parent root = fxmlLoader.load();
 
             Stage stage = new Stage();
-            stage.setTitle("Ajout de cinema");
+            // Erreur de syntaxe dans le titre, 'Ajouter d'une Section' au lieu de 'Ajout d'un cinéma'
+            stage.setTitle("Ajout d'un cinéma");
             stage.setScene(new Scene(root));
+            // Ajout de l'icone cinema dans la page 'Ajouter un cinéma'
+            stage.getIcons().add(new Image("/cinema/images/cinema_logo.png"));
 
-            stage.initModality(Modality.APPLICATION_MODAL);
+            // Configurer la fenêtre en tant que modal
+            // Cette ligne ci dessous a été commenté car elle empêchait de minimiser la fenêtre
+            //stage.initModality(Modality.APPLICATION_MODAL);
 
             stage.show();
 
@@ -148,16 +191,21 @@ public class MenuController {
 
             // Charger le fichier FXML
             FXMLLoader fxmlLoader = new FXMLLoader(
-                    getClass().getResource("/cinema/views/page_liste_cours.fxml"));
+                    // Erreur de syntaxe 'page_liste_cours.fxml' au lieu de 'page_liste_salle.fxml'
+                    getClass().getResource("/cinema/views/page_liste_salle.fxml"));
             Parent root = fxmlLoader.load();
 
             // Créer une nouvelle fenêtre (Stage)
             Stage stage = new Stage();
-            stage.setTitle("Liste cours");
+            // Erreur de syntaxe dans le titre, 'Liste cours' au lieu de 'Liste salles'
+            stage.setTitle("Liste salles");
             stage.setScene(new Scene(root));
+            // Ajout de l'icone cinema dans la page 'Liste salles'
+            stage.getIcons().add(new Image("/cinema/images/cinema_logo.png"));
 
             // Configurer la fenêtre en tant que modal
-            stage.initModality(Modality.APPLICATION_MODAL);
+            // Cette ligne ci dessous a été commenté car elle empêchait de minimiser la fenêtre
+            //stage.initModality(Modality.APPLICATION_MODAL);
 
             // Afficher la fenêtre et attendre qu'elle se ferme
             stage.show();
@@ -179,16 +227,21 @@ public class MenuController {
 
             // Charger le fichier FXML
             FXMLLoader fxmlLoader = new FXMLLoader(
-                    getClass().getResource("/cinema/views/page_ajout_cours.fxml"));
+                    // Erreur de syntaxe 'page_ajout_cours.fxml' au lieu de 'page_ajout_salle.fxml'
+                    getClass().getResource("/cinema/views/page_ajout_salle.fxml"));
             Parent root = fxmlLoader.load();
 
             // Créer une nouvelle fenêtre (Stage)
             Stage stage = new Stage();
-            stage.setTitle("Ajout d'un cours");
+            // Erreur de syntaxe dans le titre, 'Ajout d'un cours' au lieu de 'Ajout d'une salle'
+            stage.setTitle("Ajout d'une salle");
             stage.setScene(new Scene(root));
+            // Ajout de l'icone cinema dans la page 'Ajouter une salle'
+            stage.getIcons().add(new Image("/cinema/images/cinema_logo.png"));
 
             // Configurer la fenêtre en tant que modal
-            stage.initModality(Modality.APPLICATION_MODAL);
+            // Cette ligne ci dessous a été commenté car elle empêchait de minimiser la fenêtre
+            //stage.initModality(Modality.APPLICATION_MODAL);
 
             // Afficher la fenêtre et attendre qu'elle se ferme
             stage.show();

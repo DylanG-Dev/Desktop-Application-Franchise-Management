@@ -19,6 +19,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -26,33 +27,29 @@ public class AjouterFranchiseController extends MenuController implements Initia
 
     @FXML
     private TextField tfNomFranchise, tfSiegeSocial;
+
     @FXML
-    private Button bRetour;
+    private Button bRetour, bEnregistrer;
+
     @FXML
     private ListView<Utilisateur> lvGerantFranchise;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
         ObservableList<Utilisateur> utilisateurs = getUtilisateurList();
-
         lvGerantFranchise.setItems(utilisateurs);
     }
 
     private ObservableList<Utilisateur> getUtilisateurList() {
-
         UtilisateurDAO utilisateurDAO = new UtilisateurDAO();
         List<Utilisateur> utilisateurs = utilisateurDAO.findAll();
-
         ObservableList<Utilisateur> list = FXCollections.observableArrayList(utilisateurs);
         return list;
     }
 
     @FXML
     public void bRetourClick(ActionEvent event) {
-        // On fait le lien avec l'ecran actuel
         Stage stageP = (Stage) bRetour.getScene().getWindow();
-        // on ferme l'écran
         stageP.close();
 
         try {
@@ -64,32 +61,28 @@ public class AjouterFranchiseController extends MenuController implements Initia
             accueilController.setName(nameUti);
             accueilController.setBienvenue();
 
-            // Créer une nouvelle fenêtre (Stage)
             Stage stage = new Stage();
-            stage.setTitle("Liste franchises");
+            stage.setTitle("Accueil");
             stage.setScene(new Scene(root));
+            stage.getIcons().add(new Image("/cinema/images/cinema_logo.png"));
 
-            // Configurer la fenêtre en tant que modal
-            stage.initModality(Modality.APPLICATION_MODAL);
+            // Commenté car empêchait de minimiser la fenêtre
+            //stage.initModality(Modality.APPLICATION_MODAL);
 
-            // Afficher la fenêtre et attendre qu'elle se ferme
             stage.show();
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     @FXML
     public void bEnregistrerClick(ActionEvent event) {
-
         String nom = tfNomFranchise.getText();
         String adresse = tfSiegeSocial.getText();
-
         Utilisateur SelectGerant = lvGerantFranchise.getSelectionModel().getSelectedItem();
 
-        if (!nom.trim().isEmpty() && !adresse.trim().isEmpty() && SelectGerant != null){
-            int Gerant =SelectGerant.getIdUtilisateur();
+        if (!nom.trim().isEmpty() && !adresse.trim().isEmpty() && SelectGerant != null) {
+            int Gerant = SelectGerant.getIdUtilisateur();
             Franchise franchise = new Franchise(0, nom, adresse, Gerant);
             FranchiseDAO franchiseDAO = new FranchiseDAO();
             boolean controle = franchiseDAO.create(franchise);
@@ -98,16 +91,7 @@ public class AjouterFranchiseController extends MenuController implements Initia
                 tfSiegeSocial.clear();
                 lvGerantFranchise.getSelectionModel().clearSelection();
             }
-
         }
-        /*FranchiseDAO franchiseDAO = new FranchiseDAO();
-        boolean controle = franchiseDAO.create(bloup);
-        if (controle) {
-            tfNomFranchise.clear();
-            tfSiegeSocial.clear();
-            lvGerantFranchise.getSelectionModel().clearSelection();
-        }*/
-
     }
 
     @FXML
@@ -118,5 +102,4 @@ public class AjouterFranchiseController extends MenuController implements Initia
             tfSiegeSocial.clear();
         lvGerantFranchise.getSelectionModel().clearSelection();
     }
-
 }
