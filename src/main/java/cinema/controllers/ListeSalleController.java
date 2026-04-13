@@ -7,11 +7,9 @@
 //import java.util.stream.Collectors;
 //
 //import cinema.BO.Cinema;
-//import cinema.BO.Franchise;
-//import cinema.BO.Utilisateur;
+//import cinema.BO.Salle;
 //import cinema.DAO.CinemaDAO;
-//import cinema.DAO.FranchiseDAO;
-//import cinema.DAO.UtilisateurDAO;
+//import cinema.DAO.SalleDAO;
 //import javafx.beans.property.SimpleStringProperty;
 //import javafx.collections.FXCollections;
 //import javafx.collections.ObservableList;
@@ -27,29 +25,28 @@
 //import javafx.scene.control.TableView;
 //import javafx.scene.control.cell.PropertyValueFactory;
 //import javafx.scene.image.Image;
-//import javafx.stage.Modality;
 //import javafx.stage.Stage;
 //
-//public class ListeCinemaController extends MenuController implements Initializable {
+//public class ListeSalleController extends MenuController implements Initializable {
 //
 //    @FXML
-//    private TableView<Cinema> tvCinema;
+//    private TableView<Salle> tvSalle;
 //
 //    @FXML
-//    private TableColumn<Cinema, String> tcDenomination, tcFranchise;
+//    private TableColumn<Salle, String> tcNumero, tcDescription, tcNbPlace, tcCinema;
 //
 //    @FXML
-//    private TableColumn<Cinema, Void> tcModif;
+//    private TableColumn<Salle, Void> tcSupp;
 //
 //    @FXML
-//    private TableColumn<Cinema, Void> tcSupp;
+//    private TableColumn<Salle, Void> tcModif;
 //
 //    @FXML
 //    private Button bRetour;
 //
 //    @Override
 //    public void initialize(URL location, ResourceBundle resources) {
-//        FranchiseDAO franchiseDAO = new FranchiseDAO();
+//        CinemaDAO cinemaDAO = new CinemaDAO();
 //
 //        // Programmation fonctionnelle
 //        // Collecteur de flux :
@@ -57,32 +54,31 @@
 //        // toMap :
 //        // https://www.geeksforgeeks.org/java/collectors-tomap-method-in-java-with-examples/
 //        //
-//        Map<Integer, Franchise> franchises = franchiseDAO.findAll()
+//        Map<Integer, Cinema> cinemas = cinemaDAO.findAll()
 //                .stream()
-//                .collect(Collectors.toMap(Franchise::getIdFranchise, u -> u));
+//                .collect(Collectors.toMap(Cinema::getIdCinema, u -> u));
 //
-//        tcFranchise.setCellValueFactory(cellData -> {
-//            Franchise franchise = franchises.get(cellData.getValue().getIdFranchise());
+//        tcCinema.setCellValueFactory(cellData -> {
+//            Cinema cinema = cinemas.get(cellData.getValue().getIdCinema());
 //            return new SimpleStringProperty(
-//                    franchise != null ? franchise.getNomFranchise() + " " + franchise.getSiegeSocial() : "Aucun gérant");
+//                    cinema != null ? cinema.getDenomination() + " " + cinema.getAdresse() : "Aucune cinéma");
 //        });
 //
 //        btnModif();
 //        btnSupp();
 //
-//        // Ajout de la responsivité pour la balise 'TableView'
-//        tvCinema.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-//        tcDenomination.setCellValueFactory(new PropertyValueFactory<>("denomination"));
-//        tcFranchise.setCellValueFactory(new PropertyValueFactory<>("franchise"));
-//        ObservableList<Cinema> data = getCinema();
-//        tvCinema.setItems(data);
+//        tcNumero.setCellValueFactory(new PropertyValueFactory<>("numero"));
+//        tcDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
+//        tcNbPlace.setCellValueFactory(new PropertyValueFactory<>("nombre de places"));
+//        ObservableList<Salle> data = getSalle();
+//        tvSalle.setItems(data);
 //    }
 //
-//    private ObservableList<Cinema> getCinema() {
+//    private ObservableList<Salle> getSalle() {
 //
-//        CinemaDAO cinemaDAO = new CinemaDAO();
-//        List<Cinema> mesCinemas = cinemaDAO.findAll();
-//        ObservableList<Cinema> list = FXCollections.observableArrayList(mesCinemas);
+//        SalleDAO salleDAO = new SalleDAO();
+//        List<Salle> mesSalles = salleDAO.findAll();
+//        ObservableList<Salle> list = FXCollections.observableArrayList(mesSalles);
 //        return list;
 //    }
 //
@@ -91,15 +87,15 @@
 //    }
 //
 //    private void btnModif() {
-//        tcModif.setCellFactory(column -> new TableCell<Cinema, Void>() {
+//        tcModif.setCellFactory(column -> new TableCell<Salle, Void>() {
 //            private Button btn = new Button("Modifier");
 //            {
 //                btn.setOnAction(event -> {
-//                    Cinema cinema = getTableView().getItems().get(getIndex());
+//                    Salle salle = getTableView().getItems().get(getIndex());
 //                    Stage stageP = (Stage) bRetour.getScene().getWindow();
 //                    stageP.close();
 //
-//                    Navigation.goTo("/cinema/views/page_modif_cinema.fxml");
+//                    Navigation.goTo("/cinema/views/page_modif_salle.fxml");
 //                });
 //            }
 //
@@ -112,14 +108,14 @@
 //    }
 //
 //    private void btnSupp() {
-//        tcSupp.setCellFactory(col -> new TableCell<Cinema, Void>() {
+//        tcSupp.setCellFactory(col -> new TableCell<Salle, Void>() {
 //            private Button btn = new Button("Supprimer");
 //            {
 //                btn.setOnAction(event -> {
-//                    Cinema cinema = getTableView().getItems().get(getIndex());
-//                    // Nom de la variable quoi doit se nommer 'franchiseDAO' à la place de 'etudiantDAO'
-//                    FranchiseDAO franchiseDAO = new FranchiseDAO();
-//                    if (franchiseDAO.getNbFranchiseByIdGerant(cinema.getIdCinema()) >= 1) {
+//                    Salle salle = getTableView().getItems().get(getIndex());
+//                    // Nom de la variable quoi doit se nommer 'cinemaDAO' à la place de 'etudiantDAO'
+//                    CinemaDAO cinemaDAO = new CinemaDAO();
+////                    if (cinemaDAO.getNbFranchiseByIdGerant(salle.getIdSalle()) >= 1) {
 //                        try {
 //                            // Charger le fichier FXML
 //                            FXMLLoader fxmlLoader = new FXMLLoader(
@@ -143,11 +139,11 @@
 //                        } catch (Exception e) {
 //                            e.printStackTrace();
 //                        }
-//                    } else {
-//                        tvCinema.getItems().remove(cinema);
-//                        CinemaDAO cinemaDAO = new CinemaDAO();
-//                        cinemaDAO.delete(cinema);
-//                    }
+////                    } else {
+////                        tvSalle.getItems().remove(salle);
+////                        SalleDAO salleDAO = new SalleDAO();
+////                        salleDAO.delete(salle);
+////                    }
 //                });
 //            }
 //

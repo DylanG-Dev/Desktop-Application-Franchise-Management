@@ -12,6 +12,15 @@ public class Cinema {
     public Cinema() {
     }
 
+    // Constructeur pour créer un nouveau cinéma pour l'insérer en base de données
+    public Cinema(String denomination, String adresse, String ville, int idFranchise) {
+        this.denomination = denomination;
+        this.adresse = adresse;
+        this.ville = ville;
+        this.idFranchise = idFranchise;
+    }
+
+    // Constructeur pour instancier un cinéma existant en base de données
     public Cinema(int idCinema, String denomination, String adresse, String ville, int idFranchise) {
         this.idCinema = idCinema;
         this.denomination = denomination;

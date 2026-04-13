@@ -14,12 +14,9 @@ public class AccueilController extends MenuController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
-    }
-    // nameUti qui renvoie l'adresse email de l'utilisateur connecté actuellement
-    // edit, c'est corrigé
-    public void setBienvenue() {
+        // nameUti qui renvoie l'adresse email de l'utilisateur connecté actuellement
+        // edit, c'est corrigé
+        String nameUti = Navigation.getParam("nameUti");
         bienvenue.setText("BIENVENUE " + nameUti.toUpperCase());
     }
-
 }

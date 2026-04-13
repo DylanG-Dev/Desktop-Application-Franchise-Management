@@ -37,6 +37,12 @@ public class Navigation {
                 Parent root = FXMLLoader.load(Navigation.class.getResource(fxmlPath));
                 primaryStage.setScene(new Scene(root));
 
+                primaryStage.setTitle(getTitle(fxmlPath));
+
+                if (!fxmlPath.equals("/cinema/views/page_connexion.fxml")) {
+                    primaryStage.setResizable(true);
+                }
+
                 // ✅ Réassigner l’icône
                 primaryStage.getIcons().clear();
                 primaryStage.getIcons()
@@ -58,19 +64,32 @@ public class Navigation {
     //
     public static void goTo(String fxmlPath, Window currentWindow) {
         try {
-            Parent root = FXMLLoader.load(Navigation.class.getResource(fxmlPath));
-            Stage newStage = new Stage();
-            newStage.setScene(new Scene(root));
-            newStage.setResizable(false);
+            if (primaryStage != null) {
+                if (!historique.isEmpty() && !historique.peek().equals(fxmlPath)) {
+                    historique.push(fxmlPath);
+                } else if (historique.isEmpty()) {
+                    historique.push(fxmlPath);
+                }
+                Parent root = FXMLLoader.load(Navigation.class.getResource(fxmlPath));
+                Stage newStage = new Stage();
+                newStage.setScene(new Scene(root));
+    //            newStage.setResizable(false);
+                newStage.setTitle(getTitle(fxmlPath));
 
-            // ✅ Ajouter l’icône à la nouvelle fenêtre
-            newStage.getIcons()
-                    .add(new Image(Navigation.class.getResourceAsStream("/cinema/images/cinema_logo.png")));
+                // Permet de pouvoir modifier la taille de la fenêtre sauf pour la page de connexion
+                if (!fxmlPath.equals("/cinema/views/page_connexion.fxml")) {
+                    primaryStage.setResizable(true);
+                }
 
-            newStage.show();
+                // ✅ Ajouter l’icône à la nouvelle fenêtre
+                newStage.getIcons()
+                        .add(new Image(Navigation.class.getResourceAsStream("/cinema/images/cinema_logo.png")));
 
-            if (currentWindow != null) {
-                currentWindow.hide();
+                newStage.show();
+
+                if (currentWindow != null) {
+                    currentWindow.hide();
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -83,12 +102,17 @@ public class Navigation {
         goTo(fxmlPath, currentWindow);
     }
 
-    // Méthode qui sert à revenir arrière
-    public static void goBack() {
+    // Méthode qui permet de revenir à la fenêtre précédente
+    // Ajout du paramètre 'Window currentWindow' afin de
+    // pouvoir fermer la fenêtre précédente
+    public static void goBack(Window currentWindow) {
         if (historique.size() >= 2) {
             historique.pop();
             String previous = historique.peek();
             goTo(previous);
+            if (currentWindow != null) {
+                currentWindow.hide();
+            }
         }
     }
 
@@ -110,5 +134,47 @@ public class Navigation {
     // Méthode qui sert à effacer les paramètres
     public static void clearParams() {
         params.clear();
+    }
+
+    // Fonction qui permet de changer le titre de l'écran
+    // pour avoir le titre relié à l'écran
+    public static String getTitle(String fxmlPath) {
+        switch(fxmlPath) {
+            case "/cinema/views/page_connexion.fxml":
+                return "Application de gestion de franchise - Authentification";
+
+            case "/cinema/views/page_accueil.fxml":
+                return "Accueil Gestion de franchises";
+
+            case "/cinema/views/page_ajout_cinema.fxml":
+                return "Ajouter un cinéma";
+
+            case "/cinema/views/page_ajout_franchise.fxml":
+                return "Ajouter une franchise";
+
+            case "/cinema/views/page_ajout_salle.fxml":
+                return "Ajouter une salle";
+
+            case "/cinema/views/page_liste_cinema.fxml":
+                return "Liste cinémas";
+
+            case "/cinema/views/page_liste_franchise.fxml":
+                return "Liste franchises";
+
+            case "/cinema/views/page_liste_salle.fxml":
+                return "Liste salles";
+
+            case "/cinema/views/page_modif_cinema.fxml":
+                return "Modification cinéma";
+
+            case "/cinema/views/page_modif_franchise.fxml":
+                return "Modification franchise";
+
+            case "/cinema/views/page_modif_salle.fxml":
+                return "Modification salle";
+
+            default:
+                return "Application de gestion de franchise";
+        }
     }
 }

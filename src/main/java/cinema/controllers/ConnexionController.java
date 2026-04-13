@@ -69,7 +69,7 @@ public class ConnexionController implements Initializable {
         // temps en mémoire
         Utilisateur user = viewModel.login(tfMDP.getText());
 
-        // Nettoyage des champs 'tfLogin' et 'tfMDP'
+        // Effacement des champs 'tfLogin' et 'tfMDP'
         tfLogin.clear();
         tfMDP.clear();
 
@@ -93,38 +93,10 @@ public class ConnexionController implements Initializable {
     }
 
     private void showAccueil(String name) {
-        Stage stageP = (Stage) bConnexion.getScene().getWindow();
-        // on ferme l'écran
-        stageP.close();
-        try {
-
-            // Charger le fichier FXML pour la pop-up
-            FXMLLoader fxmlLoader = new FXMLLoader(
-                    getClass().getResource("/cinema/views/page_accueil.fxml"));
-            Parent root = fxmlLoader.load();
-
-            // Obtenir le contrôleur de la nouvelle fenetre
-            AccueilController accueilController = fxmlLoader.getController();
-            accueilController.setName(name);
-            accueilController.setBienvenue();
-
-            // Créer une nouvelle fenêtre (Stage)
-            Stage stage = new Stage();
-            // Correction du titre 'Accueil Gestion de franchises' qui devrait être 'Accueil'
-            stage.setTitle("Accueil");
-            stage.setScene(new Scene(root));
-            // Correction du logo qui n'était pas le bon
-            stage.getIcons().add(new Image("/cinema/images/cinema_logo.png"));
-            // Configurer la fenêtre en tant que modal
-            // Cette ligne ci dessous a été commenté car elle empêchait de minimiser la fenêtre
-            //stage.initModality(Modality.APPLICATION_MODAL);
-
-            // Afficher la fenêtre et attendre qu'elle se ferme
-            stage.show();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        // Fonction 'goTo' qui permet de naviguer sur la page d'accueil
+        // avec le nom et le prénom de l'utilisateur en paramètre
+//        Navigation.goTo("/cinema/views/page_accueil.fxml", "nameUti", name);
+        Navigation.goTo("/cinema/views/page_accueil.fxml", "nameUti", name, bConnexion.getScene().getWindow());
     }
 
     @FXML

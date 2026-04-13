@@ -29,6 +29,7 @@ import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+
 public class ListeFranchiseController extends MenuController implements Initializable {
     @FXML
     private TableView<Franchise> tvFranchises;
@@ -97,37 +98,10 @@ public class ListeFranchiseController extends MenuController implements Initiali
 
     @FXML
     private void bRetourClick() {
-        Stage stageP = (Stage) bRetour.getScene().getWindow();
-        stageP.close();
-
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(
-                    getClass().getResource("/cinema/views/page_accueil.fxml"));
-            Parent root = fxmlLoader.load();
-
-            AccueilController accueilController = fxmlLoader.getController();
-            accueilController.setName(nameUti);
-            accueilController.setBienvenue();
-
-            // Créer une nouvelle fenêtre (Stage)
-            Stage stage = new Stage();
-            // Correction du titre qui doit être 'Accueil' au lieu de 'Liste franchises'
-            stage.setTitle("Accueil");
-            stage.setScene(new Scene(root));
-            // Ajout de l'icone cinema dans la page 'Accueil'
-            stage.getIcons().add(new Image("/cinema/images/cinema_logo.png"));
-
-            // Configurer la fenêtre en tant que modal
-            // Cette ligne ci dessous a été commenté car elle empêchait de minimiser la fenêtre
-            //stage.initModality(Modality.APPLICATION_MODAL);
-
-            // Afficher la fenêtre et attendre qu'elle se ferme
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+        Navigation.goBack(bRetour.getScene().getWindow());
     }
+
+
 
     private void addButtonModifierToTable() {
         tcModifier.setCellFactory(column -> new TableCell<>() {
@@ -135,32 +109,8 @@ public class ListeFranchiseController extends MenuController implements Initiali
             {
                 btn.setOnAction(event -> {
                     Franchise franchise = getTableView().getItems().get(getIndex());
-                    Stage stageP = (Stage) bRetour.getScene().getWindow();
-                    stageP.close();
 
-                    try {
-                        FXMLLoader fxmlLoader = new FXMLLoader(
-                                getClass().getResource("/cinema/views/page_modif_franchise.fxml"));
-                        Parent root = fxmlLoader.load();
-
-                        ModifierFranchiseController modifierFranchiseCtrl = fxmlLoader.getController();
-                        modifierFranchiseCtrl.setAttributes(franchise);
-                        modifierFranchiseCtrl.setName(nameUti);
-
-                        Stage stage = new Stage();
-                        stage.setTitle("Modification franchise");
-                        stage.setScene(new Scene(root));
-                        // Ajout de l'icone cinema dans la page 'Modification franchise'
-                        stage.getIcons().add(new Image("/cinema/images/cinema_logo.png"));
-
-                        // Configurer la fenêtre en tant que modal
-                        // Cette ligne ci dessous a été commenté car elle empêchait de minimiser la fenêtre
-                        //stage.initModality(Modality.APPLICATION_MODAL);
-
-                        stage.show();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+                    Navigation.goTo("/cinema/views/page_modif_franchise.fxml", "franchise", franchise, btn.getScene().getWindow());
                 });
             }
 

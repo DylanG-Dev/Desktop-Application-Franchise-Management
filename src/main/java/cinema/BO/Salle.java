@@ -10,7 +10,16 @@ public class Salle {
     public Salle() {
     }
 
+    // Constructeur pour créer une nouvelle salle pour l'insérer en base de données
     public Salle(int numero, String description, int nbPlaces, int idCinema) {
+        this.numero = numero;
+        this.description = description;
+        this.nbPlaces = nbPlaces;
+        this.idCinema = idCinema;
+    }
+
+    // Constructeur pour instancier une salle existante en base de données
+    public Salle(int idSalle, int numero, String description, int nbPlaces, int idCinema) {
         this.idSalle = idSalle;
         this.numero = numero;
         this.description = description;

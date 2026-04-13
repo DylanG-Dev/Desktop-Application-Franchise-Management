@@ -53,39 +53,7 @@ public class AjouterFranchiseController extends MenuController implements Initia
 
     @FXML
     public void bRetourClick(ActionEvent event) {
-        // On fait le lien avec l'ecran actuel
-        Stage stageP = (Stage) bRetour.getScene().getWindow();
-        // on ferme l'écran
-        stageP.close();
-
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(
-                    getClass().getResource("/cinema/views/page_accueil.fxml"));
-            Parent root = fxmlLoader.load();
-
-            AccueilController accueilController = fxmlLoader.getController();
-            accueilController.setName(nameUti);
-            accueilController.setBienvenue();
-
-            // Créer une nouvelle fenêtre (Stage)
-            Stage stage = new Stage();
-            // Correction du titre qui doit être 'Accueil' au lieu de 'Liste franchises'
-            stage.setTitle("Accueil");
-            stage.setScene(new Scene(root));
-            // Ajout de l'icone cinema dans la page 'Accueil'
-            stage.getIcons().add(new Image("/cinema/images/cinema_logo.png"));
-
-
-            // Configurer la fenêtre en tant que modal
-            // Cette ligne ci dessous a été commenté car elle empêchait de minimiser la fenêtre
-            //stage.initModality(Modality.APPLICATION_MODAL);
-
-            // Afficher la fenêtre et attendre qu'elle se ferme
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+        Navigation.goBack(bRetour.getScene().getWindow());
     }
 
     @FXML
@@ -94,11 +62,11 @@ public class AjouterFranchiseController extends MenuController implements Initia
         String nomFranchise = tfNomFranchise.getText();
         String siegeSocial = tfSiegeSocial.getText();
 
-        // Correction du nom de variable 'z' qui doit se nommer '?
-        int z = 1;
+        // Correction du nom de variable 'z' qui doit se nommer 'idGerant'
+        int idGerant = lvGerantFranchise.getSelectionModel().getSelectedItem().getIdUtilisateur();
 
         // Correction du nom de variable 'bloup' qui doit se nommer 'franchise'
-        Franchise franchise = new Franchise(0, nomFranchise, siegeSocial, z);
+        Franchise franchise = new Franchise(nomFranchise, siegeSocial, idGerant);
 
         FranchiseDAO franchiseDAO = new FranchiseDAO();
         boolean controle = franchiseDAO.create(franchise);

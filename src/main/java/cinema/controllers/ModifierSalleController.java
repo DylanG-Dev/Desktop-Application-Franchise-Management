@@ -4,7 +4,9 @@
 //import java.util.ResourceBundle;
 //
 //import cinema.BO.Cinema;
+//import cinema.BO.Salle;
 //import cinema.DAO.CinemaDAO;
+//import cinema.DAO.SalleDAO;
 //import javafx.event.ActionEvent;
 //import javafx.fxml.FXML;
 //import javafx.fxml.FXMLLoader;
@@ -12,19 +14,26 @@
 //import javafx.scene.Parent;
 //import javafx.scene.Scene;
 //import javafx.scene.control.Button;
+//import javafx.scene.control.ListView;
+//import javafx.scene.control.Spinner;
 //import javafx.scene.control.TextArea;
 //import javafx.scene.image.Image;
 //import javafx.stage.Modality;
 //import javafx.stage.Stage;
 //
-//public class ModifierCinemaController extends MenuController implements Initializable {
+//public class ModifierSalleController extends MenuController implements Initializable {
 //
-//    // Correction du nommage de l'attribut 'TextArea' nommé 'taLibSec' par 'taDenomination'
 //    @FXML
-//    private TextArea taDenomination, taAdresse, taVille;
+//    private TextArea taDescription;
 //
+//    @FXML
+//    private Spinner spnrNumero, spnrNbPlace;
+//
+//    @FXML
+//    private ListView<Cinema> lvCinema;
+//
+//    private int idSalle;
 //    private int idCinema;
-//    private int idFranchise;
 //
 //    @FXML
 //    private Button bRetour, bEnregistrer;
@@ -34,19 +43,19 @@
 //
 //    }
 //
-//    public void setIdCinema(int idCinema) {
-//        this.idCinema = idCinema;
+//    public void setIdSalle(int idSalle) {
+//        this.idSalle = idSalle;
 //    }
 //
 //    // Correction du nom de la méthode nommé 'setAttrinut'
 //    // par 'setAttributes'
 //    // Correction de la méthode complète
-//    public void setAttributes(Cinema cinema) {
-//        taDenomination.setText(cinema.getDenomination());
-//        taAdresse.setText(cinema.getAdresse());
-//        taVille.setText(cinema.getVille());
-//        this.idCinema = cinema.getIdCinema();
-//        this.idFranchise = cinema.getIdFranchise();
+//    public void setAttributes(Salle salle) {
+//        spnrNumero.getValueFactory().setValue(salle.getNumero());
+//        taDescription.setText(salle.getDescription());
+//        spnrNbPlace.getValueFactory().setValue(salle.getNbPlaces());
+//        this.idSalle = salle.getIdSalle();
+//        this.idCinema = salle.getIdCinema();
 //    }
 //
 //    @FXML
@@ -57,27 +66,30 @@
 //    @FXML
 //    private void bEnregistrerClick(ActionEvent event) {
 //        // Ajout des attributs pour l'enregistrement
-//        String denomination = taDenomination.getText();
-//        String adresse = taAdresse.getText();
-//        String ville = taVille.getText();
-//        if (!denomination.trim().isEmpty() && !adresse.trim().isEmpty() && !ville.trim().isEmpty()) {
+//        int idSalle = this.idSalle;
+//        int numero = (int) spnrNumero.getValue();
+//        String description = taDescription.getText();
+//        int nbPlace = (int) spnrNbPlace.getValue();
+//        int idCinema = lvCinema.getSelectionModel().getSelectedItem().getIdCinema();
+//
+//        // Maybe add conditions on value 'numero' which can be equals to the same 'numero' of another 'salle'
+//        if (!description.trim().isEmpty()) {
 //            // Correction des paramètres de l'objet
 //            // Correction du nommage de la variable nommé 'sec' par 'newCinema'
-//            Cinema newCinema = new Cinema(this.idCinema, denomination, adresse, ville, idFranchise);
+//            Salle newSalle = new Salle(idSalle, numero, description, nbPlace, idCinema);
 //            // Modification du nom de la variable 'sectionDAO' par 'cinemaDAO'
-//            CinemaDAO cinemaDAO = new CinemaDAO();
+//            SalleDAO salleDAO = new SalleDAO();
 //            // Mise à jour du nouveau cinéma créé
-//            boolean controle = cinemaDAO.update(newCinema);
+//            boolean controle = salleDAO.update(newSalle);
 //            if (controle) {
-//                Navigation.goTo("/cinema/views/page_liste_cinema.fxml");
+//                Navigation.goTo("/cinema/views/page_liste_salle.fxml");
 //            }
 //        } else {
 //            try {
 //                // Charger le fichier FXML
 //                FXMLLoader fxmlLoader = new FXMLLoader(
 //                        // Popup ajoutEtu non existante
-//                        // Remplacement par le nom 'popup_erreur_saisie', ou seulement renvoyer un msg d'erreur, qui sera faites pendant le lot 2
-//                        getClass().getResource("/cinema/views/popup_erreur_saisie.fxml"));
+//                        getClass().getResource("/cinema/views/popup_ajout_etu.fxml"));
 //                Parent root = fxmlLoader.load();
 //
 //                // Créer une nouvelle fenêtre (Stage)

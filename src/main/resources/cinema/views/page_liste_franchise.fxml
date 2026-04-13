@@ -14,7 +14,10 @@
 <?import javafx.scene.shape.QuadCurve?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane stylesheets="@./css/main.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cinema.controllers.ListeFranchiseController">
+<BorderPane stylesheets="@./css/main.css"
+            xmlns="http://javafx.com/javafx/25"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="cinema.controllers.ListeFranchiseController">
 
     <top>
         <MenuBar>
@@ -89,16 +92,7 @@
             Both curves are anchored to the bottom so they always sit at the very bottom.
         -->
         <AnchorPane prefHeight="115.0">
-            <!-- BUTTON CENTER CONTAINER -->
-            <StackPane AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="42.0">
 
-                <Button fx:id="bRetour" alignment="center" onAction="#bRetourClick" prefHeight="39.0" prefWidth="200" text="RETOUR" textFill="#024010">
-                    <font>
-                        <Font name="System Bold" size="18.0" />
-                    </font>
-                </Button>
-
-            </StackPane>
 
             <!--
                 LEFT curve:
@@ -135,6 +129,17 @@
                        startY="-15.0"
                        AnchorPane.bottomAnchor="-17.0"
                        AnchorPane.rightAnchor="-24.0" />
+
+            <!-- BUTTON CENTER CONTAINER -->
+            <StackPane AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="42.0">
+
+                <Button fx:id="bRetour" alignment="center" onAction="#bRetourClick" prefHeight="39.0" prefWidth="200" text="RETOUR" textFill="#024010">
+                    <font>
+                        <Font name="System Bold" size="18.0" />
+                    </font>
+                </Button>
+
+            </StackPane>
 
         </AnchorPane>
     </bottom>
