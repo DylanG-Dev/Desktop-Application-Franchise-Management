@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import cinema.BO.Cinema;
+import cinema.BO.Franchise;
 import cinema.DAO.CinemaDAO;
 import cinema.DAO.FranchiseDAO;
 import javafx.collections.FXCollections;
@@ -44,8 +45,8 @@ public class ListeCinemaController extends MenuController implements Initializab
         tcFranchise.setCellValueFactory(new PropertyValueFactory<>("franchise"));
         ObservableList<Cinema> data = getCinema();
         tvCinema.setItems(data);
-
-
+        addButtonModifierToTable();
+        addButtonSupprimerToTable();
     }
 
     private ObservableList<Cinema> getCinema() {
@@ -160,6 +161,70 @@ public class ListeCinemaController extends MenuController implements Initializab
                 setGraphic(empty ? null : btn);
             }
         });
+    }
+    private void addButtonModifierToTable() {
+        tcModif.setCellFactory(column -> new TableCell<>() {
+            private final Button btn = new Button("Modifier");
+            {
+                btn.setOnAction(event -> {
+                    Cinema cinema = getTableView().getItems().get(getIndex());
+                    Stage stageP = (Stage) bRetour.getScene().getWindow();
+                    stageP.close();
+
+                    try {
+                        FXMLLoader fxmlLoader = new FXMLLoader(
+                                getClass().getResource("/cinema/views/page_modif_cinema.fxml"));
+                        Parent root = fxmlLoader.load();
+
+                        ModifierCinemaController modifierCinemaCtrl = fxmlLoader.getController();
+                        modifierCinemaCtrl.setAttributs(cinema);
+                        modifierCinemaCtrl.setName(cinema.getDenomination());
+
+                        Stage stage = new Stage();
+                        stage.setTitle("Modification cinema");
+                        stage.setScene(new Scene(root));
+
+                        stage.initModality(Modality.APPLICATION_MODAL);
+
+                        stage.show();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                });
+            }
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+                setGraphic(empty ? null : btn);
+            }
+        });
+        //supprimer le filtre sur la colone
+        tcModif.setSortable(false);
+    }
+
+
+    private void addButtonSupprimerToTable() {
+        tcSupp.setCellFactory(column -> new TableCell<>() {
+            private final Button btn = new Button("Supprimer");
+
+            {
+                btn.setOnAction(event -> {
+                    Cinema cinema = getTableView().getItems().get(getIndex());
+                    tvCinema.getItems().remove(cinema);
+                    CinemaDAO cinemaDAO = new CinemaDAO();
+                    cinemaDAO.delete(cinema);
+                });
+                // btn.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white;");
+            }
+
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+                setGraphic(empty ? null : btn);
+            }
+        });
+        //supprimer le filtre sur la colone
+        tcSupp.setSortable(false);
     }
 
 }
