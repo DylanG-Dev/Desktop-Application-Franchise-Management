@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<!-- Remplacement de la balise 'Pane' par 'BorderPane' pour
+rendre la page responsive
+Suppression des attributs 'maxHeight', 'maxWidth',
+'minHeight', 'minWidth', 'prefHeight' et 'prefWidth'
+qui empêche la responsivité car il fixe la taille-->
+
+<BorderPane
+    stylesheets="@./css/main.css"
+    xmlns="http://javafx.com/javafx/17.0.12"
+    xmlns:fx="http://javafx.com/fxml/1"
+    fx:controller="cinema.controllers.ListeFranchiseController">
+    <!-- Remplacement des balises 'children' par les balises
+     'top', 'center' et 'bottom' -->
+    <!-- Balise 'top' pour le haut de la page -->
+    <top>
+        <!-- Suppression de la balise 'Vbox' qui ne sert
+        pas et empêche la responsivité avec les attributs
+        'layoutX', 'prefHeight' et 'prefWidth' -->
+        <MenuBar>
+            <menus>
+                <Menu fx:id="gestionFranchise" mnemonicParsing="false" text="Gestion franchises">
+                    <graphic>
+                        <ImageView fitHeight="16" fitWidth="16">
+                            <image>
+                                <Image url="@../images/franchise_64x64.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                    <items>
+                        <MenuItem fx:id="bListeFranchise" mnemonicParsing="false" onAction="#bListFranchiseClick" text="Liste franchises" />
+                        <MenuItem fx:id="bAjouterFranchise" mnemonicParsing="false" onAction="#bAjouterFranchiseClick" text="Ajouter une franchise" />
+                    </items>
+                </Menu>
+                <!-- Erreur, attribut 'text' initialisé avec la valeur
+                'Gestion section' à la place de 'Gestion cinéma' -->
+                <Menu fx:id="gestionCinema" mnemonicParsing="false" text="Gestion cinéma">
+                    <graphic>
+                        <ImageView fitHeight="16" fitWidth="16">
+                            <image>
+                                <Image url="@../images/cinema_32x32.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                    <items>
+                        <!-- Erreur, attributs 'text' initialisés avec les valeurs
+                        'section' à la place de 'cinéma' -->
+                        <MenuItem fx:id="bListeCinema" mnemonicParsing="false" onAction="#bListeCinemaClick" text="Liste des cinémas" />
+                        <MenuItem fx:id="bAjouterCinema" mnemonicParsing="false" onAction="#bAjouterCinemaClick" text="Ajouter un cinéma" />
+                    </items>
+                </Menu>
+                <Menu fx:id="gestionSalle" mnemonicParsing="false" text="Gestion salles">
+                    <graphic>
+                        <ImageView fitHeight="16" fitWidth="16">
+                            <image>
+                                <Image url="@../images/salle_32x32.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                    <items>
+                        <!-- Erreur, attributs 'text' initialisés avec les valeurs
+                        'cours' à la place de 'salle' -->
+                        <MenuItem fx:id="bListeSalle" mnemonicParsing="false" onAction="#bListeSalleClick" text="Liste salles" />
+                        <MenuItem fx:id="bAjouterSalle" mnemonicParsing="false" onAction="#bAjouterSalleClick" text="Ajouter une salle" />
+                    </items>
+                </Menu>
+                <Menu fx:id="bAutres" mnemonicParsing="false" text="Autres">
+                    <graphic>
+                        <ImageView fitHeight="16" fitWidth="16">
+                            <image>
+                                <Image url="@../images/info.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                    <items>
+                        <MenuItem fx:id="bAccueil" mnemonicParsing="false" onAction="#bAccueilClick" text="Accueil" />
+                        <MenuItem fx:id="bQuitter" mnemonicParsing="false" onAction="#bQuitterClick" text="Quitter" />
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+    </top>
+
+    <!-- Balise 'center' pour le centre de la page -->
+    <center>
+        <TableView fx:id="tvFranchises">
+            <columns>
+                <TableColumn fx:id="tcNomFranchise" prefWidth="150.0" text="NomFranchise" />
+                <TableColumn fx:id="tcSiegeSocial" prefWidth="160.0" text="SiegeSocial" />
+                <TableColumn fx:id="tcGerant" prefWidth="210.0" text="Gerant" />
+                <TableColumn fx:id="tcSupprimer" prefWidth="110.0" text="Supprimer" />
+                <TableColumn fx:id="tcModifier" prefWidth="110.0" text="Modifier" />
+            </columns>
+        </TableView>
+    </center>
+
+    <bottom>
+        <VBox alignment="CENTER" prefHeight="135.0" spacing="10">
+            <Pane prefHeight="39" />
+
+            <HBox alignment="CENTER" AnchorPane.leftAnchor="-201.0" />
+
+            <AnchorPane prefHeight="109.0" prefWidth="743.0">
+                <children>
+                    <QuadCurve fx:id="leftCurve"
+                           controlX="18.0"
+                           controlY="-216.0"
+                           endX="318.0"
+                           endY="-15.0"
+                           fill="#3A3AB6"
+                           layoutX="-69.0"
+                           layoutY="117.0"
+                           startX="-152.0"
+                           startY="-15.0"
+                           strokeWidth="0.0"
+                           AnchorPane.bottomAnchor="0.0"
+                           AnchorPane.leftAnchor="-221.0" />
+
+                    <QuadCurve fx:id="rightCurve"
+                           controlX="190.0"
+                           controlY="-222.0"
+                           endX="85.0"
+                           endY="-16.0"
+                           fill="#3A3AB6"
+                           layoutX="677.0"
+                           layoutY="133.0"
+                           startX="-220.0"
+                           startY="-15.0"
+                           strokeWidth="0.0"
+                           AnchorPane.bottomAnchor="0.0"
+                           AnchorPane.rightAnchor="-23.0" />
+
+                   <Button fx:id="bRetour"
+                       layoutX="272.0"
+                       layoutY="9.0"
+                       onAction="#bRetourClick"
+                       prefHeight="39.0"
+                       prefWidth="200.0"
+                       text="RETOUR"
+                       textFill="#024010">
+
+                       <font>
+                           <Font name="System Bold" size="18.0" />
+                       </font>
+                   </Button>
+
+
+                </children>
+            </AnchorPane>
+        </VBox>
+    </bottom>
+
+</BorderPane>

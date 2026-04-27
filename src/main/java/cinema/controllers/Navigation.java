@@ -14,14 +14,17 @@ import javafx.stage.Window;
 
 public class Navigation {
 
+    // Initialisation et déclaration des attributs
     private static Stage primaryStage;
     private static final Stack<String> historique = new Stack<>();
     private static final Map<String, Object> params = new HashMap<>();
 
+    // Méthode qui permet d'initialiser la fenêtre
     public static void setPrimaryStage(Stage stage) {
         primaryStage = stage;
     }
 
+    //
     public static void goTo(String fxmlPath) {
         try {
             if (primaryStage != null) {
@@ -46,11 +49,13 @@ public class Navigation {
         }
     }
 
+    //
     public static void goTo(String fxmlPath, String key, Object value) {
         setParam(key, value);
         goTo(fxmlPath);
     }
 
+    //
     public static void goTo(String fxmlPath, Window currentWindow) {
         try {
             Parent root = FXMLLoader.load(Navigation.class.getResource(fxmlPath));
@@ -72,11 +77,13 @@ public class Navigation {
         }
     }
 
+    //
     public static void goTo(String fxmlPath, String key, Object value, Window currentWindow) {
         setParam(key, value);
         goTo(fxmlPath, currentWindow);
     }
 
+    // Méthode qui sert à revenir arrière
     public static void goBack() {
         if (historique.size() >= 2) {
             historique.pop();
@@ -85,18 +92,22 @@ public class Navigation {
         }
     }
 
+    // Méthode qui sert à effacer l'historique
     public static void clearHistory() {
         historique.clear();
     }
 
+    // Méthode qui sert à initialiser les paramètres
     public static void setParam(String key, Object value) {
         params.put(key, value);
     }
 
+    // Fonction qui sert à retourner les paramètres
     public static <T> T getParam(String key) {
         return (T) params.get(key);
     }
 
+    // Méthode qui sert à effacer les paramètres
     public static void clearParams() {
         params.clear();
     }

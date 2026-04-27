@@ -8,6 +8,10 @@ public class Cinema {
     private String ville;
     private int idFranchise;
 
+    // Ajout d'un constructeur par défaut sans affectation
+    public Cinema() {
+    }
+
     public Cinema(int idCinema, String denomination, String adresse, String ville, int idFranchise) {
         this.idCinema = idCinema;
         this.denomination = denomination;
@@ -52,7 +56,11 @@ public class Cinema {
         this.idFranchise = idFranchise;
     }
 
-    public String toString(){
-        return denomination +' '+ ville;
+    // Ajout d'une fonction toString pour débuguer et
+    // afficher proprement un objet
+    @Override
+    public String toString() {
+        return "Cinéma [idCinema=" + idCinema + ", denomination=" + denomination + ", adresse="
+                + adresse + ", ville=" + ville + ", idFranchise=" + idFranchise + "]";
     }
 }
