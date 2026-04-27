@@ -65,11 +65,16 @@ public class Cinema {
         this.idFranchise = idFranchise;
     }
 
-    // Ajout d'une fonction toString pour débuguer et
-    // afficher proprement un objet
+
     @Override
     public String toString() {
-        return "Cinéma [idCinema=" + idCinema + ", denomination=" + denomination + ", adresse="
-                + adresse + ", ville=" + ville + ", idFranchise=" + idFranchise + "]";
+        return denomination;
     }
+//    // Ajout d'une fonction toString pour débuguer et
+//    // afficher proprement un objet
+//    @Override
+//    public String toString() {
+//        return "Cinéma [idCinema=" + idCinema + ", denomination=" + denomination + ", adresse="
+//                + adresse + ", ville=" + ville + ", idFranchise=" + idFranchise + "]";
+//    }
 }

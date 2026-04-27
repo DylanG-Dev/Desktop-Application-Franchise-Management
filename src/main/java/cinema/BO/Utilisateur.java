@@ -15,13 +15,6 @@ public class Utilisateur {
     public Utilisateur() {
     }
 
-    // Constructeur pour créer un nouveau utilisateur pour l'insérer en base de données
-    public Utilisateur(String nom, String prenom, String login) {
-        this.nom = nom;
-        this.prenom = prenom;
-        this.login = login;
-    }
-
     // Correction des affectations du constructeurs qui étaient en désordre
     // ne jamais avoir le mot de passe dans un constructeur 'Utilisateur'
     // Constructeur pour instancier un utilisateur existant en base de données

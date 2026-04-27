@@ -1,4 +1,4 @@
--- Création de la base de données
+1-- Création de la base de données
 CREATE DATABASE gestion_cinema;
 
 -- Optionnel : Création d'un utilisateur dédié pour plus de sécurité

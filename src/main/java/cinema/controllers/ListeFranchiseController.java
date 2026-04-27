@@ -69,7 +69,7 @@ public class ListeFranchiseController extends MenuController implements Initiali
         tcGerant.setCellValueFactory(cellData -> {
             Utilisateur gerant = gerants.get(cellData.getValue().getIdGerant());
             return new SimpleStringProperty(
-                    gerant != null ? gerant.getNom() + " " + gerant.getPrenom() : "Aucun gérant");
+                    gerant != null ? gerant.getNom() : "Aucun gérant");
         });
         tcNomFranchise.setCellValueFactory(new PropertyValueFactory<>("nomFranchise"));
         tcSiegeSocial.setCellValueFactory(new PropertyValueFactory<>("siegeSocial"));
@@ -120,6 +120,7 @@ public class ListeFranchiseController extends MenuController implements Initiali
                 setGraphic(empty ? null : btn);
             }
         });
+        tcModifier.setSortable(false);
     }
 
     private void addButtonSupprimerToTable() {
@@ -142,6 +143,6 @@ public class ListeFranchiseController extends MenuController implements Initiali
                 setGraphic(empty ? null : btn);
             }
         });
+        tcSupprimer.setSortable(false);
     }
-
 }

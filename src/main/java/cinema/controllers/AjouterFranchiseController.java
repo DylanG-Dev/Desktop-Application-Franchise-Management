@@ -62,18 +62,21 @@ public class AjouterFranchiseController extends MenuController implements Initia
         String nomFranchise = tfNomFranchise.getText();
         String siegeSocial = tfSiegeSocial.getText();
 
-        // Correction du nom de variable 'z' qui doit se nommer 'idGerant'
-        int idGerant = lvGerantFranchise.getSelectionModel().getSelectedItem().getIdUtilisateur();
+        Utilisateur selectGerant = lvGerantFranchise.getSelectionModel().getSelectedItem();
 
-        // Correction du nom de variable 'bloup' qui doit se nommer 'franchise'
-        Franchise franchise = new Franchise(nomFranchise, siegeSocial, idGerant);
+        if (!nomFranchise.trim().isEmpty() && !siegeSocial.trim().isEmpty() && selectGerant != null) {
+            // Correction du nom de variable 'z' qui doit se nommer 'idGerant'
+            int idGerant = selectGerant.getIdUtilisateur();
+            // Correction du nom de variable 'bloup' qui doit se nommer 'franchise'
+            Franchise franchise = new Franchise(nomFranchise, siegeSocial, idGerant);
 
-        FranchiseDAO franchiseDAO = new FranchiseDAO();
-        boolean controle = franchiseDAO.create(franchise);
-        if (controle) {
-            tfNomFranchise.clear();
-            tfSiegeSocial.clear();
-            lvGerantFranchise.getSelectionModel().clearSelection();
+            FranchiseDAO franchiseDAO = new FranchiseDAO();
+            boolean controle = franchiseDAO.create(franchise);
+            if (controle) {
+                tfNomFranchise.clear();
+                tfSiegeSocial.clear();
+                lvGerantFranchise.getSelectionModel().clearSelection();
+            }
         }
     }
 

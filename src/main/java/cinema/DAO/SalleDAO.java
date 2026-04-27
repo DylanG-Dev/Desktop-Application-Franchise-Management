@@ -36,7 +36,7 @@ public class SalleDAO extends DAO<Salle> {
         String query = "DELETE FROM salle WHERE id_salle = ?;";
 
         try (PreparedStatement preparedStatement = this.connect.prepareStatement(query)) {
-            preparedStatement.setInt(1, obj.getIdCinema());
+            preparedStatement.setInt(1, obj.getIdSalle());
             result = preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();

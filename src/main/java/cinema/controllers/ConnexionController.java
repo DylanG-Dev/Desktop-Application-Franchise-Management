@@ -87,9 +87,9 @@ public class ConnexionController implements Initializable {
         /* Correction de l'argument qui était l'adresse
         email de l'utilisateur qui pouvait être une faille
         de sécurité si une personne voyait son login.
-        Remplacement de l'argument par le prénom et le nom
+        Remplacement de l'argument par le nom
         de l'utilisateur */
-        showAccueil(user.getPrenom() + " " + user.getNom());
+        showAccueil(user.getNom());
     }
 
     private void showAccueil(String name) {

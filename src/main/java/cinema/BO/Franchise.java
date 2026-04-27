@@ -13,13 +13,6 @@ public class Franchise {
     public Franchise() {
     }
 
-    // Constructeur pour créer une nouvelle franchise pour l'insérer en base de données
-    public Franchise(String nomFranchise, String siegeSocial, int idGerant) {
-        this.nomFranchise.set(nomFranchise);
-        this.siegeSocial.set(siegeSocial);
-        this.idGerant = idGerant;
-    }
-
     // Constructeur pour instancier une franchise existante en base de données
     public Franchise(int idFranchise, String nomFranchise, String siegeSocial, int idGerant) {
         this.idFranchise = idFranchise;
@@ -62,7 +55,12 @@ public class Franchise {
 
     @Override
     public String toString() {
-        return "Franchise [idFranchise=" + idFranchise + ", nomFranchise=" + nomFranchise + ", siegeSocial="
-                + siegeSocial + ", idGerant=" + idGerant + "]";
+        return this.nomFranchise;
     }
+
+//    @Override
+//    public String toString() {
+//        return "Franchise [idFranchise=" + idFranchise + ", nomFranchise=" + nomFranchise + ", siegeSocial="
+//                + siegeSocial + ", idGerant=" + idGerant + "]";
+//    }
 }

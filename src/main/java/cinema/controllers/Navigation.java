@@ -24,7 +24,7 @@ public class Navigation {
         primaryStage = stage;
     }
 
-    //
+    // Méthode qui permet d'afficher la fenêtre avec seulement le chemin du fichier 'fxml'
     public static void goTo(String fxmlPath) {
         try {
             if (primaryStage != null) {
@@ -55,13 +55,15 @@ public class Navigation {
         }
     }
 
-    //
+    // Méthode qui permet d'afficher la fenêtre avec le chemin du fichier 'fxml',
+    // le nom de l'objet, et le la valeur de l'objet
     public static void goTo(String fxmlPath, String key, Object value) {
         setParam(key, value);
         goTo(fxmlPath);
     }
 
-    //
+    // Méthode qui permet d'afficher la fenêtre avec le chemin du fichier 'fxml',
+    // et la fenêtre actuelle
     public static void goTo(String fxmlPath, Window currentWindow) {
         try {
             if (primaryStage != null) {
@@ -96,7 +98,8 @@ public class Navigation {
         }
     }
 
-    //
+    // Méthode qui permet d'afficher la fenêtre avec tous les
+    // paramètres possibles, qui appelle les méthodes séparément
     public static void goTo(String fxmlPath, String key, Object value, Window currentWindow) {
         setParam(key, value);
         goTo(fxmlPath, currentWindow);
@@ -104,7 +107,7 @@ public class Navigation {
 
     // Méthode qui permet de revenir à la fenêtre précédente
     // Ajout du paramètre 'Window currentWindow' afin de
-    // pouvoir fermer la fenêtre précédente
+    // pouvoir fermer la fenêtre précédente automatiquement
     public static void goBack(Window currentWindow) {
         if (historique.size() >= 2) {
             historique.pop();
@@ -116,22 +119,22 @@ public class Navigation {
         }
     }
 
-    // Méthode qui sert à effacer l'historique
+    // Méthode pour effacer l'historique
     public static void clearHistory() {
         historique.clear();
     }
 
-    // Méthode qui sert à initialiser les paramètres
+    // Méthode pour initialiser les paramètres
     public static void setParam(String key, Object value) {
         params.put(key, value);
     }
 
-    // Fonction qui sert à retourner les paramètres
+    // Fonction pour retourner les paramètres
     public static <T> T getParam(String key) {
         return (T) params.get(key);
     }
 
-    // Méthode qui sert à effacer les paramètres
+    // Méthode pour effacer les paramètres
     public static void clearParams() {
         params.clear();
     }
