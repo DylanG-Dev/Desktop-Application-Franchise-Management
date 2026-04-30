@@ -7,7 +7,7 @@ plugins {
     // https://docs.gradle.org/current/userguide/application_plugin.html
     application
     // https://plugins.gradle.org/plugin/org.openjfx.javafxplugin
-    id("org.openjfx.javafxplugin") version "0.1.0"
+    id("org.openjfx.javafxplugin") version "0.0.13"
 }
 
 // Configuration de la version de Java (Optionnel mais recommandé)
@@ -46,8 +46,14 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter")
     // BDD
     implementation("org.postgresql:postgresql:42.7.4")
+    // BCrypt du framework spring
+    // pour le hachage des mots de passe
+    implementation("org.springframework.security:spring-security-crypto:6.2.0")
+    // Ajoute ' Apache Commons Logging' nécessaire car
+    // Spring Security l'utilise en interne
+    // Erreur "LogFactory not found" ans cette dépendance
+    implementation("commons-logging:commons-logging:1.2")
 }
-
 
 tasks.test {
     useJUnitPlatform()

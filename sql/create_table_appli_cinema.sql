@@ -14,9 +14,8 @@ CREATE TABLE franchise (
    nom_franchise VARCHAR(100) NOT NULL,
    siege_social TEXT,
    id_gerant INTEGER,
-   CONSTRAINT fk_gerant_franchise FOREIGN KEY(id_gerant) REFERENCES utilisateur(id_utilisateur) ON DELETE
-   SET
-      NULL
+   CONSTRAINT fk_gerant_franchise FOREIGN KEY(id_gerant) REFERENCES utilisateur(id_utilisateur)
+   ON DELETE SET NULL
 );
 
 -- Mise à jour/Création de la table cinema
@@ -27,7 +26,8 @@ CREATE TABLE cinema (
    adresse TEXT,
    ville VARCHAR(100),
    id_franchise INTEGER NOT NULL,
-   CONSTRAINT fk_franchise_cinema FOREIGN KEY(id_franchise) REFERENCES franchise(id_franchise) ON DELETE CASCADE
+   CONSTRAINT fk_franchise_cinema FOREIGN KEY(id_franchise) REFERENCES franchise(id_franchise)
+   ON DELETE CASCADE
 );
 
 -- Création de la table salle
@@ -38,7 +38,8 @@ CREATE TABLE salle (
    description VARCHAR(255),
    nb_places INTEGER NOT NULL,
    id_cinema INTEGER NOT NULL,
-   CONSTRAINT fk_cinema FOREIGN KEY(id_cinema) REFERENCES cinema(id_cinema) ON DELETE CASCADE
+   CONSTRAINT fk_cinema FOREIGN KEY(id_cinema) REFERENCES cinema(id_cinema)
+   ON DELETE CASCADE
 );
 
 -- Index pour optimiser les recherches

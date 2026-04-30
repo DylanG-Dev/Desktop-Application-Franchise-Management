@@ -50,7 +50,7 @@
                             </image>
                         </ImageView>
 
-               
+
                     </children>
                 </HBox>
                 <Separator prefWidth="200.0" style="-fx-background-color: #024010;">

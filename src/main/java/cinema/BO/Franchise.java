@@ -13,6 +13,14 @@ public class Franchise {
     public Franchise() {
     }
 
+    // Constructeur pour créer une nouvelle franchise pour l'insérer en base de données
+    public Franchise(String nomFranchise, String siegeSocial, int idGerant) {
+        this.nomFranchise.set(nomFranchise);
+        this.siegeSocial.set(siegeSocial);
+        this.idGerant = idGerant;
+    }
+
+    // Constructeur pour instancier une franchise existante en base de données
     public Franchise(int idFranchise, String nomFranchise, String siegeSocial, int idGerant) {
         this.idFranchise = idFranchise;
         this.nomFranchise.set(nomFranchise);
@@ -48,13 +56,11 @@ public class Franchise {
         this.siegeSocial.set(siegeSocial);
     }
 
-    public StringProperty nomFranchiseProperty() {
-        return nomFranchise;
-    }
-
     public StringProperty siegeSocialProperty() {
         return siegeSocial;
     }
+
+
 
     @Override
     public String toString() {

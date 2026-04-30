@@ -24,7 +24,7 @@
       prefWidth="804.0"
       xmlns="http://javafx.com/javafx/22"
       xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="cinema.controllers.ListeCinemaController">
+      fx:controller="cinema.controllers.ListeSalleController">
     <children>
         <VBox layoutX="-1.0" prefHeight="48.0" prefWidth="804.0">
             <children>
@@ -92,11 +92,12 @@
         </VBox>
 
 
-        <TableView fx:id="tvCinema" layoutY="50.0" prefHeight="292.0" prefWidth="804.0">
+        <TableView fx:id="tvSalle" layoutY="50.0" prefHeight="292.0" prefWidth="804.0">
             <columns>
-                <TableColumn fx:id="tcDenomination" prefWidth="200.0" text="Dénomination" />
-                <TableColumn fx:id="tcFranchise" prefWidth="150.0" text="Franchise" />
-                <TableColumn fx:id="tcVs" prefWidth="100.0" text="Voir salle" />
+                <TableColumn fx:id="tcNumero" prefWidth="200.0" text="Numéro" />
+                <TableColumn fx:id="tcDescription" prefWidth="150.0" text="Description" />
+                <TableColumn fx:id="tcNbPlace" prefWidth="200.0" text="Nombre places" />
+                <TableColumn fx:id="tcCinema" prefWidth="200.0" text="Dénomination cinéma" />
                 <TableColumn fx:id="tcSupp" prefWidth="110.0" text="Supprimer" />
                 <TableColumn fx:id="tcModif" prefWidth="110.0" text="Modifier" />
             </columns>

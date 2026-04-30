@@ -6,19 +6,19 @@ VALUES
 		'Dupont',
 		'Jean',
 		'jean.dupont@email.com',
-		'jean'
+		'$2a$12$lqk6wdJxleiAEXdsEXL5q.sU6nqlwDqwBSoKnkASPvLGzVRw0kS5e'
 	),
 	(
 		'Martin',
 		'Alice',
 		'alice.martin@email.com',
-		'alice'
+		'$2a$12$Pi6qMntuMg6DZJxSQgFWIOfgXOPnPYOktyN48GymWb23.KkESzTcm'
 	),
 	(
 		'Bernard',
 		'Lucas',
 		'lucas.bernard@email.com',
-		'lucas'
+		'$2a$12$3ysXPAb2I9cy8wTDJdBWqOQEepWqXM1egNRyXU9LJx.azE4MonmPK'
 	);
 
 -- 2. Insertion des Franchises

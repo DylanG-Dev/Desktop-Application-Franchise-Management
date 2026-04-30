@@ -36,54 +36,40 @@ public class AjouterFranchiseController extends MenuController implements Initia
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
         ObservableList<Utilisateur> utilisateurs = getUtilisateurList();
+
         lvGerantFranchise.setItems(utilisateurs);
     }
 
     private ObservableList<Utilisateur> getUtilisateurList() {
+
         UtilisateurDAO utilisateurDAO = new UtilisateurDAO();
         List<Utilisateur> utilisateurs = utilisateurDAO.findAll();
+
         ObservableList<Utilisateur> list = FXCollections.observableArrayList(utilisateurs);
         return list;
     }
 
     @FXML
     public void bRetourClick(ActionEvent event) {
-        Stage stageP = (Stage) bRetour.getScene().getWindow();
-        stageP.close();
-
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(
-                    getClass().getResource("/cinema/views/page_accueil.fxml"));
-            Parent root = fxmlLoader.load();
-
-            AccueilController accueilController = fxmlLoader.getController();
-            accueilController.setName(nameUti);
-            accueilController.setBienvenue();
-
-            Stage stage = new Stage();
-            stage.setTitle("Accueil");
-            stage.setScene(new Scene(root));
-            stage.getIcons().add(new Image("/cinema/images/cinema_logo.png"));
-
-            // Commenté car empêchait de minimiser la fenêtre
-            //stage.initModality(Modality.APPLICATION_MODAL);
-
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        Navigation.goBack(bRetour.getScene().getWindow());
     }
 
     @FXML
     public void bEnregistrerClick(ActionEvent event) {
-        String nom = tfNomFranchise.getText();
-        String adresse = tfSiegeSocial.getText();
-        Utilisateur SelectGerant = lvGerantFranchise.getSelectionModel().getSelectedItem();
+        // Correction des noms de variables 'x' et 'y' qui doivent se nommer 'nomFranchise' et 'siegeSocial'
+        String nomFranchise = tfNomFranchise.getText();
+        String siegeSocial = tfSiegeSocial.getText();
 
-        if (!nom.trim().isEmpty() && !adresse.trim().isEmpty() && SelectGerant != null) {
-            int Gerant = SelectGerant.getIdUtilisateur();
-            Franchise franchise = new Franchise(0, nom, adresse, Gerant);
+        Utilisateur selectGerant = lvGerantFranchise.getSelectionModel().getSelectedItem();
+
+        if (!nomFranchise.trim().isEmpty() && !siegeSocial.trim().isEmpty() && selectGerant != null) {
+            // Correction du nom de variable 'z' qui doit se nommer 'idGerant'
+            int idGerant = selectGerant.getIdUtilisateur();
+            // Correction du nom de variable 'bloup' qui doit se nommer 'franchise'
+            Franchise franchise = new Franchise(nomFranchise, siegeSocial, idGerant);
+
             FranchiseDAO franchiseDAO = new FranchiseDAO();
             boolean controle = franchiseDAO.create(franchise);
             if (controle) {

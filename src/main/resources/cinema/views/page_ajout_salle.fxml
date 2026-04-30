@@ -8,7 +8,7 @@
 
 <BorderPane xmlns="http://javafx.com/javafx/22"
     xmlns:fx="http://javafx.com/fxml/1"
-    fx:controller="cinema.controllers.AjouterFranchiseController"
+    fx:controller="cinema.controllers.AjouterSalleController"
     stylesheets="@./css/main.css">
 
     <top>
@@ -103,7 +103,7 @@
                 <Insets top="30" right="40" bottom="30" left="40" />
             </padding>
 
-            <Label text="AJOUT D'UNE NOUVELLE FRANCHISE"
+            <Label text="AJOUT D'UNE NOUVELLE SALLE"
                 styleClass="title-label" />
 
             <GridPane hgap="15" vgap="20" alignment="CENTER">
@@ -113,29 +113,49 @@
                     <ColumnConstraints hgrow="ALWAYS" />
                 </columnConstraints>
 
-                <Label text="Nom :" styleClass="form-label"
+                <Label text="Numéro :" styleClass="form-label"
                     GridPane.rowIndex="0"
                     GridPane.columnIndex="0" />
 
-                <TextField fx:id="tfNomFranchise"
+                <!-- Ajout de l'attribut 'maxWidth' à la balise 'Spinner'
+                pour qu'elle puisse s'étirer comme une balise 'TextField' -->
+                <Spinner fx:id="spnrNumero"
+                     maxWidth="Infinity"
                     GridPane.rowIndex="0"
-                    GridPane.columnIndex="1" />
+                    GridPane.columnIndex="1"
+                         min="1"
+                         max="999"
+                />
 
-                <Label text="Adresse du siège social :" styleClass="form-label"
+                <Label text="Description :" styleClass="form-label"
                     GridPane.rowIndex="1"
                     GridPane.columnIndex="0" />
 
-                <TextField fx:id="tfSiegeSocial"
+                <TextField fx:id="tfDescription"
                     GridPane.rowIndex="1"
                     GridPane.columnIndex="1" />
 
-                <Label text="Gérant :" styleClass="form-label"
-                    GridPane.rowIndex="2"
+                <Label text="Nombre de places :" styleClass="form-label"
+                       GridPane.rowIndex="2"
+                       GridPane.columnIndex="0" />
+
+                <!-- Ajout de l'attribut 'maxWidth' à la balise 'Spinner'
+                pour qu'elle puisse s'étirer comme une balise 'TextField' -->
+                <Spinner fx:id="spnrNbPlace"
+                         maxWidth="Infinity"
+                         GridPane.rowIndex="2"
+                         GridPane.columnIndex="1"
+                         min="1"
+                         max="500"
+                />
+
+                <Label text="Cinéma :" styleClass="form-label"
+                    GridPane.rowIndex="3"
                     GridPane.columnIndex="0" />
 
-                <ListView fx:id="lvGerantFranchise"
+                <ListView fx:id="lvCinema"
                     prefHeight="120"
-                    GridPane.rowIndex="2"
+                    GridPane.rowIndex="3"
                     GridPane.columnIndex="1" />
 
             </GridPane>
@@ -149,17 +169,17 @@
             </padding>
 
             <Button fx:id="bRetour"
-                text="bRetour"
+                text="Retour"
                 onAction="#bRetourClick"
                 styleClass="action-button" />
 
             <Button fx:id="bEffacer"
-                text="bEffacer"
+                text="Effacer"
                 onAction="#bEffacerClick"
                 styleClass="action-button" />
 
             <Button fx:id="bEnregistrer"
-                text="bEnregistrer"
+                text="Enregistrer"
                 onAction="#bEnregistrerClick"
                 styleClass="action-button" />
         </HBox>

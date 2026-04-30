@@ -51,8 +51,8 @@
                                 </ImageView>
                             </graphic>
                             <items>
-                                <MenuItem fx:id="bListeCinema" mnemonicParsing="false" onAction="#bListeCinemaClick" text="Liste des sections" />
-                                <MenuItem fx:id="bAjouterCinema" mnemonicParsing="false" onAction="#bAjouterCinemaClick" text="Ajouter une section" />
+                                <MenuItem fx:id="bListeCinema" mnemonicParsing="false" onAction="#bListeCinemaClick" text="Liste cinémas" />
+                                <MenuItem fx:id="bAjouterCinema" mnemonicParsing="false" onAction="#bAjouterCinemaClick" text="Ajouter un cinéma" />
                             </items>
                         </Menu>
                         <Menu fx:id="gestionSalle" mnemonicParsing="false" text="Gestion salles">
@@ -64,8 +64,8 @@
                                 </ImageView>
                             </graphic>
                             <items>
-                                <MenuItem fx:id="bListeSalle" mnemonicParsing="false" onAction="#bListeSalleClick" text="Liste cours" />
-                                <MenuItem fx:id="bAjouterSalle" mnemonicParsing="false" onAction="#bAjouterSalleClick" text="Ajouter un cours" />
+                                <MenuItem fx:id="bListeSalle" mnemonicParsing="false" onAction="#bListeSalleClick" text="Liste salles" />
+                                <MenuItem fx:id="bAjouterSalle" mnemonicParsing="false" onAction="#bAjouterSalleClick" text="Ajouter une salle" />
                             </items>
                         </Menu>
                         <Menu fx:id="bAutres" mnemonicParsing="false" text="Autres">
@@ -85,7 +85,7 @@
                 </MenuBar>
             </children>
         </VBox>
-        
+
         <TableView fx:id="tvFranchises" layoutY="50.0" prefHeight="292.0" prefWidth="873.0">
             <columns>
                 <TableColumn fx:id="tcNomFranchise" prefWidth="150.0" text="Nom de la franchise" />
@@ -95,7 +95,7 @@
                 <TableColumn fx:id="tcModifier" prefWidth="176.5" text="Modifier" />
             </columns>
         </TableView>
-        
+
         <!-- HBox pour le bouton de retour -->
         <HBox alignment="CENTER"
               layoutY="355.0"
@@ -116,7 +116,7 @@
                 </Button>
             </children>
         </HBox>
-                
+
         <!-- Bande verte en bas pour harmonisation -->
         <Pane layoutX="0.0" layoutY="439.0" prefHeight="39.0" prefWidth="804.0" />
         <QuadCurve controlX="18.33334732055664"

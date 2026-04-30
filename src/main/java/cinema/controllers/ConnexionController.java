@@ -4,7 +4,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import cinema.BO.Utilisateur;
-import cinema.viewModels.ConnexionViewModel;
+import cinema.DAO.UtilisateurDAO;
+//import cinema.viewModels.ConnexionViewModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,24 +19,23 @@ import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import cinema.controllers.Navigation;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 public class ConnexionController implements Initializable {
+    // Initialisation d'un attribut privé nommé 'utilisateurDAO'
+    // avec une instance de la classe 'UtilisateurDAO'
+    private UtilisateurDAO utilisateurDAO = new UtilisateurDAO();
 
-    // Initialisation d'un attribut privé 'viewModel'
-    // avec une instance de la classe 'ConnexionViewModel'
-    private ConnexionViewModel viewModel = new ConnexionViewModel();
+    // Initialisation et déclaration d'un attribut privé nommé 'encoder'
+    // pour hacher les mots de passe qui ne peut pas être réassigné après
+    // initialisation
+    private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
 
     @FXML
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        // Récupération de la valeur du champ 'login'
-        // Liaison bidirectionnelle de la valeur à 'loginProperty()'
-        // dans la classe 'ConnexionViewModel'
-
-        // Toute modification dans la vue mettra à jour le viewModel et vice-versa
-        tfLogin.textProperty().bindBidirectional(viewModel.loginProperty());
     }
 
     @FXML
@@ -49,27 +49,13 @@ public class ConnexionController implements Initializable {
 
     @FXML
     public void bConnexionClick(ActionEvent event) {
- //        boolean user = viewModel.login();
-        // Correction des variables nommées 'truc' et 'chose' par 'login' et 'password'
-//        String login = tfLogin.getText();
-//        String password = tfMDP.getText();
-//
-//        UtilisateurDAO userDAO = new UtilisateurDAO();
-//        // TODO
-//        Utilisateur user = userDAO.authenticate(login, password);
-
-        // Appel de la méthode 'login()' du viewModel
-        // et stockage du résultat (objet Utilisateur)
-        // dans la variable 'user'
-//        Utilisateur user = viewModel.login();
-
 
         // Transmission du mot de passe sans déclarer
         // de String afin qu'il ne reste que très peu de
         // temps en mémoire
-        Utilisateur user = viewModel.login(tfMDP.getText());
+        Utilisateur user = authenticate(tfLogin.getText(), tfMDP.getText());
 
-        // Nettoyage des champs 'tfLogin' et 'tfMDP'
+        // Effacement des champs 'tfLogin' et 'tfMDP'
         tfLogin.clear();
         tfMDP.clear();
 
@@ -87,44 +73,57 @@ public class ConnexionController implements Initializable {
         /* Correction de l'argument qui était l'adresse
         email de l'utilisateur qui pouvait être une faille
         de sécurité si une personne voyait son login.
-        Remplacement de l'argument par le prénom et le nom
+        Remplacement de l'argument par le nom
         de l'utilisateur */
-        showAccueil(user.getPrenom() + " " + user.getNom());
+        showAccueil(user.getNom());
+    }
+
+    // Fonction authenticate qui permet d'authentifier un
+    // utilisateur
+    public Utilisateur authenticate(String login, String password) {
+
+        // Appel de la fonction 'authenticate' de l'instance
+        // 'utilisateurDAO' avec le paramètre 'login', stockage
+        // du résultat dans la variable 'user'
+        Utilisateur user = utilisateurDAO.authenticate(login);
+        if (user == null) {
+            return null;
+        }
+
+        // Appel de la fonction 'getPassword' de l'instance
+        // 'utilisateurDAO' avec le paremètre 'login',
+        // stockage du résultat dans la variable bddPassword
+        String bddPassword = utilisateurDAO.getPassword(login);
+        if(password == null) {
+            return null;
+        }
+
+        if(verify(password, bddPassword)) {
+            // Renvoi de la variable nommé 'user' si le mot
+            // de passe correspond au mot de passe en BDD
+            return user;
+        }
+
+        return null;
+    }
+
+    // Fonction qui permet de hacher un mot de passe
+    // saisis par l'utilisateur
+    public static String hash(String password) {
+        return encoder.encode(password);
+    }
+
+    // Fonction qui permet de vérifier que les deux mots
+    // de passe correspondent
+    public static boolean verify(String password, String hash) {
+        return encoder.matches(password, hash);
     }
 
     private void showAccueil(String name) {
-        Stage stageP = (Stage) bConnexion.getScene().getWindow();
-        // on ferme l'écran
-        stageP.close();
-        try {
-
-            // Charger le fichier FXML pour la pop-up
-            FXMLLoader fxmlLoader = new FXMLLoader(
-                    getClass().getResource("/cinema/views/page_accueil.fxml"));
-            Parent root = fxmlLoader.load();
-
-            // Obtenir le contrôleur de la nouvelle fenetre
-            AccueilController accueilController = fxmlLoader.getController();
-            accueilController.setName(name);
-            accueilController.setBienvenue();
-
-            // Créer une nouvelle fenêtre (Stage)
-            Stage stage = new Stage();
-            // Correction du titre 'Accueil Gestion de franchises' qui devrait être 'Accueil'
-            stage.setTitle("Accueil");
-            stage.setScene(new Scene(root));
-            // Correction du logo qui n'était pas le bon
-            stage.getIcons().add(new Image("/cinema/images/cinema_logo.png"));
-            // Configurer la fenêtre en tant que modal
-            // Cette ligne ci dessous a été commenté car elle empêchait de minimiser la fenêtre
-            //stage.initModality(Modality.APPLICATION_MODAL);
-
-            // Afficher la fenêtre et attendre qu'elle se ferme
-            stage.show();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        // Fonction 'goTo' qui permet de naviguer sur la page d'accueil
+        // avec le nom et le prénom de l'utilisateur en paramètre
+//        Navigation.goTo("/cinema/views/page_accueil.fxml", "nameUti", name);
+        Navigation.goTo("/cinema/views/page_accueil.fxml", "nameUti", name, bConnexion.getScene().getWindow());
     }
 
     @FXML
@@ -136,10 +135,7 @@ public class ConnexionController implements Initializable {
             Parent root = fxmlLoader.load();
 
             // Obtenir le contrôleur de la pop-up
-            ErrorController errorController = fxmlLoader.getController();
-
-            // Passer la variable au contrôleur de la pop-up
-            // errorController.setMajLabel(Integer.toString(compteur));
+            ErrorConnexionController errorController = fxmlLoader.getController();
 
             // Créer une nouvelle fenêtre (Stage)
             Stage stage = new Stage();

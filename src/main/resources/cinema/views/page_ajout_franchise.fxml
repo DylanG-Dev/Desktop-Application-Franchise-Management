@@ -7,9 +7,9 @@
 <?import javafx.scene.layout.*?>
 
 <BorderPane xmlns="http://javafx.com/javafx/22"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="cinema.controllers.AjouterFranchiseController"
-            stylesheets="@./css/main.css">
+    xmlns:fx="http://javafx.com/fxml/1"
+    fx:controller="cinema.controllers.AjouterFranchiseController"
+    stylesheets="@./css/main.css">
 
     <top>
         <MenuBar>
@@ -24,13 +24,15 @@
                     </graphic>
                     <items>
                         <MenuItem fx:id="bListeFranchise"
-                                  text="Liste franchises"
-                                  onAction="#bListFranchiseClick" />
+                            text="Liste franchises"
+                            onAction="#bListFranchiseClick" />
                         <MenuItem fx:id="bAjouterFranchise"
-                                  text="Ajouter une franchise"
-                                  onAction="#bAjouterFranchiseClick" />
+                            text="Ajouter une franchise"
+                            onAction="#bAjouterFranchiseClick" />
                     </items>
                 </Menu>
+                <!-- Erreur, attribut 'text' initialisé avec la valeur
+                'Gestion section' à la place de 'Gestion cinéma' -->
                 <Menu fx:id="gestionCinema" mnemonicParsing="false" text="Gestion cinéma">
                     <graphic>
                         <ImageView fitHeight="16" fitWidth="16">
@@ -40,12 +42,16 @@
                         </ImageView>
                     </graphic>
                     <items>
+                        <!-- Erreur dans le 'text' des deux
+                                'MenuItem' ci-dessous, 'Liste sections'
+                                et 'Ajouter une section' à la place de
+                                'Liste cinémas' et 'Ajouter un cinéma' -->
                         <MenuItem fx:id="bListeCinema"
-                                  text="Liste des cinémas"
-                                  onAction="#bListeCinemaClick" />
+                            text="Liste des cinémas"
+                            onAction="#bListeCinemaClick" />
                         <MenuItem fx:id="bAjouterCinema"
-                                  text="Ajouter un cinéma"
-                                  onAction="#bAjouterCinemaClick" />
+                            text="Ajouter un cinéma"
+                            onAction="#bAjouterCinemaClick" />
                     </items>
                 </Menu>
                 <Menu fx:id="gestionSalle" mnemonicParsing="false" text="Gestion salles">
@@ -57,12 +63,16 @@
                         </ImageView>
                     </graphic>
                     <items>
+                        <!-- Erreur dans le 'text' des deux
+                                'MenuItem' ci-dessous, 'Liste cours'
+                                et 'Ajouter un cours' à la place de
+                                'Liste salles' et 'Ajouter une salle' -->
                         <MenuItem fx:id="bListeSalle"
-                                  text="Liste salles"
-                                  onAction="#bListeSalleClick" />
+                            text="Liste salles"
+                            onAction="#bListeSalleClick" />
                         <MenuItem fx:id="bAjouterSalle"
-                                  text="Ajouter une salle"
-                                  onAction="#bAjouterSalleClick" />
+                            text="Ajouter une salle"
+                            onAction="#bAjouterSalleClick" />
                     </items>
                 </Menu>
                 <Menu fx:id="bAutres" mnemonicParsing="false" text="Autres">
@@ -75,13 +85,14 @@
                     </graphic>
                     <items>
                         <MenuItem fx:id="bAccueil"
-                                  text="Accueil"
-                                  onAction="#bAccueilClick" />
+                            text="Accueil"
+                            onAction="#bAccueilClick" />
                         <MenuItem fx:id="bQuitter"
-                                  text="Quitter"
-                                  onAction="#bQuitterClick" />
+                            text="Quitter"
+                            onAction="#bQuitterClick" />
                     </items>
                 </Menu>
+
             </menus>
         </MenuBar>
     </top>
@@ -93,7 +104,7 @@
             </padding>
 
             <Label text="AJOUT D'UNE NOUVELLE FRANCHISE"
-                   styleClass="title-label" />
+                styleClass="title-label" />
 
             <GridPane hgap="15" vgap="20" alignment="CENTER">
 
@@ -103,29 +114,29 @@
                 </columnConstraints>
 
                 <Label text="Nom :" styleClass="form-label"
-                       GridPane.rowIndex="0"
-                       GridPane.columnIndex="0" />
+                    GridPane.rowIndex="0"
+                    GridPane.columnIndex="0" />
 
                 <TextField fx:id="tfNomFranchise"
-                           GridPane.rowIndex="0"
-                           GridPane.columnIndex="1" />
+                    GridPane.rowIndex="0"
+                    GridPane.columnIndex="1" />
 
                 <Label text="Adresse du siège social :" styleClass="form-label"
-                       GridPane.rowIndex="1"
-                       GridPane.columnIndex="0" />
+                    GridPane.rowIndex="1"
+                    GridPane.columnIndex="0" />
 
                 <TextField fx:id="tfSiegeSocial"
-                           GridPane.rowIndex="1"
-                           GridPane.columnIndex="1" />
+                    GridPane.rowIndex="1"
+                    GridPane.columnIndex="1" />
 
                 <Label text="Gérant :" styleClass="form-label"
-                       GridPane.rowIndex="2"
-                       GridPane.columnIndex="0" />
+                    GridPane.rowIndex="2"
+                    GridPane.columnIndex="0" />
 
                 <ListView fx:id="lvGerantFranchise"
-                          prefHeight="120"
-                          GridPane.rowIndex="2"
-                          GridPane.columnIndex="1" />
+                    prefHeight="120"
+                    GridPane.rowIndex="2"
+                    GridPane.columnIndex="1" />
 
             </GridPane>
         </VBox>
@@ -138,19 +149,19 @@
             </padding>
 
             <Button fx:id="bRetour"
-                    text="Retour"
-                    onAction="#bRetourClick"
-                    styleClass="action-button" />
+                text="Retour"
+                onAction="#bRetourClick"
+                styleClass="action-button" />
 
             <Button fx:id="bEffacer"
-                    text="Effacer"
-                    onAction="#bEffacerClick"
-                    styleClass="action-button" />
+                text="Effacer"
+                onAction="#bEffacerClick"
+                styleClass="action-button" />
 
             <Button fx:id="bEnregistrer"
-                    text="Enregistrer"
-                    onAction="#bEnregistrerClick"
-                    styleClass="action-button" />
+                text="Enregistrer"
+                onAction="#bEnregistrerClick"
+                styleClass="action-button" />
         </HBox>
     </bottom>
 </BorderPane>

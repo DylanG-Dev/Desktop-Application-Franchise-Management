@@ -15,6 +15,9 @@ public class FranchiseDAO extends DAO<Franchise> {
     public boolean create(Franchise obj) {
         boolean controle = false;
         try {
+            // 3 colonnes sont déclarées mais 4 placeholders sont fournis
+            // Cela provoquera une erreur lors de l'exécution
+            // Correction pour laisser seulement 3 placeholders
             String a = "INSERT INTO franchise(nom_franchise, siege_social, id_gerant) values (?,?,?);";
             PreparedStatement statement = this.connect.prepareStatement(a);
             statement.setString(1, obj.getNomFranchise());
@@ -126,13 +129,13 @@ public class FranchiseDAO extends DAO<Franchise> {
         return mesFranchises;
     }
 
-    public List<Franchise> getAllByGerant(int idGerant) {
+    public List<Franchise> getAllByGerant(int idSection) {
         List<Franchise> mesFranchises = new ArrayList<>();
         Franchise franchise;
         try {
             String sql = "SELECT * FROM franchise WHERE id_gerant = ?";
             PreparedStatement ps = this.connect.prepareStatement(sql);
-            ps.setInt(1, idGerant);
+            ps.setInt(1, idSection);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 franchise = hydrate(rs);

@@ -12,6 +12,15 @@ public class Cinema {
     public Cinema() {
     }
 
+    // Constructeur pour créer un nouveau cinéma pour l'insérer en base de données
+    public Cinema(String denomination, String adresse, String ville, int idFranchise) {
+        this.denomination = denomination;
+        this.adresse = adresse;
+        this.ville = ville;
+        this.idFranchise = idFranchise;
+    }
+
+    // Constructeur pour instancier un cinéma existant en base de données
     public Cinema(int idCinema, String denomination, String adresse, String ville, int idFranchise) {
         this.idCinema = idCinema;
         this.denomination = denomination;
@@ -56,11 +65,16 @@ public class Cinema {
         this.idFranchise = idFranchise;
     }
 
-    // Ajout d'une fonction toString pour débuguer et
-    // afficher proprement un objet
+
     @Override
     public String toString() {
-        return "Cinéma [idCinema=" + idCinema + ", denomination=" + denomination + ", adresse="
-                + adresse + ", ville=" + ville + ", idFranchise=" + idFranchise + "]";
+        return denomination;
     }
+//    // Ajout d'une fonction toString pour débuguer et
+//    // afficher proprement un objet
+//    @Override
+//    public String toString() {
+//        return "Cinéma [idCinema=" + idCinema + ", denomination=" + denomination + ", adresse="
+//                + adresse + ", ville=" + ville + ", idFranchise=" + idFranchise + "]";
+//    }
 }
