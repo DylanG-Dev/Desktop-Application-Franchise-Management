@@ -19,6 +19,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -26,8 +27,10 @@ public class AjouterFranchiseController extends MenuController implements Initia
 
     @FXML
     private TextField tfNomFranchise, tfSiegeSocial;
+
     @FXML
-    private Button bRetour;
+    private Button bRetour, bEnregistrer;
+
     @FXML
     private ListView<Utilisateur> lvGerantFranchise;
 
@@ -50,53 +53,31 @@ public class AjouterFranchiseController extends MenuController implements Initia
 
     @FXML
     public void bRetourClick(ActionEvent event) {
-        // On fait le lien avec l'ecran actuel
-        Stage stageP = (Stage) bRetour.getScene().getWindow();
-        // on ferme l'écran
-        stageP.close();
-
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(
-                    getClass().getResource("/cinema/views/page_accueil.fxml"));
-            Parent root = fxmlLoader.load();
-
-            AccueilController accueilController = fxmlLoader.getController();
-            accueilController.setName(nameUti);
-            accueilController.setBienvenue();
-
-            // Créer une nouvelle fenêtre (Stage)
-            Stage stage = new Stage();
-            stage.setTitle("Liste franchises");
-            stage.setScene(new Scene(root));
-
-            // Configurer la fenêtre en tant que modal
-            stage.initModality(Modality.APPLICATION_MODAL);
-
-            // Afficher la fenêtre et attendre qu'elle se ferme
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+        Navigation.goBack(bRetour.getScene().getWindow());
     }
 
     @FXML
     public void bEnregistrerClick(ActionEvent event) {
+        // Correction des noms de variables 'x' et 'y' qui doivent se nommer 'nomFranchise' et 'siegeSocial'
+        String nomFranchise = tfNomFranchise.getText();
+        String siegeSocial = tfSiegeSocial.getText();
 
-        String x = tfNomFranchise.getText();
-        String y = tfSiegeSocial.getText();
+        Utilisateur selectGerant = lvGerantFranchise.getSelectionModel().getSelectedItem();
 
-        int z = 1;
-        Franchise bloup = new Franchise(0, x, y, z);
+        if (!nomFranchise.trim().isEmpty() && !siegeSocial.trim().isEmpty() && selectGerant != null) {
+            // Correction du nom de variable 'z' qui doit se nommer 'idGerant'
+            int idGerant = selectGerant.getIdUtilisateur();
+            // Correction du nom de variable 'bloup' qui doit se nommer 'franchise'
+            Franchise franchise = new Franchise(nomFranchise, siegeSocial, idGerant);
 
-        FranchiseDAO franchiseDAO = new FranchiseDAO();
-        boolean controle = franchiseDAO.create(bloup);
-        if (controle) {
-            tfNomFranchise.clear();
-            tfSiegeSocial.clear();
-            lvGerantFranchise.getSelectionModel().clearSelection();
+            FranchiseDAO franchiseDAO = new FranchiseDAO();
+            boolean controle = franchiseDAO.create(franchise);
+            if (controle) {
+                tfNomFranchise.clear();
+                tfSiegeSocial.clear();
+                lvGerantFranchise.getSelectionModel().clearSelection();
+            }
         }
-
     }
 
     @FXML
@@ -107,5 +88,4 @@ public class AjouterFranchiseController extends MenuController implements Initia
             tfSiegeSocial.clear();
         lvGerantFranchise.getSelectionModel().clearSelection();
     }
-
 }

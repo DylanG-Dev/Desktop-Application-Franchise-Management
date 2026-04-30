@@ -19,8 +19,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+
+import static cinema.controllers.Navigation.getParam;
 
 public class ModifierFranchiseController extends MenuController implements Initializable {
 
@@ -38,6 +41,8 @@ public class ModifierFranchiseController extends MenuController implements Initi
     public void initialize(URL location, ResourceBundle resources) {
         ObservableList<Utilisateur> utilisateurs = getUtilisateurList();
         lvGerantFranchise.setItems(utilisateurs);
+
+        setAttributes(getParam("franchise"));
     }
 
     private ObservableList<Utilisateur> getUtilisateurList() {
@@ -50,9 +55,10 @@ public class ModifierFranchiseController extends MenuController implements Initi
     }
 
     public void setAttributes(Franchise franchise) {
+
         tfNomFranchise.setText(franchise.getNomFranchise());
         tfSiegeSocial.setText(franchise.getSiegeSocial());
-        lvGerantFranchise.getSelectionModel().select(franchise.getIdGerant() - 1);
+        lvGerantFranchise.getSelectionModel().select(franchise.getIdGerant());
         this.idGerant = franchise.getIdGerant();
         this.idFranchise = franchise.getIdFranchise();
     }
@@ -65,40 +71,13 @@ public class ModifierFranchiseController extends MenuController implements Initi
 
         if (nom != null && siegeSocial != null && selected != null && !nom.trim().isEmpty()
                 && !siegeSocial.trim().isEmpty()) {
-            int idGerant = selected.getIdUtilisateur();
+            int idGerant = lvGerantFranchise.getSelectionModel().getSelectedItem().getIdUtilisateur();
             Franchise newFranchise = new Franchise(this.idFranchise, nom, siegeSocial, idGerant);
 
             FranchiseDAO franchiseDAO = new FranchiseDAO();
             boolean controle = franchiseDAO.update(newFranchise);
             if (controle) {
-                Stage stageP = (Stage) bRetour.getScene().getWindow();
-                stageP.close();
-
-                try {
-
-                    // Charger le fichier FXML
-                    FXMLLoader fxmlLoader = new FXMLLoader(
-                            getClass().getResource("/cinema/views/page_liste_franchise.fxml"));
-                    Parent root = fxmlLoader.load();
-
-                    // Obtenir le contrôleur de la nouvelle fenetre
-                    ListeFranchiseController listeFranchiseController = fxmlLoader.getController();
-                    listeFranchiseController.setName(nameUti);
-
-                    // Créer une nouvelle fenêtre (Stage)
-                    Stage stage = new Stage();
-                    stage.setTitle("Liste franchises");
-                    stage.setScene(new Scene(root));
-
-                    // Configurer la fenêtre en tant que modal
-                    stage.initModality(Modality.APPLICATION_MODAL);
-
-                    // Afficher la fenêtre et attendre qu'elle se ferme
-                    stage.show();
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                Navigation.goTo("/cinema/views/page_liste_franchise.fxml", bRetour.getScene().getWindow());
             }
         } else {
             try {
@@ -111,6 +90,8 @@ public class ModifierFranchiseController extends MenuController implements Initi
                 Stage stage = new Stage();
                 stage.setTitle("Pop-up");
                 stage.setScene(new Scene(root));
+                // Ajout de l'icone cinema dans la popup 'erreur_modification_franchise'
+                stage.getIcons().add(new Image("/cinema/images/cinema_logo.png"));
 
                 // Configurer la fenêtre en tant que modal
                 stage.initModality(Modality.APPLICATION_MODAL);
@@ -126,33 +107,6 @@ public class ModifierFranchiseController extends MenuController implements Initi
 
     @FXML
     private void bRetourClick(ActionEvent event) {
-        Stage stageP = (Stage) bRetour.getScene().getWindow();
-        stageP.close();
-
-        try {
-
-            // Charger le fichier FXML
-            FXMLLoader fxmlLoader = new FXMLLoader(
-                    getClass().getResource("/cinema/views/page_liste_franchise.fxml"));
-            Parent root = fxmlLoader.load();
-
-            // Obtenir le contrôleur de la nouvelle fenetre
-            ListeFranchiseController listeFranchiseController = fxmlLoader.getController();
-            listeFranchiseController.setName(nameUti);
-
-            // Créer une nouvelle fenêtre (Stage)
-            Stage stage = new Stage();
-            stage.setTitle("Liste franchises");
-            stage.setScene(new Scene(root));
-
-            // Configurer la fenêtre en tant que modal
-            stage.initModality(Modality.APPLICATION_MODAL);
-
-            // Afficher la fenêtre et attendre qu'elle se ferme
-            stage.show();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        Navigation.goBack(bRetour.getScene().getWindow());
     }
 }

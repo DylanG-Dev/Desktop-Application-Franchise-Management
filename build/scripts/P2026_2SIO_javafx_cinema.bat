@@ -68,7 +68,7 @@ goto fail
 :execute
 @rem Setup the command line
 
-set CLASSPATH=%APP_HOME%\lib\P2026_2SIO_javafx_cinema-1.0-SNAPSHOT.jar;%APP_HOME%\lib\postgresql-42.7.4.jar;%APP_HOME%\lib\javafx-fxml-23.0.1-win.jar;%APP_HOME%\lib\javafx-controls-23.0.1-win.jar;%APP_HOME%\lib\checker-qual-3.42.0.jar;%APP_HOME%\lib\javafx-graphics-23.0.1-win.jar;%APP_HOME%\lib\javafx-base-23.0.1-win.jar
+set CLASSPATH=%APP_HOME%\lib\P2026_2SIO_javafx_cinema-1.0-SNAPSHOT.jar;%APP_HOME%\lib\javafx-fxml-23.0.1-win.jar;%APP_HOME%\lib\javafx-controls-23.0.1-win.jar;%APP_HOME%\lib\javafx-controls-23.0.1.jar;%APP_HOME%\lib\javafx-graphics-23.0.1-win.jar;%APP_HOME%\lib\javafx-graphics-23.0.1.jar;%APP_HOME%\lib\javafx-base-23.0.1-win.jar;%APP_HOME%\lib\javafx-base-23.0.1.jar;%APP_HOME%\lib\postgresql-42.7.4.jar;%APP_HOME%\lib\spring-security-crypto-6.2.0.jar;%APP_HOME%\lib\commons-logging-1.2.jar;%APP_HOME%\lib\checker-qual-3.42.0.jar
 
 
 @rem Execute P2026_2SIO_javafx_cinema

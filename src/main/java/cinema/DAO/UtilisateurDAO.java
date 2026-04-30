@@ -11,14 +11,31 @@ import cinema.BO.Utilisateur;
 
 public class UtilisateurDAO extends DAO<Utilisateur> {
 
+    // Inutilisé, ici pour respecter extension
+    // DAO<Utilisateur>
     @Override
     public boolean create(Utilisateur obj) {
+        throw new UnsupportedOperationException(
+                "Utiliser la fonction booléenne createWithHashedPassword(Utilisateur obj, String password)"
+        );
+    }
+
+    public boolean createWithHashedPassword(Utilisateur obj, String password) {
         boolean result = false;
         try {
-            String sql = "INSERT INTO utilisateur(login, mdp) VALUES(?,?)";
+            // Il manque les valeurs 'nom' et 'prenom'
+            // ainsi que deux placeholders pour
+            // l'insertion
+            // Ajout du mot de passe haché via
+            // le service 'authService' pour ne pas
+            // stocker en mémoire le mot de passe
+            // dans l'objet 'Utilisateur'
+            String sql = "INSERT INTO utilisateur(nom, prenom, login, mdp) VALUES(?,?,?,?)";
             PreparedStatement ps = this.connect.prepareStatement(sql);
-            ps.setString(1, obj.getLogin());
-            ps.setString(2, obj.getMdp());
+            ps.setString(1, obj.getNom());
+            ps.setString(2, obj.getPrenom());
+            ps.setString(3, obj.getLogin());
+            ps.setString(4, password);
             int rowsInserted = ps.executeUpdate();
             if (rowsInserted > 0) {
                 result = true;
@@ -51,11 +68,35 @@ public class UtilisateurDAO extends DAO<Utilisateur> {
     public boolean update(Utilisateur obj) {
         boolean result = false;
         try {
-            String sql = "UPDATE Utilisateur SET login=?, mdp=? WHERE id_utilisateur = ?";
+            // Il manque les valeurs 'nom' et 'prenom',
+            // ainsi que deux placeholders pour
+            // la mise à jour
+            // Plus de champ 'mdp' car l'objet
+            // 'Utilisateur' ne le le contient plus
+            String sql = "UPDATE Utilisateur SET nom=?, prenom=?, login=? WHERE id_utilisateur = ?";
             PreparedStatement ps = this.connect.prepareStatement(sql);
-            ps.setString(1, obj.getLogin());
-            ps.setString(2, obj.getMdp());
-            ps.setInt(3, obj.getIdUtilisateur());
+            ps.setString(1, obj.getNom());
+            ps.setString(2, obj.getPrenom());
+            ps.setString(3, obj.getLogin());
+            ps.setInt(4, obj.getIdUtilisateur());
+            int rowsUpdated = ps.executeUpdate();
+            if (rowsUpdated > 0) {
+                result = true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    // Fonction pour mettre à jour le mot de passe
+    public boolean updatePassword(String login, String password) {
+        boolean result = false;
+        try {
+            String sql = "UPDATE Utilisateur SET mdp=? WHERE login = ?";
+            PreparedStatement ps = this.connect.prepareStatement(sql);
+            ps.setString(1, password);
+            ps.setString(2, login);
             int rowsUpdated = ps.executeUpdate();
             if (rowsUpdated > 0) {
                 result = true;
@@ -70,8 +111,7 @@ public class UtilisateurDAO extends DAO<Utilisateur> {
         return new Utilisateur(resultSet.getInt("id_utilisateur"),
                 resultSet.getString("nom"),
                 resultSet.getString("prenom"),
-                resultSet.getString("login"),
-                resultSet.getString("mdp"));
+                resultSet.getString("login"));
     }
 
     @Override
@@ -105,20 +145,21 @@ public class UtilisateurDAO extends DAO<Utilisateur> {
             } else {
                 user = null;
             }
-
         } catch (SQLException e) {
             return null;
         }
         return user;
     }
 
-    public Utilisateur authenticate(String login, String password) {
+    // Modification de la fonction qui nécessite seulement
+    // le 'login' car le mot de passe sera comparé haché
+    // dans la classe 'AuthService'
+    public Utilisateur authenticate(String login) {
         Utilisateur user = null;
         try {
-            String sql = "SELECT * FROM utilisateur WHERE login =? AND mdp=?";
+            String sql = "SELECT * FROM utilisateur WHERE login = ?";
             PreparedStatement ps = this.connect.prepareStatement(sql);
             ps.setString(1, login);
-            ps.setString(2, password);
             ResultSet result = ps.executeQuery();
             if (result.next()) {
                 user = hydrate(result);
@@ -127,5 +168,23 @@ public class UtilisateurDAO extends DAO<Utilisateur> {
             return null;
         }
         return user;
+    }
+
+    // Ajout d'une fonction afin de récupérer le mot de
+    // passe sans utiliser l'objet 'Utilisateur'
+    public String getPassword(String login) {
+        String password = null;
+        try {
+            String sql = "SELECT mdp FROM utilisateur WHERE login = ?";
+            PreparedStatement ps = this.connect.prepareStatement(sql);
+            ps.setString(1, login);
+            ResultSet result = ps.executeQuery();
+            if (result.next()) {
+                password = result.getString("mdp");
+            }
+        } catch (SQLException e) {
+            return null;
+        }
+        return password;
     }
 }

@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-
+<?import javafx.scene.control.Hyperlink?>
 
 <Pane maxHeight="-Infinity"
       maxWidth="-Infinity"
@@ -30,8 +30,6 @@
             <children>
                 <HBox prefHeight="100.0" prefWidth="200.0">
                     <children>
-
-                  
                         <Label alignment="CENTER"
                                contentDisplay="CENTER"
                                prefHeight="67.0"
@@ -52,7 +50,7 @@
                             </image>
                         </ImageView>
 
-               
+
                     </children>
                 </HBox>
                 <Separator prefWidth="200.0" style="-fx-background-color: #024010;">
@@ -75,7 +73,8 @@
                                 <Insets left="80.0" top="10.0" />
                             </HBox.margin>
                         </Label>
-                        <TextField fx:id="tfLogin" prefHeight="31.0" prefWidth="262.0" text="jean.dupont@email.com">
+                        <!-- Email écrit dans l'attribut 'text' pour l'utilisateur 'jean.dupont@email.com' -->
+                        <TextField fx:id="tfLogin" prefHeight="31.0" prefWidth="262.0" text="">
                             <opaqueInsets>
                                 <Insets top="15.0" />
                             </opaqueInsets>
@@ -95,13 +94,26 @@
                                 <Insets left="80.0" top="10.0" />
                             </HBox.margin>
                         </Label>
-                        <PasswordField fx:id="tfMDP" prefHeight="25.3" prefWidth="262.0" text="jean">
+                        <!-- Mot de passe écrit dans l'attribut 'text' pour l'utilisateur 'jean.dupont@email.com' -->
+                        <PasswordField fx:id="tfMDP" prefHeight="25.3" prefWidth="262.0" text="">
                             <HBox.margin>
                                 <Insets bottom="10.0" left="5.0" top="5.0" />
                             </HBox.margin>
                         </PasswordField>
+
                     </children>
                 </HBox>
+
+                <!-- Ajouter une option mot de passe oublié ici -->
+<!--                <HBox>-->
+<!--                    <children>-->
+<!--                        <Hyperlink text="Mot de passe oublié" onAction="#showResetPassword">-->
+<!--                            <HBox.margin>-->
+<!--                                <Insets bottom="0" left="170.0" top="-12" />-->
+<!--                            </HBox.margin>-->
+<!--                        </Hyperlink>-->
+<!--                    </children>-->
+<!--                </HBox>-->
                 <Separator prefWidth="200.0" style="-fx-background-color: #024010;" />
                 <StackPane prefHeight="150.0" prefWidth="200.0">
                     <children>
