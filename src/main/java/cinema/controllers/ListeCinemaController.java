@@ -33,7 +33,7 @@ public class ListeCinemaController extends MenuController implements Initializab
     private TableColumn<Cinema, String> tcDenomination, tcFranchise;
 
     @FXML
-    private TableColumn<Cinema, Void> tcModif, tcSupp;
+    private TableColumn<Cinema, Void> tcModif, tcSupp,tcSalle;
 
     @FXML
     private Button bRetour;
@@ -47,6 +47,7 @@ public class ListeCinemaController extends MenuController implements Initializab
         tvCinema.setItems(data);
         addButtonModifierToTable();
         addButtonSupprimerToTable();
+        addButtonSallesToTable();
     }
 
     private ObservableList<Cinema> getCinema() {
@@ -225,6 +226,45 @@ public class ListeCinemaController extends MenuController implements Initializab
         });
         //supprimer le filtre sur la colone
         tcSupp.setSortable(false);
+    }
+
+    private void addButtonSallesToTable() {
+        tcSalle.setCellFactory(column -> new TableCell<>() {
+            private final Button btn = new Button("Voir les salles");
+            {
+                btn.setOnAction(event -> {
+                    // récupère le cinéma de la ligne cliquée
+                    Cinema cinema = getTableView().getItems().get(getIndex());
+                    Stage stageP = (Stage) bRetour.getScene().getWindow();
+                    stageP.close();
+                    try {
+                        FXMLLoader fxmlLoader = new FXMLLoader(
+                                getClass().getResource("/cinema/views/page_liste_salle_cinema.fxml"));
+                        Parent root = fxmlLoader.load();
+
+                        // passe l'idCinema au controller pour filtrer les salles
+                        ListeSalleCinemaController ctrl = fxmlLoader.getController();
+                        ctrl.setIdCinema(cinema.getIdCinema());
+                        ctrl.setName(nameUti);
+
+                        Stage stage = new Stage();
+                        stage.setTitle("Salles du cinéma");
+                        stage.setScene(new Scene(root));
+                        stage.initModality(Modality.APPLICATION_MODAL);
+                        stage.show();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                });
+            }
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+                setGraphic(empty ? null : btn);
+            }
+        });
+        // supprime le filtre sur la colonne
+        tcSalle.setSortable(false);
     }
 
 }

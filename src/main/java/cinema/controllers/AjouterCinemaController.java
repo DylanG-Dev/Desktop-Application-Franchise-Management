@@ -100,7 +100,7 @@ public class AjouterCinemaController extends MenuController implements Initializ
 
 
         // Correction du nom de variable 'bloup' qui doit se nommer 'franchise'
-        Cinema cinema = new Cinema(denomination, adresse, ville, idFranchise);
+        Cinema cinema = new Cinema(0,denomination, adresse, ville, idFranchise);
 
         CinemaDAO cinemaDAO = new CinemaDAO();
         boolean controle = cinemaDAO.create(cinema);
