@@ -1,5 +1,3 @@
-
-
 package cinema.app;
 
 import javafx.application.Application;

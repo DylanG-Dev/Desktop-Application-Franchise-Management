@@ -55,7 +55,39 @@ public class AjouterCinemaController extends MenuController implements Initializ
 
     @FXML
     public void bRetourClick(ActionEvent event) {
-        Navigation.goBack(bRetour.getScene().getWindow());
+        // On fait le lien avec l'ecran actuel
+        Stage stageP = (Stage) bRetour.getScene().getWindow();
+        // on ferme l'écran
+        stageP.close();
+
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(
+                    getClass().getResource("/cinema/views/page_accueil.fxml"));
+            Parent root = fxmlLoader.load();
+
+            AccueilController accueilController = fxmlLoader.getController();
+            accueilController.setName(nameUti);
+            accueilController.setBienvenue();
+
+            // Créer une nouvelle fenêtre (Stage)
+            Stage stage = new Stage();
+            // Correction du titre qui doit être 'Accueil' au lieu de 'Liste franchises'
+            stage.setTitle("Accueil");
+            stage.setScene(new Scene(root));
+            // Ajout de l'icone cinema dans la page 'Accueil'
+            stage.getIcons().add(new Image("/cinema/images/cinema_logo.png"));
+
+
+            // Configurer la fenêtre en tant que modal
+            // Cette ligne ci dessous a été commenté car elle empêchait de minimiser la fenêtre
+            //stage.initModality(Modality.APPLICATION_MODAL);
+
+            // Afficher la fenêtre et attendre qu'elle se ferme
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     @FXML
@@ -68,7 +100,7 @@ public class AjouterCinemaController extends MenuController implements Initializ
 
 
         // Correction du nom de variable 'bloup' qui doit se nommer 'franchise'
-        Cinema cinema = new Cinema(denomination, adresse, ville, idFranchise);
+        Cinema cinema = new Cinema(0,denomination, adresse, ville, idFranchise);
 
         CinemaDAO cinemaDAO = new CinemaDAO();
         boolean controle = cinemaDAO.create(cinema);
