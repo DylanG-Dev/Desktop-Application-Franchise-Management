@@ -13,7 +13,7 @@
            prefWidth="560.0"
            xmlns="http://javafx.com/javafx/22"
            xmlns:fx="http://javafx.com/fxml/1"
-           fx:controller="cinema.controllers.ErrorController">
+           fx:controller="cinema.controllers.ErrorConnexionController">
 
    
     <!-- Contenu principal -->

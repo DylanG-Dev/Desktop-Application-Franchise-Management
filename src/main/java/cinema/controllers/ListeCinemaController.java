@@ -30,6 +30,8 @@ import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import static cinema.controllers.Navigation.setParam;
+
 public class ListeCinemaController extends MenuController implements Initializable {
 
     @FXML
@@ -49,6 +51,37 @@ public class ListeCinemaController extends MenuController implements Initializab
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        FranchiseDAO franchiseDAO = new FranchiseDAO();
+
+        // Programmation fonctionnelle
+        // Collecteur de flux :
+        // https://www.ionos.fr/digitalguide/sites-internet/developpement-web/les-collectors-de-streams-en-java/
+        // toMap :
+        // https://www.geeksforgeeks.org/java/collectors-tomap-method-in-java-with-examples/
+        //
+        Map<Integer, Franchise> franchises = franchiseDAO.findAll()
+                .stream()
+                .collect(Collectors.toMap(Franchise::getIdFranchise, f -> f));
+
+        tcFranchise.setCellValueFactory(cellData -> {
+            Franchise franchise = franchises.get(cellData.getValue().getIdFranchise());
+            return new SimpleStringProperty(
+                    franchise != null ? franchise.getNomFranchise() + " " + franchise.getSiegeSocial() : "Aucune franchise");
+
+        });
+
+        // Ajout de la responsivité pour la balise 'TableView'
+        tvCinema.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        tcDenomination.setCellValueFactory(new PropertyValueFactory<>("denomination"));
+        tcFranchise.setCellValueFactory(new PropertyValueFactory<>("franchise"));
+        ObservableList<Cinema> data = getCinema();
+        tvCinema.setItems(data);
+
+        btnModif();
+        btnSupp();
+    }
+
+    public void rafraichirApresSuppr() {
         FranchiseDAO franchiseDAO = new FranchiseDAO();
 
         // Programmation fonctionnelle
@@ -120,44 +153,67 @@ public class ListeCinemaController extends MenuController implements Initializab
                     Cinema cinema = getTableView().getItems().get(getIndex());
                     // Nom de la variable quoi doit se nommer 'franchiseDAO' à la place de 'etudiantDAO'
                     FranchiseDAO franchiseDAO = new FranchiseDAO();
-                    if (franchiseDAO.getNbFranchiseByIdGerant(cinema.getIdCinema()) >= 1) {
-                        try {
+                    setParam("cinema", cinema);
+                    try {
                             // Charger le fichier FXML
                             FXMLLoader fxmlLoader = new FXMLLoader(
-                                    // Popup non existante
-                                    getClass().getResource("/cinema/views/popup_cinema.fxml"));
+                                    // Popup
+                                    getClass().getResource("/cinema/views/PopupValidSuppCinemaController.fxml"));
                             Parent root = fxmlLoader.load();
-
-                            // Créer une nouvelle fenêtre (Stage)
-                            Stage stage = new Stage();
-                            stage.setTitle("Pop-up");
-                            stage.setScene(new Scene(root));
-                            // Ajout de l'icone cinema dans la popup 'cinema'
-                            stage.getIcons().add(new Image("/cinema/images/cinema_logo.png"));
-
-                            // Configurer la fenêtre en tant que modal
-                            // Cette ligne ci dessous a été commenté car elle empêchait de minimiser la fenêtre
-                            //stage.initModality(Modality.APPLICATION_MODAL);
-
-                            // Afficher la fenêtre et attendre qu'elle se ferme
-                            stage.show();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    } else {
-                        tvCinema.getItems().remove(cinema);
-                        CinemaDAO cinemaDAO = new CinemaDAO();
-                        cinemaDAO.delete(cinema);
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
                 });
             }
-
-            @Override
-            protected void updateItem(Void item, boolean empty) {
-                super.updateItem(item, empty);
-                setGraphic(empty ? null : btn);
-            }
         });
     }
+
+//    private void btnSupp() {
+//        tcSupp.setCellFactory(col -> new TableCell<Cinema, Void>() {
+//            private Button btn = new Button("Supprimer");
+//            {
+//                btn.setOnAction(event -> {
+//                    Cinema cinema = getTableView().getItems().get(getIndex());
+//                    // Nom de la variable quoi doit se nommer 'franchiseDAO' à la place de 'etudiantDAO'
+//                    FranchiseDAO franchiseDAO = new FranchiseDAO();
+//                    if (franchiseDAO.getNbFranchiseByIdGerant(cinema.getIdCinema()) >= 1) {
+//                        try {
+//                            // Charger le fichier FXML
+//                            FXMLLoader fxmlLoader = new FXMLLoader(
+//                                    // Popup non existante
+//                                    getClass().getResource("/cinema/views/popup_cinema.fxml"));
+//                            Parent root = fxmlLoader.load();
+//
+//                            // Créer une nouvelle fenêtre (Stage)
+//                            Stage stage = new Stage();
+//                            stage.setTitle("Pop-up");
+//                            stage.setScene(new Scene(root));
+//                            // Ajout de l'icone cinema dans la popup 'cinema'
+//                            stage.getIcons().add(new Image("/cinema/images/cinema_logo.png"));
+//
+//                            // Configurer la fenêtre en tant que modal
+//                            // Cette ligne ci dessous a été commenté car elle empêchait de minimiser la fenêtre
+//                            //stage.initModality(Modality.APPLICATION_MODAL);
+//
+//                            // Afficher la fenêtre et attendre qu'elle se ferme
+//                            stage.show();
+//                        } catch (Exception e) {
+//                            e.printStackTrace();
+//                        }
+//                    } else {
+//                        tvCinema.getItems().remove(cinema);
+//                        CinemaDAO cinemaDAO = new CinemaDAO();
+//                        cinemaDAO.delete(cinema);
+//                    }
+//                });
+//            }
+//
+//            @Override
+//            protected void updateItem(Void item, boolean empty) {
+//                super.updateItem(item, empty);
+//                setGraphic(empty ? null : btn);
+//            }
+//        });
+//    }
 
 }

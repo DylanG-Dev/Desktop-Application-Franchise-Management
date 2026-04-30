@@ -75,7 +75,7 @@ public class Navigation {
                 Parent root = FXMLLoader.load(Navigation.class.getResource(fxmlPath));
                 Stage newStage = new Stage();
                 newStage.setScene(new Scene(root));
-    //            newStage.setResizable(false);
+                newStage.setResizable(false);
                 newStage.setTitle(getTitle(fxmlPath));
 
                 // Permet de pouvoir modifier la taille de la fenêtre sauf pour la page de connexion

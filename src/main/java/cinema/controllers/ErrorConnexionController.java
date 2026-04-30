@@ -9,7 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
-public class ErrorController implements Initializable {
+public class ErrorConnexionController implements Initializable {
     @FXML
     private Button ButtonOk;
 
@@ -21,6 +21,5 @@ public class ErrorController implements Initializable {
     public void ButtonOkOnAction(ActionEvent actionEvent) {
         Stage stage = (Stage) ButtonOk.getScene().getWindow();
         stage.close();
-
     }
 }
