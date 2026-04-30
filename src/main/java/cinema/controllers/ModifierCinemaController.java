@@ -90,25 +90,7 @@ public class ModifierCinemaController extends MenuController implements Initiali
             boolean controle = cinemaDAO.update(cinema);
 
             if (controle) {
-                // ferme la fenêtre de modification et retourne à la liste
-                Stage stageP = (Stage) bRetour.getScene().getWindow();
-                stageP.close();
-                try {
-                    FXMLLoader fxmlLoader = new FXMLLoader(
-                            getClass().getResource("/cinema/views/page_liste_cinema.fxml"));
-                    Parent root = fxmlLoader.load();
-
-                    ListeCinemaController listeCinemaController = fxmlLoader.getController();
-                    listeCinemaController.setName(nameUti);
-
-                    Stage stage = new Stage();
-                    stage.setTitle("Liste cinémas");
-                    stage.setScene(new Scene(root));
-                    stage.initModality(Modality.APPLICATION_MODAL);
-                    stage.show();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                Navigation.goTo("/cinema/views/page_liste_cinema.fxml");
             }
         } else {
             // affiche une popup d'erreur si un champ est vide ou aucune franchise sélectionnée
@@ -130,24 +112,6 @@ public class ModifierCinemaController extends MenuController implements Initiali
 
     @FXML
     private void bRetourClick(ActionEvent event) {
-        // ferme la fenêtre et retourne à la liste des cinémas sans sauvegarder
-        Stage stageP = (Stage) bRetour.getScene().getWindow();
-        stageP.close();
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(
-                    getClass().getResource("/cinema/views/page_liste_cinema.fxml"));
-            Parent root = fxmlLoader.load();
-
-            ListeCinemaController listeCinemaController = fxmlLoader.getController();
-            listeCinemaController.setName(nameUti);
-
-            Stage stage = new Stage();
-            stage.setTitle("Liste cinémas");
-            stage.setScene(new Scene(root));
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        Navigation.goBack(bRetour.getScene().getWindow());
     }
 }

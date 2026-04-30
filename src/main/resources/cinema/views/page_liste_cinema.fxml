@@ -91,18 +91,18 @@
             </children>
         </VBox>
 
-
+      
         <TableView fx:id="tvCinema" layoutY="50.0" prefHeight="292.0" prefWidth="804.0">
             <columns>
                 <TableColumn fx:id="tcDenomination" prefWidth="200.0" text="Dénomination" />
                 <TableColumn fx:id="tcFranchise" prefWidth="150.0" text="Franchise" />
-                <TableColumn fx:id="tcVs" prefWidth="100.0" text="Voir salle" />
-                <TableColumn fx:id="tcSupp" prefWidth="110.0" text="Supprimer" />
+                <TableColumn fx:id="tcSalle" prefWidth="100.0" text="Voir plus" />
                 <TableColumn fx:id="tcModif" prefWidth="110.0" text="Modifier" />
+                <TableColumn fx:id="tcSupp" prefWidth="110.0" text="Supprimer" />
             </columns>
         </TableView>
 
-
+      
         <!-- HBox harmonisé pour le bouton de retour -->
         <HBox alignment="CENTER"
               layoutY="355.0"
@@ -124,7 +124,7 @@
             </children>
         </HBox>
 
-
+      
         <!-- Bande verte en bas pour harmonisation -->
         <Pane layoutX="0.0" layoutY="439.0" prefHeight="39.0" prefWidth="804.0" />
         <QuadCurve controlX="67.66667938232422"

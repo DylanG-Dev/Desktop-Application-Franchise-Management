@@ -62,24 +62,6 @@ public class ListeSalleCinemaController extends MenuController implements Initia
 
     @FXML
     public void bRetourClick(ActionEvent event) {
-        // ferme la fenêtre et retourne à la liste des cinémas
-        Stage stageP = (Stage) bRetour.getScene().getWindow();
-        stageP.close();
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(
-                    getClass().getResource("/cinema/views/page_liste_cinema.fxml"));
-            Parent root = fxmlLoader.load();
-
-            ListeCinemaController listeCinemaController = fxmlLoader.getController();
-            listeCinemaController.setName(nameUti);
-
-            Stage stage = new Stage();
-            stage.setTitle("Liste cinémas");
-            stage.setScene(new Scene(root));
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        Navigation.goBack(bRetour.getScene().getWindow());
     }
 }

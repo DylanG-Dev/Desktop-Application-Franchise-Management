@@ -33,7 +33,7 @@ public class ListeCinemaController extends MenuController implements Initializab
     private TableColumn<Cinema, String> tcDenomination, tcFranchise;
 
     @FXML
-    private TableColumn<Cinema, Void> tcModif, tcSupp,tcSalle;
+    private TableColumn<Cinema, Void> tcModif, tcSupp, tcSalle;
 
     @FXML
     private Button bRetour;
@@ -59,67 +59,9 @@ public class ListeCinemaController extends MenuController implements Initializab
     }
 
     public void bRetourClick(ActionEvent actionEvent) {
-        Stage stageP = (Stage) bRetour.getScene().getWindow();
-        stageP.close();
-
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(
-                    getClass().getResource("/cinema/views/page_accueil.fxml"));
-            Parent root = fxmlLoader.load();
-
-            AccueilController accueilController = fxmlLoader.getController();
-            accueilController.setName(nameUti);
-            accueilController.setBienvenue();
-
-            // Créer une nouvelle fenêtre (Stage)
-            Stage stage = new Stage();
-            stage.setTitle("Liste franchises");
-            stage.setScene(new Scene(root));
-
-            // Configurer la fenêtre en tant que modal
-            stage.initModality(Modality.APPLICATION_MODAL);
-
-            // Afficher la fenêtre et attendre qu'elle se ferme
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        Navigation.goBack(bRetour.getScene().getWindow());
     }
 
-    private void btnModif() {
-        tcModif.setCellFactory(column -> new TableCell<Cinema, Void>() {
-            private Button btn = new Button("Modifier");
-            {
-                btn.setOnAction(event -> {
-                    Cinema cinema = getTableView().getItems().get(getIndex());
-                    Stage stageP = (Stage) bRetour.getScene().getWindow();
-                    stageP.close();
-
-                    try {
-                        FXMLLoader fxmlLoader = new FXMLLoader(
-                                getClass().getResource("/cinema/views/page_modif_cinema.fxml"));
-                        Parent root = fxmlLoader.load();
-
-                        Stage stage = new Stage();
-                        stage.setTitle("Modification cinema");
-                        stage.setScene(new Scene(root));
-
-                        stage.initModality(Modality.APPLICATION_MODAL);
-
-                        stage.show();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                });
-            }
-
-            @Override
-            protected void updateItem(Void item, boolean empty) {
-                super.updateItem(item, empty);
-                setGraphic(empty ? null : btn);
-            }
-        });
-    }
 
     private void btnSupp() {
         tcSupp.setCellFactory(col -> new TableCell<Cinema, Void>() {
@@ -169,28 +111,7 @@ public class ListeCinemaController extends MenuController implements Initializab
             {
                 btn.setOnAction(event -> {
                     Cinema cinema = getTableView().getItems().get(getIndex());
-                    Stage stageP = (Stage) bRetour.getScene().getWindow();
-                    stageP.close();
-
-                    try {
-                        FXMLLoader fxmlLoader = new FXMLLoader(
-                                getClass().getResource("/cinema/views/page_modif_cinema.fxml"));
-                        Parent root = fxmlLoader.load();
-
-                        ModifierCinemaController modifierCinemaCtrl = fxmlLoader.getController();
-                        modifierCinemaCtrl.setAttributs(cinema);
-                        modifierCinemaCtrl.setName(cinema.getDenomination());
-
-                        Stage stage = new Stage();
-                        stage.setTitle("Modification cinema");
-                        stage.setScene(new Scene(root));
-
-                        stage.initModality(Modality.APPLICATION_MODAL);
-
-                        stage.show();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+                    Navigation.goTo("/cinema/views/page_modif_cinema.fxml", "cinema", cinema, btn.getScene().getWindow());
                 });
             }
             @Override
@@ -207,7 +128,6 @@ public class ListeCinemaController extends MenuController implements Initializab
     private void addButtonSupprimerToTable() {
         tcSupp.setCellFactory(column -> new TableCell<>() {
             private final Button btn = new Button("Supprimer");
-
             {
                 btn.setOnAction(event -> {
                     Cinema cinema = getTableView().getItems().get(getIndex());
@@ -235,26 +155,29 @@ public class ListeCinemaController extends MenuController implements Initializab
                 btn.setOnAction(event -> {
                     // récupère le cinéma de la ligne cliquée
                     Cinema cinema = getTableView().getItems().get(getIndex());
-                    Stage stageP = (Stage) bRetour.getScene().getWindow();
-                    stageP.close();
-                    try {
-                        FXMLLoader fxmlLoader = new FXMLLoader(
-                                getClass().getResource("/cinema/views/page_liste_salle_cinema.fxml"));
-                        Parent root = fxmlLoader.load();
 
-                        // passe l'idCinema au controller pour filtrer les salles
-                        ListeSalleCinemaController ctrl = fxmlLoader.getController();
-                        ctrl.setIdCinema(cinema.getIdCinema());
-                        ctrl.setName(nameUti);
+                    Navigation.goTo("/cinema/views/page_modif_salle.fxml");
 
-                        Stage stage = new Stage();
-                        stage.setTitle("Salles du cinéma");
-                        stage.setScene(new Scene(root));
-                        stage.initModality(Modality.APPLICATION_MODAL);
-                        stage.show();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+//                    Stage stageP = (Stage) bRetour.getScene().getWindow();
+//                    stageP.close();
+//                    try {
+//                        FXMLLoader fxmlLoader = new FXMLLoader(
+//                                getClass().getResource("/cinema/views/page_liste_salle_cinema.fxml"));
+//                        Parent root = fxmlLoader.load();
+//
+//                        // passe l'idCinema au controller pour filtrer les salles
+//                        ListeSalleCinemaController ctrl = fxmlLoader.getController();
+//                        ctrl.setIdCinema(cinema.getIdCinema());
+//                        ctrl.setName(nameUti);
+//
+//                        Stage stage = new Stage();
+//                        stage.setTitle("Salles du cinéma");
+//                        stage.setScene(new Scene(root));
+//                        stage.initModality(Modality.APPLICATION_MODAL);
+//                        stage.show();
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
                 });
             }
             @Override
