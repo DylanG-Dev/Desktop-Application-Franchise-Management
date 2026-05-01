@@ -95,6 +95,8 @@
         <TableView fx:id="tvCinema" layoutY="50.0" prefHeight="292.0" prefWidth="804.0">
             <columns>
                 <TableColumn fx:id="tcDenomination" prefWidth="200.0" text="Dénomination" />
+                <TableColumn fx:id="tcAdresse" prefWidth="200.0" text="Adresse" />
+                <TableColumn fx:id="tcVille" prefWidth="200.0" text="Ville" />
                 <TableColumn fx:id="tcFranchise" prefWidth="150.0" text="Franchise" />
                 <TableColumn fx:id="tcSalle" prefWidth="100.0" text="Voir les salles" />
                 <TableColumn fx:id="tcModif" prefWidth="110.0" text="Modifier" />

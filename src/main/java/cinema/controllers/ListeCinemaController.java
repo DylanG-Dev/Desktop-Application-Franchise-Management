@@ -2,12 +2,15 @@ package cinema.controllers;
 
 import java.net.URL;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 import cinema.BO.Cinema;
 import cinema.BO.Franchise;
 import cinema.DAO.CinemaDAO;
 import cinema.DAO.FranchiseDAO;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -30,7 +33,7 @@ public class ListeCinemaController extends MenuController implements Initializab
     private TableView<Cinema> tvCinema;
 
     @FXML
-    private TableColumn<Cinema, String> tcDenomination, tcFranchise;
+    private TableColumn<Cinema, String> tcDenomination, tcFranchise, tcAdresse ,tcVille;
 
     @FXML
     private TableColumn<Cinema, Void> tcModif, tcSupp, tcSalle;
@@ -40,9 +43,27 @@ public class ListeCinemaController extends MenuController implements Initializab
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        FranchiseDAO franchiseDAO = new FranchiseDAO();
+
+        // Programmation fonctionnelle
+        // Collecteur de flux :
+        // https://www.ionos.fr/digitalguide/sites-internet/developpement-web/les-collectors-de-streams-en-java/
+        // toMap :
+        // https://www.geeksforgeeks.org/java/collectors-tomap-method-in-java-with-examples/
+        //
+        Map<Integer, Franchise> franchises = franchiseDAO.findAll()
+                        .stream()
+                                .collect(Collectors.toMap(Franchise::getIdFranchise, f -> f));
+
+        tcFranchise.setCellValueFactory(cellData -> {
+            Franchise franchise = franchises.get(cellData.getValue().getIdFranchise());
+            return new SimpleStringProperty(
+                franchise != null ? franchise.getNomFranchise() : "Aucune franchise");
+        });
 
         tcDenomination.setCellValueFactory(new PropertyValueFactory<>("denomination"));
-        tcFranchise.setCellValueFactory(new PropertyValueFactory<>("franchise"));
+        tcAdresse.setCellValueFactory(new PropertyValueFactory<>("adresse"));
+        tcVille.setCellValueFactory(new PropertyValueFactory<>("ville"));
         ObservableList<Cinema> data = getCinema();
         tvCinema.setItems(data);
         addButtonModifierToTable();
