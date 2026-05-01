@@ -22,6 +22,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import static cinema.controllers.Navigation.getParam;
+
 public class ListeSalleCinemaController extends MenuController implements Initializable {
 
     @FXML
@@ -43,10 +45,12 @@ public class ListeSalleCinemaController extends MenuController implements Initia
         tcNumero.setCellValueFactory(new PropertyValueFactory<>("numero"));
         tcDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
         tcNbPlaces.setCellValueFactory(new PropertyValueFactory<>("nbPlaces"));
+
+        setIdCinema();
     }
 
-    public void setIdCinema(int idCinema) {
-        this.idCinema = idCinema;
+    public void setIdCinema() {
+        int idCinema = getParam("cinema");
         // charge uniquement les salles du cinéma sélectionné
         SalleDAO salleDAO = new SalleDAO();
         List<Salle> toutes = salleDAO.findAll();

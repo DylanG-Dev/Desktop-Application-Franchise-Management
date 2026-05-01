@@ -39,15 +39,15 @@
                         <MenuItem mnemonicParsing="false" onAction="#bAjouterFranchiseClick" text="Ajouter une franchise" />
                     </items>
                 </Menu>
-                <Menu fx:id="gestionCinema" mnemonicParsing="false" text="Gestion section">
+                <Menu fx:id="gestionCinema" mnemonicParsing="false" text="Gestion cinémas">
                     <graphic>
                         <ImageView fitHeight="16" fitWidth="16">
                             <image><Image url="@../images/cinema_32x32.png" /></image>
                         </ImageView>
                     </graphic>
                     <items>
-                        <MenuItem mnemonicParsing="false" onAction="#bListeCinemaClick" text="Liste des sections" />
-                        <MenuItem mnemonicParsing="false" onAction="#bAjouterCinemaClick" text="Ajouter une section" />
+                        <MenuItem mnemonicParsing="false" onAction="#bListeCinemaClick" text="Liste des cinémas" />
+                        <MenuItem mnemonicParsing="false" onAction="#bAjouterCinemaClick" text="Ajouter un cinéma" />
                     </items>
                 </Menu>
                 <Menu fx:id="gestionSalle" mnemonicParsing="false" text="Gestion salles">
@@ -57,8 +57,8 @@
                         </ImageView>
                     </graphic>
                     <items>
-                        <MenuItem mnemonicParsing="false" onAction="#bListeSalleClick" text="Liste cours" />
-                        <MenuItem mnemonicParsing="false" onAction="#bAjouterSalleClick" text="Ajouter un cours" />
+                        <MenuItem mnemonicParsing="false" onAction="#bListeSalleClick" text="Liste salles" />
+                        <MenuItem mnemonicParsing="false" onAction="#bAjouterSalleClick" text="Ajouter une salle" />
                     </items>
                 </Menu>
                 <Menu fx:id="bAutres" mnemonicParsing="false" text="Autres">

@@ -29,8 +29,10 @@ public class ModifierFranchiseController extends MenuController implements Initi
 
     @FXML
     private TextField tfNomFranchise, tfSiegeSocial;
+
     @FXML
     private Button bRetour;
+
     @FXML
     private ListView<Utilisateur> lvGerantFranchise;
 

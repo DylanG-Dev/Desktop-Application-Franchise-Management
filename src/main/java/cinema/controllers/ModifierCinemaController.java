@@ -6,8 +6,10 @@ import java.util.ResourceBundle;
 
 import cinema.BO.Cinema;
 import cinema.BO.Franchise;
+import cinema.BO.Utilisateur;
 import cinema.DAO.CinemaDAO;
 import cinema.DAO.FranchiseDAO;
+import cinema.DAO.UtilisateurDAO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -22,16 +24,15 @@ import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import static cinema.controllers.Navigation.getParam;
+
 public class ModifierCinemaController extends MenuController implements Initializable {
 
     @FXML
     private TextField tfDenomination, tfAdresse, tfVille;
 
     @FXML
-    private List<Franchise> franchises;
-
-    @FXML
-    private ListView<String> lvFranchise;
+    private ListView<Franchise> lvFranchiseCinema;
 
     @FXML
     private Button bRetour, bEnregistrer;
@@ -41,32 +42,33 @@ public class ModifierCinemaController extends MenuController implements Initiali
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        ObservableList<Franchise> franchises = getFranchiseList();
+        lvFranchiseCinema.setItems(franchises);
+
+        setAttributs(getParam("cinema"));
+    }
+
+    private ObservableList<Franchise> getFranchiseList() {
+
         FranchiseDAO franchiseDAO = new FranchiseDAO();
-        franchises = franchiseDAO.findAll(); // stocke la liste complète
-        ObservableList<String> noms = FXCollections.observableArrayList();
-        for (Franchise f : franchises) {
-            noms.add(f.getNomFranchise());
-        }
-        lvFranchise.setItems(noms);
+        List<Franchise> franchises = franchiseDAO.findAll();
+
+        ObservableList<Franchise> list = FXCollections.observableArrayList(franchises);
+        return list;
     }
 
     public void setAttributs(Cinema cinema) {
-        // récupère les identifiants du cinéma reçu
-        this.idCinema = cinema.getIdCinema();
-        this.idFranchise = cinema.getIdFranchise();
-
         // pré-remplit les champs avec les données actuelles du cinéma
         tfDenomination.setText(cinema.getDenomination());
         tfAdresse.setText(cinema.getAdresse());
         tfVille.setText(cinema.getVille());
+        lvFranchiseCinema.getSelectionModel().select(cinema.getIdFranchise());
 
-        // pré-sélectionne la franchise du cinéma dans la ListView
-        for (int i = 0; i < franchises.size(); i++) {
-            if (franchises.get(i).getIdFranchise() == cinema.getIdFranchise()) {
-                lvFranchise.getSelectionModel().select(i);
-                break;
-            }
-        }
+        // récupère les identifiants du cinéma reçu
+        this.idCinema = cinema.getIdCinema();
+        this.idFranchise = cinema.getIdFranchise();
+
+        getParam("cinema");
     }
 
     @FXML
@@ -75,17 +77,17 @@ public class ModifierCinemaController extends MenuController implements Initiali
         String denomination = tfDenomination.getText();
         String adresse = tfAdresse.getText();
         String ville = tfVille.getText();
-
-        // retrouve la franchise correspondante via l'index sélectionné dans la ListView
-        int index = lvFranchise.getSelectionModel().getSelectedIndex();
-        Franchise selectedFranchise = index >= 0 ? franchises.get(index) : null;
+        Franchise selected = lvFranchiseCinema.getSelectionModel().getSelectedItem();
 
         // vérifie que tous les champs sont remplis et qu'une franchise est sélectionnée
         if (!denomination.trim().isEmpty() && !adresse.trim().isEmpty()
-                && !ville.trim().isEmpty() && selectedFranchise != null) {
+                && !ville.trim().isEmpty() && selected != null) {
+
+            // retrouve la franchise correspondante via l'index sélectionné dans la ListView
+            int idFranchise = lvFranchiseCinema.getSelectionModel().getSelectedIndex();
 
             // crée le cinéma modifié avec les nouvelles valeurs
-            Cinema cinema = new Cinema(idCinema, denomination, adresse, ville, selectedFranchise.getIdFranchise());
+            Cinema cinema = new Cinema(idCinema, denomination, adresse, ville, idFranchise);
             CinemaDAO cinemaDAO = new CinemaDAO();
             boolean controle = cinemaDAO.update(cinema);
 

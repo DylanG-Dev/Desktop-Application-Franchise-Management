@@ -194,7 +194,7 @@
                         <Font name="System Bold" size="14.0" />
                     </font>
                 </Label>
-                <ListView fx:id="lvFranchise" prefHeight="26.0" prefWidth="375.0" />
+                <ListView fx:id="lvFranchiseCinema" prefHeight="26.0" prefWidth="375.0" />
             </children>
         </HBox>
 

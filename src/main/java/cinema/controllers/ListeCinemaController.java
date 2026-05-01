@@ -156,28 +156,9 @@ public class ListeCinemaController extends MenuController implements Initializab
                     // récupère le cinéma de la ligne cliquée
                     Cinema cinema = getTableView().getItems().get(getIndex());
 
-                    Navigation.goTo("/cinema/views/page_modif_salle.fxml");
+                    int idCinema = cinema.getIdCinema();
 
-//                    Stage stageP = (Stage) bRetour.getScene().getWindow();
-//                    stageP.close();
-//                    try {
-//                        FXMLLoader fxmlLoader = new FXMLLoader(
-//                                getClass().getResource("/cinema/views/page_liste_salle_cinema.fxml"));
-//                        Parent root = fxmlLoader.load();
-//
-//                        // passe l'idCinema au controller pour filtrer les salles
-//                        ListeSalleCinemaController ctrl = fxmlLoader.getController();
-//                        ctrl.setIdCinema(cinema.getIdCinema());
-//                        ctrl.setName(nameUti);
-//
-//                        Stage stage = new Stage();
-//                        stage.setTitle("Salles du cinéma");
-//                        stage.setScene(new Scene(root));
-//                        stage.initModality(Modality.APPLICATION_MODAL);
-//                        stage.show();
-//                    } catch (Exception e) {
-//                        e.printStackTrace();
-//                    }
+                    Navigation.goTo("/cinema/views/page_liste_salle_cinema.fxml", "cinema", idCinema, bRetour.getScene().getWindow());
                 });
             }
             @Override
