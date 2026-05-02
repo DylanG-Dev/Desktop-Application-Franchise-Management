@@ -128,65 +128,12 @@ public class ConnexionController implements Initializable {
 
     @FXML
     private void showError() {
-        try {
-            // Charger le fichier FXML pour la pop-up
-            FXMLLoader fxmlLoader = new FXMLLoader(
-                    getClass().getResource("/cinema/views/erreur_connexion.fxml"));
-            Parent root = fxmlLoader.load();
-
-            // Obtenir le contrôleur de la pop-up
-            ErrorConnexionController errorController = fxmlLoader.getController();
-
-            // Créer une nouvelle fenêtre (Stage)
-            Stage stage = new Stage();
-            stage.setTitle("Error Window");
-            stage.setScene(new Scene(root));
-            // Ajout de l'icone cinema dans la popup d'erreur d'identifiants de connexion
-            stage.getIcons().add(new Image("/cinema/images/cinema_logo.png"));
-
-            // Configurer la fenêtre en tant que modal afin
-            // que l'utilisateur ne puisse pas retourner sur
-            // la fenêtre de connexion sans la fermer
-            stage.initModality(Modality.APPLICATION_MODAL);
-
-            // Afficher la fenêtre et attendre qu'elle se ferme
-            stage.showAndWait();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        Navigation.showPopup("/cinema/views/erreur_connexion.fxml", "Erreur connexion");
     }
 
     @FXML
     private void showResetPassword() {
-        try {
-            // Charger le fichier FXML pour la pop-up
-            FXMLLoader fxmlLoader = new FXMLLoader(
-                    getClass().getResource("/cinema/views/reset_password.fxml"));
-            Parent root = fxmlLoader.load();
-
-            // Obtenir le contrôleur de la pop-up
-            ResetPasswordController ResetPasswordController = fxmlLoader.getController();
-
-            // Passer la variable au contrôleur de la pop-up
-            // errorController.setMajLabel(Integer.toString(compteur));
-
-            // Créer une nouvelle fenêtre (Stage)
-            Stage stage = new Stage();
-            stage.setTitle("Réinitialiser mot de passe");
-            stage.setScene(new Scene(root));
-            // Ajout de l'icone cinema dans la popup de réinitialisation de mot de passe
-            stage.getIcons().add(new Image("/cinema/images/cinema_logo.png"));
-
-            // Configurer la fenêtre en tant que modal
-            stage.initModality(Modality.APPLICATION_MODAL);
-
-            // Afficher la fenêtre et attendre qu'elle se ferme
-            stage.showAndWait();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        Navigation.showPopup("/cinema/views/reset_password.fxml", "Réinitialiser mot de passe");
     }
 
 }

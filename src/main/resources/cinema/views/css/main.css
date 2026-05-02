@@ -27,3 +27,15 @@
     -fx-font-weight: bold;
     -fx-text-fill: #024010;
 }
+
+.error-message {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: red;
+}
+
+.validate-message {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: green;
+}

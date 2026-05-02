@@ -16,17 +16,20 @@
 <?import javafx.scene.shape.QuadCurve?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.layout.Pane?>
 
 
+<?import javafx.scene.layout.StackPane?>
 <Pane maxHeight="-Infinity"
-    maxWidth="-Infinity"
-    minHeight="-Infinity"
-    minWidth="-Infinity"
-    prefHeight="478.0"
-    prefWidth="729.0"
-    xmlns="http://javafx.com/javafx/23.0.1"
-    xmlns:fx="http://javafx.com/fxml/1"
-    fx:controller="cinema.controllers.ModifierFranchiseController">
+      maxWidth="-Infinity"
+      minHeight="-Infinity"
+      minWidth="-Infinity"
+      prefHeight="478.0"
+      prefWidth="729.0"
+      xmlns="http://javafx.com/javafx/23.0.1"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="cinema.controllers.ModifierFranchiseController"
+      stylesheets="@./css/main.css">
     <children>
         <MenuBar layoutY="1.0" prefHeight="26.0" prefWidth="729.0">
             <menus>
@@ -175,6 +178,14 @@
             </children>
         </HBox>
 
+        <Label fx:id="lblError"
+               layoutX="0.0"
+               layoutY="350.0"
+               prefWidth="729.0"
+               alignment="CENTER"
+               styleClass="error-message"
+               text="Veuillez remplir tous les champs" />
+
         <HBox alignment="CENTER"
             layoutX="-1.0"
             layoutY="375.0"
@@ -215,7 +226,7 @@
                     controlY="-35.99993896484375"
                     endX="409.6666259765625"
                     endY="9.333282470703125"
-                    fill="#3A3AB6"
+                    fill="#991917"
                     layoutX="348.0"
                     layoutY="30.0"
                     startX="-399.66668701171875"
@@ -229,7 +240,7 @@
 
         <Rectangle arcHeight="5.0"
             arcWidth="5.0"
-            fill="#01a321"
+            fill="#991917"
             height="5.0"
             layoutX="101.0"
             layoutY="77.0"

@@ -24,7 +24,7 @@
 
       
         <!-- Message d'erreur -->
-        <Text fill="#0c7422" text="Erreur : identifiant ou mot de passe incorrect" textAlignment="CENTER" wrappingWidth="480.0">
+        <Text fill="#991917" text="Erreur : identifiant ou mot de passe incorrect" textAlignment="CENTER" wrappingWidth="480.0">
             <font>
                 <Font name="Franklin Gothic Medium" size="22.0" />
             </font>
@@ -36,7 +36,7 @@
                 onAction="#ButtonOkOnAction"
                 prefHeight="35.0"
                 prefWidth="120.0"
-                style="-fx-background-color: #0c7422;"
+                style="-fx-background-color: #991917;"
                 text="OK"
                 textFill="WHITE" />
     </VBox>

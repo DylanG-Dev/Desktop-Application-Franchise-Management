@@ -6,10 +6,8 @@ import java.util.ResourceBundle;
 
 import cinema.BO.Cinema;
 import cinema.BO.Franchise;
-import cinema.BO.Utilisateur;
 import cinema.DAO.CinemaDAO;
 import cinema.DAO.FranchiseDAO;
-import cinema.DAO.UtilisateurDAO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -21,8 +19,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.scene.control.Label;
 
 import static cinema.controllers.Navigation.getParam;
 
@@ -37,6 +37,9 @@ public class ModifierCinemaController extends MenuController implements Initiali
     @FXML
     private Button bRetour, bEnregistrer;
 
+    @FXML
+    private Label lblError;
+
     private int idCinema;
     private int idFranchise; // stocke l'id de la franchise sélectionnée
 
@@ -46,6 +49,12 @@ public class ModifierCinemaController extends MenuController implements Initiali
         lvFranchiseCinema.setItems(franchises);
 
         setAttributs(getParam("cinema"));
+
+
+        lblError.setVisible(false);
+
+        // Permet de ne pas occuper l'espace visuellement
+        lblError.setManaged(false);
     }
 
     private ObservableList<Franchise> getFranchiseList() {
@@ -77,14 +86,14 @@ public class ModifierCinemaController extends MenuController implements Initiali
         String denomination = tfDenomination.getText();
         String adresse = tfAdresse.getText();
         String ville = tfVille.getText();
-        Franchise selected = lvFranchiseCinema.getSelectionModel().getSelectedItem();
+        Franchise franchiseSelected = lvFranchiseCinema.getSelectionModel().getSelectedItem();
 
         // vérifie que tous les champs sont remplis et qu'une franchise est sélectionnée
         if (!denomination.trim().isEmpty() && !adresse.trim().isEmpty()
-                && !ville.trim().isEmpty() && selected != null) {
+                && !ville.trim().isEmpty() && franchiseSelected != null) {
 
             // retrouve la franchise correspondante via l'index sélectionné dans la ListView
-            int idFranchise = lvFranchiseCinema.getSelectionModel().getSelectedIndex();
+            int idFranchise = franchiseSelected.getIdFranchise();
 
             // crée le cinéma modifié avec les nouvelles valeurs
             Cinema cinema = new Cinema(idCinema, denomination, adresse, ville, idFranchise);
@@ -92,28 +101,22 @@ public class ModifierCinemaController extends MenuController implements Initiali
             boolean controle = cinemaDAO.update(cinema);
 
             if (controle) {
-                Navigation.goTo("/cinema/views/page_liste_cinema.fxml");
+                Navigation.goTo("/cinema/views/page_liste_cinema.fxml", bRetour.getScene().getWindow());
+                Navigation.showPopup("/cinema/views/popup_message_cinema_modif.fxml", "Validation modification cinéma");
             }
         } else {
-            // affiche une popup d'erreur si un champ est vide ou aucune franchise sélectionnée
-            try {
-                FXMLLoader fxmlLoader = new FXMLLoader(
-                        getClass().getResource("/cinema/views/popup_erreur_saisie.fxml"));
-                Parent root = fxmlLoader.load();
-
-                Stage stage = new Stage();
-                stage.setTitle("Pop-up");
-                stage.setScene(new Scene(root));
-                stage.initModality(Modality.APPLICATION_MODAL);
-                stage.show();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            messageErreur();
         }
     }
 
     @FXML
     private void bRetourClick(ActionEvent event) {
         Navigation.goBack(bRetour.getScene().getWindow());
+    }
+
+    @FXML
+    public void messageErreur() {
+        lblError.setVisible(true);
+        lblError.setManaged(true);
     }
 }

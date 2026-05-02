@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -18,21 +19,31 @@ import static cinema.controllers.Navigation.getParam;
 public class PopupValidSuppCinemaController extends MenuController implements Initializable {
 
     @FXML
+    private Text tMessage;
+
+    @FXML
     private Button ButtonOkOnAction, ButtonRetourOnAction;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        getParam("cinema");
+        Cinema cinema = getParam("cinema");
     }
 
     public void ButtonOkOnAction(ActionEvent actionEvent) {
-        Cinema cinema = getParam("cinema");
+        try {
+            Cinema cinema = getParam("cinema");
+            CinemaDAO cinemaDAO = new CinemaDAO();
 
-        CinemaDAO cinemaDAO = new CinemaDAO();
-        cinemaDAO.delete(cinema);
+            System.out.println(cinema);
+            cinemaDAO.delete(cinema);
 
-        Stage stage = (Stage) ButtonOkOnAction.getScene().getWindow();
-        stage.close();
+            Stage stage = (Stage) ButtonOkOnAction.getScene().getWindow();
+            stage.close();
+
+            Navigation.showPopup("/cinema/views/popup_message_cinema_suppr.fxml", "Validation suppression cinéma");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void ButtonRetourOnAction(ActionEvent actionEvent) {

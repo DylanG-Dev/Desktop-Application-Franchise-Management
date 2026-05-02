@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.Font?>
+<StackPane
+        prefHeight="157.0"
+        prefWidth="560.0"
+        xmlns="http://javafx.com/javafx"
+        xmlns:fx="http://javafx.com/fxml"
+        fx:controller="cinema.controllers.PopupMessageFranchiseModif">
+
+    <!-- Contenu principal -->
+    <VBox alignment="CENTER" prefWidth="419.0" spacing="30.0">
+        <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+        </padding>
+
+
+        <!-- Message -->
+        <Text fx:id="tMessage" fill="#991917" text="Franchise modifiée avec succès"
+              textAlignment="CENTER"
+              wrappingWidth="480.0">
+            <font>
+                <Font name="Franklin Gothic Medium" size="22.0" />
+            </font>
+        </Text>
+
+
+        <!-- Bouton OK -->
+        <Button fx:id="ButtonOkOnAction"
+                onAction="#ButtonOkOnAction"
+                prefHeight="35.0"
+                prefWidth="120.0"
+                style="-fx-background-color: #991917"
+                text="Ok"
+                textFill="WHITE" />
+    </VBox>
+</StackPane>

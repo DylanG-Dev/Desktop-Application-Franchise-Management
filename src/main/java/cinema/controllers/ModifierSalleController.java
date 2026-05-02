@@ -1,5 +1,6 @@
 package cinema.controllers;
 
+import javafx.scene.control.Label;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -31,13 +32,16 @@ public class ModifierSalleController extends MenuController implements Initializ
     private TextArea taDescription;
 
     @FXML
-    private Spinner spnrNumero, spnrNbPlace;
+    private Spinner<Integer> spnrNumero, spnrNbPlace;
 
     @FXML
     private ListView<Cinema> lvCinemaSalle;
 
     private int idSalle;
     private int idCinema;
+
+    @FXML
+    private Label lblError;
 
     @FXML
     private Button bRetour, bEnregistrer;
@@ -49,6 +53,12 @@ public class ModifierSalleController extends MenuController implements Initializ
         lvCinemaSalle.setItems(cinemas);
 
         setAttributes(getParam("salle"));
+
+
+        lblError.setVisible(false);
+
+        // Permet de ne pas occuper l'espace visuellement
+        lblError.setManaged(false);
     }
 
     private ObservableList<Cinema> getCinemaList() {
@@ -76,9 +86,9 @@ public class ModifierSalleController extends MenuController implements Initializ
     private void bEnregistrerClick(ActionEvent event) {
         // Ajout des attributs pour l'enregistrement
         int idSalle = this.idSalle;
-        int numero = (int) spnrNumero.getValue();
+        int numero = spnrNumero.getValue();
         String description = taDescription.getText();
-        int nbPlace = (int) spnrNbPlace.getValue();
+        int nbPlace = spnrNbPlace.getValue();
         Cinema selected = lvCinemaSalle.getSelectionModel().getSelectedItem();
 
         // Maybe add conditions on value 'numero' which can be equals to the same 'numero' of another 'salle'
@@ -93,37 +103,22 @@ public class ModifierSalleController extends MenuController implements Initializ
             // Mise à jour du nouveau cinéma créé
             boolean controle = salleDAO.update(newSalle);
             if (controle) {
-                Navigation.goTo("/cinema/views/page_liste_salle.fxml");
+                Navigation.goTo("/cinema/views/page_liste_salle.fxml", bRetour.getScene().getWindow());
+                Navigation.showPopup("/cinema/views/popup_message_salle_modif.fxml", "Validation modification salle");
             }
         } else {
-            try {
-                // Charger le fichier FXML
-                FXMLLoader fxmlLoader = new FXMLLoader(
-                        // Popup ajoutEtu non existante
-                        getClass().getResource("/cinema/views/popup_ajout_etu.fxml"));
-                Parent root = fxmlLoader.load();
-
-                // Créer une nouvelle fenêtre (Stage)
-                Stage stage = new Stage();
-                stage.setTitle("Pop-up");
-                stage.setScene(new Scene(root));
-                // Ajout de l'icone cinema dans la page 'Accueil'
-                stage.getIcons().add(new Image("/cinema/images/cinema_logo.png"));
-
-                // Configurer la fenêtre en tant que modal
-                // Cette ligne ci dessous a été commenté car elle empêchait de minimiser la fenêtre
-                //stage.initModality(Modality.APPLICATION_MODAL);
-
-                // Afficher la fenêtre et attendre qu'elle se ferme
-                stage.show();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            messageErreur();
         }
     }
 
     @FXML
     private void bRetourClick(ActionEvent event) {
         Navigation.goBack(bRetour.getScene().getWindow());
+    }
+
+    @FXML
+    public void messageErreur() {
+        lblError.setVisible(true);
+        lblError.setManaged(true);
     }
 }

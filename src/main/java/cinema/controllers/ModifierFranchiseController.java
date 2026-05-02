@@ -1,5 +1,6 @@
 package cinema.controllers;
 
+import javafx.scene.control.Label;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -36,6 +37,9 @@ public class ModifierFranchiseController extends MenuController implements Initi
     @FXML
     private ListView<Utilisateur> lvGerantFranchise;
 
+    @FXML
+    private Label lblError;
+
     private int idFranchise;
     private int idGerant;
 
@@ -45,6 +49,11 @@ public class ModifierFranchiseController extends MenuController implements Initi
         lvGerantFranchise.setItems(utilisateurs);
 
         setAttributes(getParam("franchise"));
+
+        lblError.setVisible(false);
+
+        // Permet de ne pas occuper l'espace visuellement
+        lblError.setManaged(false);
     }
 
     private ObservableList<Utilisateur> getUtilisateurList() {
@@ -80,35 +89,21 @@ public class ModifierFranchiseController extends MenuController implements Initi
             boolean controle = franchiseDAO.update(newFranchise);
             if (controle) {
                 Navigation.goTo("/cinema/views/page_liste_franchise.fxml", bRetour.getScene().getWindow());
+                Navigation.showPopup("/cinema/views/popup_message_franchise_modif.fxml", "Validation modification franchise");
             }
         } else {
-            try {
-                // Charger le fichier FXML
-                FXMLLoader fxmlLoader = new FXMLLoader(
-                        getClass().getResource("/cinema/views/popup_ajout_etu.fxml"));
-                Parent root = fxmlLoader.load();
-
-                // Créer une nouvelle fenêtre (Stage)
-                Stage stage = new Stage();
-                stage.setTitle("Pop-up");
-                stage.setScene(new Scene(root));
-                // Ajout de l'icone cinema dans la popup 'erreur_modification_franchise'
-                stage.getIcons().add(new Image("/cinema/images/cinema_logo.png"));
-
-                // Configurer la fenêtre en tant que modal
-                stage.initModality(Modality.APPLICATION_MODAL);
-
-                // Afficher la fenêtre et attendre qu'elle se ferme
-                stage.show();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
+            messageErreur();
         }
     }
 
     @FXML
     private void bRetourClick(ActionEvent event) {
         Navigation.goBack(bRetour.getScene().getWindow());
+    }
+
+    @FXML
+    public void messageErreur() {
+        lblError.setVisible(true);
+        lblError.setManaged(true);
     }
 }

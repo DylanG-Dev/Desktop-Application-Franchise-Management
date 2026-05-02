@@ -147,6 +147,11 @@
                           GridPane.columnIndex="1" />
 
             </GridPane>
+
+            <StackPane minHeight="25" alignment="CENTER">
+                <Label fx:id="lblSuccess" styleClass="validate-message" text="Cinéma ajouté avec succès"/>
+                <Label fx:id="lblError" styleClass="error-message" text="Veuillez remplir tous les champs"/>
+            </StackPane>
         </VBox>
     </center>
 

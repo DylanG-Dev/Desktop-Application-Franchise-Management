@@ -9,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
@@ -16,6 +17,7 @@ public class Navigation {
 
     // Initialisation et déclaration des attributs
     private static Stage primaryStage;
+    private static Stage popup;
     private static final Stack<String> historique = new Stack<>();
     private static final Map<String, Object> params = new HashMap<>();
 
@@ -23,6 +25,30 @@ public class Navigation {
     public static void setPrimaryStage(Stage stage) {
         primaryStage = stage;
     }
+
+    public static void showPopup(String fxmlPath, String title) {
+        try {
+            Parent root = FXMLLoader.load(Navigation.class.getResource(fxmlPath));
+            Stage newPopup = new Stage();
+            newPopup.setScene(new Scene(root));
+
+            newPopup.setTitle(title);
+            newPopup.setResizable(false);
+
+            // ✅ Réassigner l’icône
+            newPopup.getIcons().clear();
+            newPopup.getIcons()
+                    .add(new Image(Navigation.class.getResourceAsStream("/cinema/images/cinema_logo.png")));
+
+            newPopup.initModality(Modality.APPLICATION_MODAL);
+
+            // Afficher la fenêtre et attendre qu'elle se ferme
+            newPopup.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     // Méthode qui permet d'afficher la fenêtre avec seulement le chemin du fichier 'fxml'
     public static void goTo(String fxmlPath) {
@@ -39,16 +65,13 @@ public class Navigation {
 
                 primaryStage.setTitle(getTitle(fxmlPath));
 
-                if (!fxmlPath.equals("/cinema/views/page_connexion.fxml")) {
-                    primaryStage.setResizable(true);
-                }
-
                 // ✅ Réassigner l’icône
                 primaryStage.getIcons().clear();
                 primaryStage.getIcons()
                         .add(new Image(Navigation.class.getResourceAsStream("/cinema/images/cinema_logo.png")));
 
                 primaryStage.show();
+
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -77,11 +100,6 @@ public class Navigation {
                 newStage.setScene(new Scene(root));
                 newStage.setResizable(false);
                 newStage.setTitle(getTitle(fxmlPath));
-
-                // Permet de pouvoir modifier la taille de la fenêtre sauf pour la page de connexion
-                if (!fxmlPath.equals("/cinema/views/page_connexion.fxml")) {
-                    primaryStage.setResizable(true);
-                }
 
                 // ✅ Ajouter l’icône à la nouvelle fenêtre
                 newStage.getIcons()

@@ -121,10 +121,11 @@
                 pour qu'elle puisse s'étirer comme une balise 'TextField' -->
                 <Spinner fx:id="spnrNumero"
                      maxWidth="Infinity"
-                    GridPane.rowIndex="0"
-                    GridPane.columnIndex="1"
-                         min="1"
-                         max="999"
+                     GridPane.rowIndex="0"
+                     GridPane.columnIndex="1"
+                     editable="true"
+                     min="1"
+                     max="999"
                 />
 
                 <Label text="Description :" styleClass="form-label"
@@ -145,7 +146,8 @@
                          maxWidth="Infinity"
                          GridPane.rowIndex="2"
                          GridPane.columnIndex="1"
-                         min="1"
+                         editable="true"
+                         min="20"
                          max="500"
                 />
 
@@ -159,6 +161,11 @@
                     GridPane.columnIndex="1" />
 
             </GridPane>
+
+            <StackPane minHeight="25" alignment="CENTER">
+                <Label fx:id="lblSuccess" styleClass="validate-message" text="Salle ajoutée avec succès"/>
+                <Label fx:id="lblError" styleClass="error-message" text="Veuillez remplir tous les champs"/>
+            </StackPane>
         </VBox>
     </center>
 

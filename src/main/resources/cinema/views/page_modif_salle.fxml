@@ -20,6 +20,7 @@
 
 <?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.StackPane?>
 <Pane maxHeight="-Infinity"
       maxWidth="-Infinity"
       minHeight="-Infinity"
@@ -28,7 +29,8 @@
       prefWidth="729.0"
       xmlns="http://javafx.com/javafx/23.0.1"
       xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="cinema.controllers.ModifierSalleController">
+      fx:controller="cinema.controllers.ModifierSalleController"
+      stylesheets="@./css/main.css">
     <children>
         <MenuBar layoutY="1.0" prefHeight="26.0" prefWidth="729.0">
             <menus>
@@ -139,6 +141,7 @@
                          maxWidth="Infinity"
                          min="1"
                          max="999"
+                         editable="true"
                          prefHeight="26.0" prefWidth="375.0"
                 />
             </children>
@@ -183,8 +186,9 @@
                 pour qu'elle puisse s'étirer comme une balise 'TextField' -->
                 <Spinner fx:id="spnrNbPlace"
                          maxWidth="Infinity"
-                         min="1"
+                         min="20"
                          max="500"
+                         editable="true"
                          prefHeight="26.0" prefWidth="375.0"
                 />
             </children>
@@ -209,6 +213,14 @@
                 <ListView fx:id="lvCinemaSalle" prefHeight="37.0" prefWidth="375.0" />
             </children>
         </HBox>
+
+        <Label fx:id="lblError"
+               layoutX="0.0"
+               layoutY="350.0"
+               prefWidth="729.0"
+               alignment="CENTER"
+               styleClass="error-message"
+               text="Veuillez remplir tous les champs" />
 
         <HBox alignment="CENTER"
             layoutX="-1.0"

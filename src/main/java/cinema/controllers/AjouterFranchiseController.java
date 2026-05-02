@@ -1,5 +1,6 @@
 package cinema.controllers;
 
+import javafx.scene.control.Label;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -34,12 +35,22 @@ public class AjouterFranchiseController extends MenuController implements Initia
     @FXML
     private ListView<Utilisateur> lvGerantFranchise;
 
+    @FXML
+    private Label lblSuccess, lblError;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
         ObservableList<Utilisateur> utilisateurs = getUtilisateurList();
 
         lvGerantFranchise.setItems(utilisateurs);
+
+        lblSuccess.setVisible(false);
+        lblError.setVisible(false);
+
+        // Permet de ne pas occuper l'espace visuellement
+        lblSuccess.setManaged(false);
+        lblError.setManaged(false);
     }
 
     private ObservableList<Utilisateur> getUtilisateurList() {
@@ -61,7 +72,6 @@ public class AjouterFranchiseController extends MenuController implements Initia
         // Correction des noms de variables 'x' et 'y' qui doivent se nommer 'nomFranchise' et 'siegeSocial'
         String nomFranchise = tfNomFranchise.getText();
         String siegeSocial = tfSiegeSocial.getText();
-
         Utilisateur selectGerant = lvGerantFranchise.getSelectionModel().getSelectedItem();
 
         if (!nomFranchise.trim().isEmpty() && !siegeSocial.trim().isEmpty() && selectGerant != null) {
@@ -76,7 +86,10 @@ public class AjouterFranchiseController extends MenuController implements Initia
                 tfNomFranchise.clear();
                 tfSiegeSocial.clear();
                 lvGerantFranchise.getSelectionModel().clearSelection();
+                messageSuccess();
             }
+        } else {
+            messageErreur();
         }
     }
 
@@ -87,5 +100,21 @@ public class AjouterFranchiseController extends MenuController implements Initia
         if (tfSiegeSocial != null)
             tfSiegeSocial.clear();
         lvGerantFranchise.getSelectionModel().clearSelection();
+    }
+
+    @FXML
+    public void messageSuccess() {
+        lblSuccess.setVisible(true);
+        lblError.setVisible(false);
+        lblSuccess.setManaged(true);
+        lblError.setManaged(false);
+    }
+
+    @FXML
+    public void messageErreur() {
+        lblSuccess.setVisible(false);
+        lblError.setVisible(true);
+        lblSuccess.setManaged(false);
+        lblError.setManaged(true);
     }
 }

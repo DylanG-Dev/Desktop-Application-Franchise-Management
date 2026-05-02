@@ -19,6 +19,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -36,12 +37,22 @@ public class AjouterCinemaController extends MenuController implements Initializ
     @FXML
     private ListView<Franchise> lvFranchise;
 
+    @FXML
+    private Label lblSuccess, lblError;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
         ObservableList<Franchise> franchises = getFranchiseList();
 
         lvFranchise.setItems(franchises);
+
+        lblSuccess.setVisible(false);
+        lblError.setVisible(false);
+
+        // Permet de ne pas occuper l'espace visuellement
+        lblSuccess.setManaged(false);
+        lblError.setManaged(false);
     }
 
     private ObservableList<Franchise> getFranchiseList() {
@@ -63,20 +74,24 @@ public class AjouterCinemaController extends MenuController implements Initializ
         String denomination = tfDenomination.getText();
         String adresse = tfAdresse.getText();
         String ville = tfVille.getText();
-        int idFranchise = lvFranchise.getSelectionModel().getSelectedItem().getIdFranchise();
+        Franchise selectFranchise = lvFranchise.getSelectionModel().getSelectedItem();
 
+        if(!denomination.trim().isEmpty() && !adresse.trim().isEmpty() && !ville.trim().isEmpty() && selectFranchise != null) {
+            int idFranchise = selectFranchise.getIdFranchise();
+            // Correction du nom de variable 'bloup' qui doit se nommer 'franchise'
+            Cinema cinema = new Cinema(denomination, adresse, ville, idFranchise);
 
-
-        // Correction du nom de variable 'bloup' qui doit se nommer 'franchise'
-        Cinema cinema = new Cinema(0,denomination, adresse, ville, idFranchise);
-
-        CinemaDAO cinemaDAO = new CinemaDAO();
-        boolean controle = cinemaDAO.create(cinema);
-        if (controle) {
-            tfDenomination.clear();
-            tfAdresse.clear();
-            tfVille.clear();
-            lvFranchise.getSelectionModel().clearSelection();
+            CinemaDAO cinemaDAO = new CinemaDAO();
+            boolean controle = cinemaDAO.create(cinema);
+            if (controle) {
+                tfDenomination.clear();
+                tfAdresse.clear();
+                tfVille.clear();
+                lvFranchise.getSelectionModel().clearSelection();
+                messageSuccess();
+            }
+        } else {
+            messageErreur();
         }
     }
 
@@ -89,5 +104,21 @@ public class AjouterCinemaController extends MenuController implements Initializ
         if (tfVille != null)
             tfVille.clear();
         lvFranchise.getSelectionModel().clearSelection();
+    }
+
+    @FXML
+    public void messageSuccess() {
+        lblSuccess.setVisible(true);
+        lblError.setVisible(false);
+        lblSuccess.setManaged(true);
+        lblError.setManaged(false);
+    }
+
+    @FXML
+    public void messageErreur() {
+        lblSuccess.setVisible(false);
+        lblError.setVisible(true);
+        lblSuccess.setManaged(false);
+        lblError.setManaged(true);
     }
 }

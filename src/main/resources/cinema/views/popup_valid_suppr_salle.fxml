@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
@@ -24,7 +21,7 @@
 
 
     <!-- Message d'erreur -->
-    <Text fill="#991917;" text="Êtes vous sûr de vouloir supprimer cette salle ?" textAlignment="CENTER" wrappingWidth="480.0">
+    <Text fill="#991917" text="Êtes vous sûr de vouloir supprimer cette salle ?" textAlignment="CENTER" wrappingWidth="480.0">
         <font>
             <Font name="Franklin Gothic Medium" size="22.0" />
         </font>
@@ -36,7 +33,7 @@
             onAction="#ButtonOkOnAction"
             prefHeight="35.0"
             prefWidth="120.0"
-            style="-fx-background-color: #991917;"
+            style="-fx-background-color: #991917"
             text="Supprimer"
             textFill="WHITE" />
 
@@ -45,7 +42,7 @@
                 onAction="#ButtonRetourOnAction"
                 prefHeight="35.0"
                 prefWidth="120.0"
-                style="-fx-background-color: #991917;"
+                style="-fx-background-color: #991917"
                 text="Annuler"
                 textFill="WHITE" />
     </VBox>

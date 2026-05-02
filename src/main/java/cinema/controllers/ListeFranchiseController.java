@@ -157,41 +157,15 @@ public class ListeFranchiseController extends MenuController implements Initiali
     }
 
     private void addButtonSupprimerToTable() {
-        tcSupprimer.setCellFactory(column -> new TableCell<>() {
+        tcSupprimer.setCellFactory(column -> new TableCell<Franchise, Void>() {
             private final Button btn = new Button("Supprimer");
             {
                 btn.setOnAction(event -> {
-                    try {
-                        // Charger le fichier FXML pour la pop-up
-                        FXMLLoader fxmlLoader = new FXMLLoader(
-                                getClass().getResource("/cinema/views/popup_valid_suppr_franchise.fxml"));
-                        Parent root = fxmlLoader.load();
-                        Franchise franchise = getTableView().getItems().get(getIndex());
-                        setParam("franchise", franchise);
-
-                        // Obtenir le contrôleur de la pop-up
-                        PopupValidSuppFranchiseController popupValidSuppFranchiseControllerController = fxmlLoader.getController();
-
-                        // Créer une nouvelle fenêtre (Stage)
-                        Stage stage = new Stage();
-                        stage.setTitle("Validation suppression");
-                        stage.setScene(new Scene(root));
-                        // Ajout de l'icone cinema dans la popup d'erreur d'identifiants de connexion
-                        stage.getIcons().add(new Image("/cinema/images/cinema_logo.png"));
-
-                        // Configurer la fenêtre en tant que modal afin
-                        // que l'utilisateur ne puisse pas retourner sur
-                        // la fenêtre liste salle sans fermer cette fenêtre
-                        stage.initModality(Modality.APPLICATION_MODAL);
-
-                        // Afficher la fenêtre et attendre qu'elle se ferme
-                        stage.showAndWait();
-                        rafraichirApresSuppr();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+                    Franchise franchise = getTableView().getItems().get(getIndex());
+                    setParam("franchise", franchise);
+                    Navigation.showPopup("/cinema/views/popup_valid_suppr_franchise.fxml", "Message d'alerte");
+                    rafraichirApresSuppr();
                 });
-                // btn.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white;");
             }
 
             @Override
@@ -202,27 +176,4 @@ public class ListeFranchiseController extends MenuController implements Initiali
         });
         tcSupprimer.setSortable(false);
     }
-
-//    private void addButtonSupprimerToTable() {
-//        tcSupprimer.setCellFactory(column -> new TableCell<>() {
-//            private final Button btn = new Button("Supprimer");
-//
-//            {
-//                btn.setOnAction(event -> {
-//                    Franchise franchise = getTableView().getItems().get(getIndex());
-//                    tvFranchises.getItems().remove(franchise);
-//                    FranchiseDAO franchiseDAO = new FranchiseDAO();
-//                    franchiseDAO.delete(franchise);
-//                });
-//                // btn.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white;");
-//            }
-//
-//            @Override
-//            protected void updateItem(Void item, boolean empty) {
-//                super.updateItem(item, empty);
-//                setGraphic(empty ? null : btn);
-//            }
-//        });
-//        tcSupprimer.setSortable(false);
-//    }
 }

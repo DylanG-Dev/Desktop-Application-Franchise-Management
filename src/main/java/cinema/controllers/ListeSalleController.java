@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 import cinema.BO.Cinema;
+import cinema.BO.Franchise;
 import cinema.BO.Salle;
 import cinema.DAO.CinemaDAO;
 import cinema.DAO.SalleDAO;
@@ -129,35 +130,10 @@ public class ListeSalleController extends MenuController implements Initializabl
             private final Button btn = new Button("Supprimer");
             {
                 btn.setOnAction(event -> {
-                    try {
-                        // Charger le fichier FXML pour la pop-up
-                        FXMLLoader fxmlLoader = new FXMLLoader(
-                                getClass().getResource("/cinema/views/popup_valid_suppr_salle.fxml"));
-                        Parent root = fxmlLoader.load();
-                        Salle salle = getTableView().getItems().get(getIndex());
-                        setParam("salle", salle);
-
-                        // Obtenir le contrôleur de la pop-up
-                        PopupValidSuppSalleController popupValidSuppController = fxmlLoader.getController();
-
-                        // Créer une nouvelle fenêtre (Stage)
-                        Stage stage = new Stage();
-                        stage.setTitle("Validation suppression");
-                        stage.setScene(new Scene(root));
-                        // Ajout de l'icone cinema dans la popup d'erreur d'identifiants de connexion
-                        stage.getIcons().add(new Image("/cinema/images/cinema_logo.png"));
-
-                        // Configurer la fenêtre en tant que modal afin
-                        // que l'utilisateur ne puisse pas retourner sur
-                        // la fenêtre liste salle sans fermer cette fenêtre
-                        stage.initModality(Modality.APPLICATION_MODAL);
-
-                        // Afficher la fenêtre et attendre qu'elle se ferme
-                        stage.showAndWait();
-                        rafraichirApresSuppr();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+                    Salle salle = getTableView().getItems().get(getIndex());
+                    setParam("salle", salle);
+                    Navigation.showPopup("/cinema/views/popup_valid_suppr_salle.fxml", "Message d'alerte");
+                    rafraichirApresSuppr();
                 });
             }
             @Override
@@ -189,27 +165,4 @@ public class ListeSalleController extends MenuController implements Initializabl
         });
         tcModif.setSortable(false);
     }
-
-//    private void btnSupp() {
-//        tcSupp.setCellFactory(col -> new TableCell<Salle, Void>() {
-//            private final Button btn = new Button("Supprimer");
-//            {
-//                btn.setOnAction(event -> {
-//                    Salle salle = getTableView().getItems().get(getIndex());
-//
-//                    tvSalle.getItems().remove(salle);
-//                    SalleDAO salleDAO = new SalleDAO();
-//                    salleDAO.delete(salle);
-//                });
-//            }
-//
-//            @Override
-//            protected void updateItem(Void item, boolean empty) {
-//                super.updateItem(item, empty);
-//                setGraphic(empty ? null : btn);
-//            }
-//        });
-//        tcSupp.setSortable(false);
-//    }
-
 }

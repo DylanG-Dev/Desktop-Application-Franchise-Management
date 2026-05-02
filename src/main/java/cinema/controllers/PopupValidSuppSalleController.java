@@ -31,6 +31,8 @@ public class PopupValidSuppSalleController extends MenuController implements Ini
 
         Stage stage = (Stage) ButtonOkOnAction.getScene().getWindow();
         stage.close();
+
+        Navigation.showPopup("/cinema/views/popup_message_salle_suppr.fxml", "Validation suppression salle");
     }
 
     public void ButtonRetourOnAction(ActionEvent actionEvent) {

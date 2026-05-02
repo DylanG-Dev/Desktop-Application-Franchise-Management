@@ -9,14 +9,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
-public class ErrorConnexionController implements Initializable {
+public class ErrorConnexionController {
     @FXML
     private Button ButtonOk;
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-
-    }
 
     public void ButtonOkOnAction(ActionEvent actionEvent) {
         Stage stage = (Stage) ButtonOk.getScene().getWindow();

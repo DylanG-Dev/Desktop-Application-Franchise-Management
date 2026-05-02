@@ -34,6 +34,8 @@ public class PopupValidSuppFranchiseController extends MenuController implements
 
             Stage stage = (Stage) ButtonOkOnAction.getScene().getWindow();
             stage.close();
+
+            Navigation.showPopup("/cinema/views/popup_message_franchise_suppr.fxml", "Validation suppression franchise");
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
