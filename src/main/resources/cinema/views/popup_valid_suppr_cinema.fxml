@@ -24,7 +24,7 @@
 
 
     <!-- Message d'erreur -->
-    <Text fx:id="tMessage" fill="#991917" text="Êtes vous sûr de vouloir supprimer ce cinéma ? Cela supprimera également les salles du cinéma"
+    <Text fx:id="tMessage" text="Êtes vous sûr de vouloir supprimer ce cinéma ? Cela supprimera également les salles du cinéma"
           textAlignment="CENTER"
           wrappingWidth="480.0">
         <font>
@@ -38,17 +38,23 @@
             onAction="#ButtonOkOnAction"
             prefHeight="35.0"
             prefWidth="120.0"
-            style="-fx-background-color: #991917"
             text="Supprimer"
-            textFill="WHITE" />
+            textFill="#024010">
+        <font>
+            <Font size="17.0" />
+        </font>
+        </Button>
 
         <!-- Bouton OK -->
         <Button fx:id="ButtonRetourOnAction"
                 onAction="#ButtonRetourOnAction"
                 prefHeight="35.0"
                 prefWidth="120.0"
-                style="-fx-background-color: #991917"
                 text="Annuler"
-                textFill="WHITE" />
+                textFill="#024010">
+                <font>
+                    <Font size="17.0" />
+                </font>
+        </Button>
     </VBox>
 </StackPane>

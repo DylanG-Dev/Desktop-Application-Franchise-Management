@@ -24,7 +24,7 @@
 
 
         <!-- Message -->
-        <Text fx:id="tMessage" fill="#991917" text="Cinéma supprimé avec succès"
+        <Text fx:id="tMessage" text="Cinéma supprimé avec succès"
               textAlignment="CENTER"
               wrappingWidth="480.0">
             <font>
@@ -38,8 +38,11 @@
                 onAction="#ButtonOkOnAction"
                 prefHeight="35.0"
                 prefWidth="120.0"
-                style="-fx-background-color: #991917"
                 text="Ok"
-                textFill="WHITE" />
+                textFill="#024010">
+                <font>
+                    <Font size="17.0" />
+                </font>
+        </Button>
     </VBox>
 </StackPane>

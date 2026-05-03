@@ -67,6 +67,7 @@ public class FranchiseDAO extends DAO<Franchise> {
     public boolean delete(Franchise obj) {
         boolean controle = false;
         try {
+
             Connection conn = DBManager.getInstance();
 
             Utilisateur currentUti = Session.getUtilisateur();

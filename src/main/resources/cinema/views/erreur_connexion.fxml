@@ -36,8 +36,11 @@
                 onAction="#ButtonOkOnAction"
                 prefHeight="35.0"
                 prefWidth="120.0"
-                style="-fx-background-color: #991917;"
                 text="OK"
-                textFill="WHITE" />
+                textFill="#024010">
+            <font>
+                <Font size="17.0" />
+            </font>
+        </Button>
     </VBox>
 </StackPane>
