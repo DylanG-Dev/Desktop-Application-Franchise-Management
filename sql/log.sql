@@ -1,31 +1,66 @@
+-- Triggers franchise
+DROP TRIGGER IF EXISTS franchise_create ON franchise;
+DROP TRIGGER IF EXISTS franchise_update ON franchise;
+DROP TRIGGER IF EXISTS franchise_delete ON franchise;
+
+-- Triggers cinema
+DROP TRIGGER IF EXISTS cinema_create ON cinema;
+DROP TRIGGER IF EXISTS cinema_update ON cinema;
+DROP TRIGGER IF EXISTS cinema_delete ON cinema;
+
+-- Fonctions franchise
+DROP FUNCTION IF EXISTS trigger_franchise_create();
+DROP FUNCTION IF EXISTS trigger_franchise_update();
+DROP FUNCTION IF EXISTS trigger_franchise_delete();
+
+-- Fonctions cinema
+DROP FUNCTION IF EXISTS trigger_cinema_create();
+DROP FUNCTION IF EXISTS trigger_cinema_update();
+DROP FUNCTION IF EXISTS trigger_cinema_delete();
+
+-- Table log
+DROP TABLE IF EXISTS log;
+
+-- Création table log
 CREATE TABLE log (
-    idlog SERIAL PRIMARY KEY,
-    tableName VARCHAR(50),
+    id_log SERIAL PRIMARY KEY,
+    table_name VARCHAR(50),
     operation VARCHAR(50),
-    dateAction TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    ancienContenu TEXT,
-    nouveauContenu TEXT
+    date_action TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    ancien_contenu TEXT,
+    nouveau_contenu TEXT,
+    id_utilisateur INTEGER
 );
 
+-- Fonction d'insertion
 CREATE OR REPLACE FUNCTION insert_log_function(
-    p_tableName VARCHAR,
+    p_table_name VARCHAR,
     p_operation VARCHAR,
-    p_ancienContenu TEXT,
-    p_nouveauContenu TEXT
+    p_ancien_contenu TEXT,
+    p_nouveau_contenu TEXT
 ) RETURNS void
 LANGUAGE plpgsql
 AS $$
+DECLARE
+    v_id_utilisateur INTEGER;
 BEGIN
+BEGIN
+    v_id_utilisateur := current_setting('app.current_id_utilisateur', true)::INTEGER;
+        EXCEPTION WHEN OTHERS THEN
+    v_id_utilisateur := NULL;
+END;
 INSERT INTO log (
-        tableName,
+        table_name,
         operation,
-        ancienContenu,
-        nouveauContenu
+        ancien_contenu,
+        nouveau_contenu,
+        id_utilisateur
     ) VALUES (
-        p_tableName,
+        p_table_name,
         p_operation,
-        p_ancienContenu,
-        p_nouveauContenu
+        p_ancien_contenu,
+        p_nouveau_contenu,
+        v_id_utilisateur
     );
 END;
 $$;

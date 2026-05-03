@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 import cinema.BO.Utilisateur;
 import cinema.DAO.UtilisateurDAO;
 //import cinema.viewModels.ConnexionViewModel;
+import cinema.Session;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -66,6 +67,9 @@ public class ConnexionController implements Initializable {
             showError();
             return;
         }
+
+        // Sauvegarde l'utilisateur dans la session
+        Session.setUtilisateur(user);
 
         // sinon l'utilisateur est connecté et renvoyé
         // sur la page d'accueil

@@ -17,8 +17,4 @@ public class Session {
     public static void clear() {
         utilisateurConnecte = null;
     }
-
-    // Suppression de toute la partie qui permettait de se
-    // connecter à la BDD car elle est déjà présente dans la
-    // classe 'DBManager.java'
 }

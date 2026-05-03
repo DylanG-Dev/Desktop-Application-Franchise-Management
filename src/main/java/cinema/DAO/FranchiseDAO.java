@@ -1,13 +1,12 @@
 package cinema.DAO;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 import cinema.BO.Franchise;
+import cinema.BO.Utilisateur;
+import cinema.Session;
 
 public class FranchiseDAO extends DAO<Franchise> {
 
@@ -15,6 +14,19 @@ public class FranchiseDAO extends DAO<Franchise> {
     public boolean create(Franchise obj) {
         boolean controle = false;
         try {
+            Connection conn = DBManager.getInstance();
+
+            Utilisateur currentUti = Session.getUtilisateur();
+
+            if (currentUti != null) {
+                String setSql = "SELECT set_config('app.current_id_utilisateur', ?, false)";
+
+                try(PreparedStatement psSet = conn.prepareStatement(setSql)) {
+                    psSet.setString(1, String.valueOf(currentUti.getIdUtilisateur()));
+                    psSet.execute();
+                }
+            }
+
             // 3 colonnes sont déclarées mais 4 placeholders sont fournis
             // Cela provoquera une erreur lors de l'exécution
             // Correction pour laisser seulement 3 placeholders
@@ -55,6 +67,18 @@ public class FranchiseDAO extends DAO<Franchise> {
     public boolean delete(Franchise obj) {
         boolean controle = false;
         try {
+            Connection conn = DBManager.getInstance();
+
+            Utilisateur currentUti = Session.getUtilisateur();
+
+            if (currentUti != null) {
+                String setSql = "SELECT set_config('app.current_id_utilisateur', ?, false)";
+
+                try(PreparedStatement psSet = conn.prepareStatement(setSql)) {
+                    psSet.setString(1, String.valueOf(currentUti.getIdUtilisateur()));
+                    psSet.execute();
+                }
+            }
             String sql = "DELETE FROM franchise WHERE id_franchise = ?;";
             PreparedStatement statement = this.connect.prepareStatement(sql);
             statement.setInt(1, obj.getIdFranchise());
@@ -74,6 +98,18 @@ public class FranchiseDAO extends DAO<Franchise> {
     public boolean update(Franchise obj) {
         boolean controle = false;
         try {
+            Connection conn = DBManager.getInstance();
+
+            Utilisateur currentUti = Session.getUtilisateur();
+
+            if (currentUti != null) {
+                String setSql = "SELECT set_config('app.current_id_utilisateur', ?, false)";
+
+                try(PreparedStatement psSet = conn.prepareStatement(setSql)) {
+                    psSet.setString(1, String.valueOf(currentUti.getIdUtilisateur()));
+                    psSet.execute();
+                }
+            }
             String query = "UPDATE franchise SET nom_franchise = ?, siege_social = ?, id_gerant = ? WHERE id_franchise = ?";
             PreparedStatement statement = this.connect.prepareStatement(query);
             statement.setString(1, obj.getNomFranchise());
