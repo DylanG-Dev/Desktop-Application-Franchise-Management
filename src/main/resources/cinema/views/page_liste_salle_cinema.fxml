@@ -82,7 +82,7 @@
                prefWidth="727.0"
                text="SALLES DU CINÉMA"
                textAlignment="CENTER"
-               textFill="#024010">
+               textFill="#000000">
             <font><Font name="System Bold" size="24.0" /></font>
         </Label>
 

@@ -1,131 +1,138 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Priority?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.QuadCurve?>
 <?import javafx.scene.text.Font?>
 
+<BorderPane
+        minWidth="729.0"
+        minHeight="478.0"
+        maxWidth="Infinity"
+        maxHeight="Infinity"
+        style="-fx-background-color: #f5f5f5;"
+        xmlns="http://javafx.com/javafx/23.0.1"
+        xmlns:fx="http://javafx.com/fxml/1"
+        fx:controller="cinema.controllers.AccueilController">
 
-<Pane maxHeight="-Infinity"
-      maxWidth="-Infinity"
-      minHeight="-Infinity"
-      minWidth="-Infinity"
-      prefHeight="478.0"
-      prefWidth="729.0"
-      xmlns="http://javafx.com/javafx/23.0.1"
-      xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="cinema.controllers.AccueilController">
-    <children>
-        <VBox layoutX="-1.0" prefHeight="48.0" prefWidth="729.0">
-            <children>
-                <MenuBar layoutY="1.0" prefHeight="26.0" prefWidth="711.0">
-                    <menus>
-                        <Menu fx:id="gestionFranchise" mnemonicParsing="false" text="Gestion franchises">
-                            <graphic>
-                                <ImageView fitWidth="16" fitHeight="16">
-                                    <image>
-                                        <Image url="@../images/franchise_64x64.png" />
-                                    </image>
-                                </ImageView>
-                            </graphic>
-                            <items>
-                                <MenuItem fx:id="bListeFranchise" mnemonicParsing="false" onAction="#bListFranchiseClick" text="Liste franchises" />
-                                <MenuItem fx:id="bAjouterFranchise" mnemonicParsing="false" onAction="#bAjouterFranchiseClick" text="Ajouter une franchise" />
-                            </items>
-                        </Menu>
-                        <Menu fx:id="gestionCinema" mnemonicParsing="false" text="Gestion cinémas">
-                            <graphic>
-                                <ImageView fitWidth="16" fitHeight="16">
-                                    <image>
-                                        <Image url="@../images/cinema_32x32.png" />
-                                    </image>
-                                </ImageView>
-                            </graphic>
-                            <items>
-                                <MenuItem fx:id="bListeCinema" mnemonicParsing="false" onAction="#bListeCinemaClick" text="Liste des cinémas" />
-                                <MenuItem fx:id="bAjouterCinema" mnemonicParsing="false" onAction="#bAjouterCinemaClick" text="Ajouter un cinéma" />
-                            </items>
-                        </Menu>
-                        <Menu fx:id="gestionSalle" mnemonicParsing="false" text="Gestion salles">
-                            <graphic>
-                                <ImageView fitWidth="16" fitHeight="16">
-                                    <image>
-                                        <Image url="@../images/salle_32x32.png" />
-                                    </image>
-                                </ImageView>
-                            </graphic>
-                            <items>
-                                <!-- Erreur dans le 'text' des deux
-                                'MenuItem' ci-dessous, 'Liste cours'
-                                et 'Ajouter un cours' à la place de
-                                'Liste salles' et 'Ajouter une salle' -->
-                                <MenuItem fx:id="bListeSalle" mnemonicParsing="false" onAction="#bListeSalleClick" text="Liste salles" />
-                                <MenuItem fx:id="bAjouterSalle" mnemonicParsing="false" onAction="#bAjouterSalleClick" text="Ajouter une salle" />
-                            </items>
-                        </Menu>
-                        <Menu fx:id="bAutres" mnemonicParsing="false" text="Autres">
-                            <graphic>
-                                <ImageView fitWidth="16" fitHeight="16">
-                                    <image>
-                                        <Image url="@../images/info.png" />
-                                    </image>
-                                </ImageView>
-                            </graphic>
-                            <items>
-                                <MenuItem fx:id="bAccueil" mnemonicParsing="false" onAction="#bAccueilClick" text="Accueil" />
-                                <MenuItem fx:id="bQuitter" mnemonicParsing="false" onAction="#bQuitterClick" text="Quitter" />
-                            </items>
-                        </Menu>
-                    </menus>
-                </MenuBar>
-            </children>
+
+
+    <!-- Barre de menu en haut -->
+    <top>
+        <MenuBar style="-fx-background-color: #991917; -fx-padding: 2 0;">
+
+            <menus>
+                <Menu fx:id="gestionFranchise" mnemonicParsing="false" text="Gestion franchises"
+                      style="-fx-text-fill: white;">
+                    <graphic>
+                        <ImageView fitWidth="16" fitHeight="16">
+                            <image>
+                                <Image url="@../images/franchise_64x64.png"/>
+                            </image>
+                        </ImageView>
+                    </graphic>
+                    <items>
+                        <MenuItem fx:id="bListeFranchise" mnemonicParsing="false" onAction="#bListFranchiseClick" text="Liste franchises"/>
+                        <MenuItem fx:id="bAjouterFranchise" mnemonicParsing="false" onAction="#bAjouterFranchiseClick" text="Ajouter une franchise"/>
+                    </items>
+                </Menu>
+
+                <Menu fx:id="gestionCinema" mnemonicParsing="false" text="Gestion cinémas"
+                      style="-fx-text-fill: white;">
+                    <graphic>
+                        <ImageView fitWidth="16" fitHeight="16">
+                            <image>
+                                <Image url="@../images/cinema_32x32.png"/>
+                            </image>
+                        </ImageView>
+                    </graphic>
+                    <items>
+                        <MenuItem fx:id="bListeCinema" mnemonicParsing="false" onAction="#bListeCinemaClick" text="Liste des cinémas"/>
+                        <MenuItem fx:id="bAjouterCinema" mnemonicParsing="false" onAction="#bAjouterCinemaClick" text="Ajouter un cinéma"/>
+                    </items>
+                </Menu>
+
+                <Menu fx:id="gestionSalle" mnemonicParsing="false" text="Gestion salles"
+                      style="-fx-text-fill: white;">
+                    <graphic>
+                        <ImageView fitWidth="16" fitHeight="16">
+                            <image>
+                                <Image url="@../images/salle_32x32.png"/>
+                            </image>
+                        </ImageView>
+                    </graphic>
+                    <items>
+                        <!-- Erreur dans le 'text' des deux
+                        'MenuItem' ci-dessous, 'Liste cours'
+                        et 'Ajouter un cours' à la place de
+                        'Liste salles' et 'Ajouter une salle' -->
+                        <MenuItem fx:id="bListeSalle" mnemonicParsing="false" onAction="#bListeSalleClick" text="Liste salles"/>
+                        <MenuItem fx:id="bAjouterSalle" mnemonicParsing="false" onAction="#bAjouterSalleClick" text="Ajouter une salle"/>
+                    </items>
+                </Menu>
+
+                <Menu fx:id="bAutres" mnemonicParsing="false" text="Autres"
+                      style="-fx-text-fill: white;">
+                    <graphic>
+                        <ImageView fitWidth="16" fitHeight="16">
+                            <image>
+                                <Image url="@../images/info.png"/>
+                            </image>
+                        </ImageView>
+                    </graphic>
+                    <items>
+                        <MenuItem fx:id="bAccueil" mnemonicParsing="false" onAction="#bAccueilClick" text="Accueil"/>
+                        <MenuItem fx:id="bQuitter" mnemonicParsing="false" onAction="#bQuitterClick" text="Quitter"/>
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+    </top>
+
+    <!-- Contenu central -->
+    <center>
+        <VBox alignment="CENTER" spacing="16"
+              style="-fx-background-color: #f5f5f5;">
+
+            <!-- Logo -->
+            <ImageView fitHeight="90" fitWidth="90" pickOnBounds="true" preserveRatio="true">
+                <image>
+                    <Image url="@../images/cinema_logo.png"/>
+                </image>
+            </ImageView>
+
+            <!-- Séparateur décoratif rouge -->
+            <Region prefHeight="4" prefWidth="80"
+                    style="-fx-background-color: #991917; -fx-background-radius: 2;"/>
+
+            <!-- attribut 'text' initialisé avec la valeur "BIENVENUE" peu utile ici car déjà
+             initialisé dans 'AccueilController.java' jean-->
+            <Label fx:id="bienvenue"
+                   alignment="CENTER"
+                   style="-fx-text-fill: #991917; -fx-font-weight: bold;">
+                <font>
+                    <Font name="Franklin Gothic Medium" size="36.0"/>
+                </font>
+            </Label>
+
+            <Label alignment="CENTER"
+                   text="dans l'application de gestion de franchises"
+                   style="-fx-text-fill: #555555;">
+                <font>
+                    <Font name="Franklin Gothic Medium Cond" size="20.0"/>
+                </font>
+            </Label>
+
         </VBox>
-        <QuadCurve controlX="-18.05954933166504"
-                   controlY="-94.0"
-                   endX="683.0"
-                   endY="178.0"
-                   fill="#991917"
-                   layoutX="50.0"
-                   layoutY="300.0"
-                   startX="-328.0"
-                   startY="178.00003051757812"
-                   stroke="BLACK"
-                   strokeType="INSIDE"
-                   strokeWidth="0.0" />
-        <!-- attribut 'text' initialisé avec la valeur "BIENVENUE" peu utile ici car déjà
-         initialisé dans 'AccueilController.java' jean-->
-        <Label fx:id="bienvenue"
-               alignment="TOP_CENTER"
-               layoutY="172.0"
-               prefHeight="40.0"
-               prefWidth="729.0"
-               textFill="#024010">
-            <font>
-                <Font name="Franklin Gothic Medium" size="40.0" />
-            </font>
-        </Label>
-        <Label alignment="TOP_CENTER"
-               layoutX="-1.0"
-               layoutY="219.0"
-               prefHeight="40.0"
-               prefWidth="729.0"
-               text="dans l'application de gestion de franchises"
-               textFill="#3A3AB6">
-            <font>
-                <Font name="Franklin Gothic Medium Cond" size="26.0" />
-            </font>
-        </Label>
-        <ImageView fitHeight="89.0" fitWidth="92.0" layoutX="41.0" layoutY="366.0">
-            <image>
-                <Image url="@../images/cinema_logo.png" />
-            </image>
-        </ImageView>
-    </children>
-</Pane>
+    </center>
+
+</BorderPane>

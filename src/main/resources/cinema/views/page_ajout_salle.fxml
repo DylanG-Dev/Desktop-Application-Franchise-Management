@@ -7,12 +7,14 @@
 <?import javafx.scene.layout.*?>
 
 <BorderPane xmlns="http://javafx.com/javafx/22"
-    xmlns:fx="http://javafx.com/fxml/1"
-    fx:controller="cinema.controllers.AjouterSalleController"
-    stylesheets="@./css/main.css">
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="cinema.controllers.AjouterSalleController"
+            stylesheets="@./css/main.css"
+            style="-fx-background-color: #f5f5f5;">
 
+    <!-- Menu en haut avec la couleur rouge -->
     <top>
-        <MenuBar>
+        <MenuBar style="-fx-background-color: #991917; -fx-padding: 2 0;">
             <menus>
                 <Menu fx:id="gestionFranchise" mnemonicParsing="false" text="Gestion franchises">
                     <graphic>
@@ -24,11 +26,11 @@
                     </graphic>
                     <items>
                         <MenuItem fx:id="bListeFranchise"
-                            text="Liste franchises"
-                            onAction="#bListFranchiseClick" />
+                                  text="Liste franchises"
+                                  onAction="#bListFranchiseClick" />
                         <MenuItem fx:id="bAjouterFranchise"
-                            text="Ajouter une franchise"
-                            onAction="#bAjouterFranchiseClick" />
+                                  text="Ajouter une franchise"
+                                  onAction="#bAjouterFranchiseClick" />
                     </items>
                 </Menu>
                 <!-- Erreur, attribut 'text' initialisé avec la valeur
@@ -47,11 +49,11 @@
                                 et 'Ajouter une section' à la place de
                                 'Liste cinémas' et 'Ajouter un cinéma' -->
                         <MenuItem fx:id="bListeCinema"
-                            text="Liste des cinémas"
-                            onAction="#bListeCinemaClick" />
+                                  text="Liste des cinémas"
+                                  onAction="#bListeCinemaClick" />
                         <MenuItem fx:id="bAjouterCinema"
-                            text="Ajouter un cinéma"
-                            onAction="#bAjouterCinemaClick" />
+                                  text="Ajouter un cinéma"
+                                  onAction="#bAjouterCinemaClick" />
                     </items>
                 </Menu>
                 <Menu fx:id="gestionSalle" mnemonicParsing="false" text="Gestion salles">
@@ -68,11 +70,11 @@
                                 et 'Ajouter un cours' à la place de
                                 'Liste salles' et 'Ajouter une salle' -->
                         <MenuItem fx:id="bListeSalle"
-                            text="Liste salles"
-                            onAction="#bListeSalleClick" />
+                                  text="Liste salles"
+                                  onAction="#bListeSalleClick" />
                         <MenuItem fx:id="bAjouterSalle"
-                            text="Ajouter une salle"
-                            onAction="#bAjouterSalleClick" />
+                                  text="Ajouter une salle"
+                                  onAction="#bAjouterSalleClick" />
                     </items>
                 </Menu>
                 <Menu fx:id="bAutres" mnemonicParsing="false" text="Autres">
@@ -85,11 +87,11 @@
                     </graphic>
                     <items>
                         <MenuItem fx:id="bAccueil"
-                            text="Accueil"
-                            onAction="#bAccueilClick" />
+                                  text="Accueil"
+                                  onAction="#bAccueilClick" />
                         <MenuItem fx:id="bQuitter"
-                            text="Quitter"
-                            onAction="#bQuitterClick" />
+                                  text="Quitter"
+                                  onAction="#bQuitterClick" />
                     </items>
                 </Menu>
 
@@ -97,6 +99,7 @@
         </MenuBar>
     </top>
 
+    <!-- Formulaire d'ajout au centre -->
     <center>
         <VBox spacing="25" alignment="TOP_CENTER" styleClass="content">
             <padding>
@@ -104,9 +107,10 @@
             </padding>
 
             <Label text="AJOUT D'UNE NOUVELLE SALLE"
-                styleClass="title-label" />
+                   styleClass="title-label"
+                   style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #333;"/>
 
-            <GridPane hgap="15" vgap="20" alignment="CENTER">
+            <GridPane hgap="15" vgap="20" alignment="CENTER" style="-fx-background-color: white; -fx-padding: 20; -fx-background-radius: 10;">
 
                 <columnConstraints>
                     <ColumnConstraints halignment="RIGHT" />
@@ -114,27 +118,27 @@
                 </columnConstraints>
 
                 <Label text="Numéro :" styleClass="form-label"
-                    GridPane.rowIndex="0"
-                    GridPane.columnIndex="0" />
+                       GridPane.rowIndex="0"
+                       GridPane.columnIndex="0" />
 
                 <!-- Ajout de l'attribut 'maxWidth' à la balise 'Spinner'
                 pour qu'elle puisse s'étirer comme une balise 'TextField' -->
                 <Spinner fx:id="spnrNumero"
-                     maxWidth="Infinity"
-                     GridPane.rowIndex="0"
-                     GridPane.columnIndex="1"
-                     editable="true"
-                     min="1"
-                     max="999"
+                         maxWidth="Infinity"
+                         GridPane.rowIndex="0"
+                         GridPane.columnIndex="1"
+                         editable="true"
+                         min="1"
+                         max="999"
                 />
 
                 <Label text="Description :" styleClass="form-label"
-                    GridPane.rowIndex="1"
-                    GridPane.columnIndex="0" />
+                       GridPane.rowIndex="1"
+                       GridPane.columnIndex="0" />
 
                 <TextField fx:id="tfDescription"
-                    GridPane.rowIndex="1"
-                    GridPane.columnIndex="1" />
+                           GridPane.rowIndex="1"
+                           GridPane.columnIndex="1" />
 
                 <Label text="Nombre de places :" styleClass="form-label"
                        GridPane.rowIndex="2"
@@ -152,13 +156,13 @@
                 />
 
                 <Label text="Cinéma :" styleClass="form-label"
-                    GridPane.rowIndex="3"
-                    GridPane.columnIndex="0" />
+                       GridPane.rowIndex="3"
+                       GridPane.columnIndex="0" />
 
                 <ListView fx:id="lvCinema"
-                    prefHeight="120"
-                    GridPane.rowIndex="3"
-                    GridPane.columnIndex="1" />
+                          prefHeight="120"
+                          GridPane.rowIndex="3"
+                          GridPane.columnIndex="1" />
 
             </GridPane>
 
@@ -169,6 +173,7 @@
         </VBox>
     </center>
 
+    <!-- Boutons rouges en bas -->
     <bottom>
         <HBox spacing="20" alignment="CENTER" styleClass="button-bar">
             <padding>
@@ -176,19 +181,22 @@
             </padding>
 
             <Button fx:id="bRetour"
-                text="Retour"
-                onAction="#bRetourClick"
-                styleClass="action-button" />
+                    text="Retour"
+                    onAction="#bRetourClick"
+                    styleClass="action-button"
+                    style="-fx-background-color: #991917; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand; -fx-background-radius: 6; -fx-pref-width: 120;" />
 
             <Button fx:id="bEffacer"
-                text="Effacer"
-                onAction="#bEffacerClick"
-                styleClass="action-button" />
+                    text="Effacer"
+                    onAction="#bEffacerClick"
+                    styleClass="action-button"
+                    style="-fx-background-color: #991917; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand; -fx-background-radius: 6; -fx-pref-width: 120;" />
 
             <Button fx:id="bEnregistrer"
-                text="Enregistrer"
-                onAction="#bEnregistrerClick"
-                styleClass="action-button" />
+                    text="Enregistrer"
+                    onAction="#bEnregistrerClick"
+                    styleClass="action-button"
+                    style="-fx-background-color: #991917; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand; -fx-background-radius: 6; -fx-pref-width: 120;" />
         </HBox>
     </bottom>
 </BorderPane>

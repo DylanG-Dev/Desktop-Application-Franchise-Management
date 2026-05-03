@@ -1,41 +1,150 @@
+/* =============================================
+   main.css - CineForAll - Styles globaux
+   Couleur principale : #991917
+   ============================================= */
+
+/* --- Fond général --- */
 .root {
+    -fx-background-color: #f5f5f5;
     -fx-font-family: "System";
+    -fx-font-size: 13px;
 }
 
-.content {
+/* --- Barre de menu --- */
+.menu-bar {
+    -fx-background-color: #991917;
+    -fx-padding: 2 0;
+}
+
+.menu-bar .menu .label {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 13px;
+}
+
+.menu-bar .menu:hover .label,
+.menu-bar .menu:focused .label,
+.menu-bar .menu:showing .label {
+    -fx-text-fill: black;
+}
+
+/* --- Titre de page --- */
+.title-label {
+    -fx-text-fill: #991917;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+}
+
+/* --- Labels de formulaire --- */
+.form-label {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #555555;
+}
+
+/* --- Champs de saisie --- */
+.text-field,
+.password-field,
+.text-area {
+    -fx-background-color: white;
+    -fx-border-color: #dddddd;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-border-width: 1.5;
+    -fx-padding: 9 12;
+    -fx-font-size: 13px;
+}
+
+.text-field:focused,
+.password-field:focused,
+.text-area:focused {
+    -fx-border-color: #991917;
+}
+
+/* --- ListView --- */
+.list-view {
+    -fx-background-color: white;
+    -fx-border-color: #dddddd;
+    -fx-border-radius: 6;
+    -fx-border-width: 1.5;
+}
+
+/* --- TableView --- */
+.table-view {
+    -fx-background-color: white;
+    -fx-border-color: #dddddd;
+    -fx-border-width: 1;
+}
+
+.table-view .column-header {
+    -fx-background-color: #991917;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+}
+
+.table-view .table-row-cell:odd {
+    -fx-background-color: #fafafa;
+}
+
+.table-view .table-row-cell:even {
     -fx-background-color: white;
 }
 
-.title-label {
-    -fx-font-size: 24px;
-    -fx-font-weight: bold;
-    -fx-text-fill: #024010;
+.table-view .table-row-cell:selected {
+    -fx-background-color: #f2cbcb;
 }
 
-.form-label {
-    -fx-font-size: 14px;
-    -fx-font-weight: bold;
-    -fx-text-fill: #024010;
-}
-
-.button-bar {
-    -fx-background-color: transparent;
-}
-
+/* --- Boutons --- */
 .action-button {
-    -fx-font-size: 17px;
+    -fx-background-color: #757575;
+    -fx-background-radius: 6;
+    -fx-text-fill: white;
+    -fx-font-size: 13px;
     -fx-font-weight: bold;
-    -fx-text-fill: #024010;
+    -fx-padding: 10 24;
+    -fx-cursor: hand;
+}
+
+.action-button-primary {
+    -fx-background-color: #991917;
+    -fx-background-radius: 6;
+    -fx-text-fill: white;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-padding: 10 24;
+    -fx-cursor: hand;
+}
+
+.action-button:hover {
+    -fx-background-color: #555555;
+}
+
+.action-button-primary:hover {
+    -fx-background-color: #7a1210;
+}
+
+/* --- Barre de boutons en bas --- */
+.button-bar {
+    -fx-background-color: #f5f5f5;
+}
+
+/* --- Zone de contenu --- */
+.content {
+    -fx-background-color: #f5f5f5;
+}
+
+/* --- Messages de validation --- */
+.validate-message {
+    -fx-text-fill: #2e7d32;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
 }
 
 .error-message {
-    -fx-font-size: 20px;
+    -fx-text-fill: #c62828;
+    -fx-font-size: 13px;
     -fx-font-weight: bold;
-    -fx-text-fill: red;
-}
-
-.validate-message {
-    -fx-font-size: 20px;
-    -fx-font-weight: bold;
-    -fx-text-fill: green;
 }

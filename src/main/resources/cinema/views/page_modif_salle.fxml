@@ -235,7 +235,7 @@
                     prefHeight="39.0"
                     prefWidth="200.0"
                     text="ENREGISTRER"
-                    textFill="#024010">
+                    style="-fx-background-color: #991917; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand; -fx-background-radius: 6;">
                     <font>
                         <Font name="System Bold" size="18.0" />
                     </font>
@@ -246,7 +246,7 @@
                     prefHeight="39.0"
                     prefWidth="200.0"
                     text="RETOUR"
-                    textFill="#024010">
+                    style="-fx-background-color: #991917; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand; -fx-background-radius: 6;">
                     <font>
                         <Font name="System Bold" size="18.0" />
                     </font>

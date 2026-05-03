@@ -9,10 +9,11 @@
 <BorderPane xmlns="http://javafx.com/javafx/22"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="cinema.controllers.AjouterCinemaController"
-            stylesheets="@./css/main.css">
+            stylesheets="@./css/main.css"
+            style="-fx-background-color: #f5f5f5;">
 
     <top>
-        <MenuBar>
+        <MenuBar style="-fx-background-color: #991917; -fx-padding: 2 0;">
             <menus>
                 <Menu fx:id="gestionFranchise" mnemonicParsing="false" text="Gestion franchises">
                     <graphic>
@@ -31,8 +32,6 @@
                                   onAction="#bAjouterFranchiseClick" />
                     </items>
                 </Menu>
-                <!-- Erreur, attribut 'text' initialisé avec la valeur
-                'Gestion section' à la place de 'Gestion cinéma' -->
                 <Menu fx:id="gestionCinema" mnemonicParsing="false" text="Gestion cinéma">
                     <graphic>
                         <ImageView fitHeight="16" fitWidth="16">
@@ -42,10 +41,6 @@
                         </ImageView>
                     </graphic>
                     <items>
-                        <!-- Erreur dans le 'text' des deux
-                                'MenuItem' ci-dessous, 'Liste sections'
-                                et 'Ajouter une section' à la place de
-                                'Liste cinémas' et 'Ajouter un cinéma' -->
                         <MenuItem fx:id="bListeCinema"
                                   text="Liste des cinémas"
                                   onAction="#bListeCinemaClick" />
@@ -63,10 +58,6 @@
                         </ImageView>
                     </graphic>
                     <items>
-                        <!-- Erreur dans le 'text' des deux
-                                'MenuItem' ci-dessous, 'Liste cours'
-                                et 'Ajouter un cours' à la place de
-                                'Liste salles' et 'Ajouter une salle' -->
                         <MenuItem fx:id="bListeSalle"
                                   text="Liste salles"
                                   onAction="#bListeSalleClick" />
@@ -92,7 +83,6 @@
                                   onAction="#bQuitterClick" />
                     </items>
                 </Menu>
-
             </menus>
         </MenuBar>
     </top>
@@ -104,10 +94,10 @@
             </padding>
 
             <Label text="AJOUT D'UN NOUVEAU CINEMA"
-                   styleClass="title-label" />
+                   styleClass="title-label"
+                   style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #333;"/>
 
-            <GridPane hgap="15" vgap="20" alignment="CENTER">
-
+            <GridPane hgap="15" vgap="20" alignment="CENTER" style="-fx-background-color: white; -fx-padding: 20; -fx-background-radius: 10;">
                 <columnConstraints>
                     <ColumnConstraints halignment="RIGHT" />
                     <ColumnConstraints hgrow="ALWAYS" />
@@ -116,7 +106,6 @@
                 <Label text="Dénomination :" styleClass="form-label"
                        GridPane.rowIndex="0"
                        GridPane.columnIndex="0" />
-
                 <TextField fx:id="tfDenomination"
                            GridPane.rowIndex="0"
                            GridPane.columnIndex="1" />
@@ -124,7 +113,6 @@
                 <Label text="Adresse du cinéma :" styleClass="form-label"
                        GridPane.rowIndex="1"
                        GridPane.columnIndex="0" />
-
                 <TextField fx:id="tfAdresse"
                            GridPane.rowIndex="1"
                            GridPane.columnIndex="1" />
@@ -132,7 +120,6 @@
                 <Label text="Ville du cinéma :" styleClass="form-label"
                        GridPane.rowIndex="2"
                        GridPane.columnIndex="0" />
-
                 <TextField fx:id="tfVille"
                            GridPane.rowIndex="2"
                            GridPane.columnIndex="1" />
@@ -140,12 +127,10 @@
                 <Label text="Franchise :" styleClass="form-label"
                        GridPane.rowIndex="3"
                        GridPane.columnIndex="0" />
-
                 <ListView fx:id="lvFranchise"
                           prefHeight="120"
                           GridPane.rowIndex="3"
                           GridPane.columnIndex="1" />
-
             </GridPane>
 
             <StackPane minHeight="25" alignment="CENTER">
@@ -164,17 +149,20 @@
             <Button fx:id="bRetour"
                     text="Retour"
                     onAction="#bRetourClick"
-                    styleClass="action-button" />
+                    styleClass="action-button"
+                    style="-fx-background-color: #991917; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand; -fx-background-radius: 6; -fx-pref-width: 120;"/>
 
             <Button fx:id="bEffacer"
                     text="Effacer"
                     onAction="#bEffacerClick"
-                    styleClass="action-button" />
+                    styleClass="action-button"
+                    style="-fx-background-color: #991917; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand; -fx-background-radius: 6; -fx-pref-width: 120;"/>
 
             <Button fx:id="bEnregistrer"
                     text="Enregistrer"
                     onAction="#bEnregistrerClick"
-                    styleClass="action-button" />
+                    styleClass="action-button"
+                    style="-fx-background-color: #991917; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand; -fx-background-radius: 6; -fx-pref-width: 120;"/>
         </HBox>
     </bottom>
 </BorderPane>
