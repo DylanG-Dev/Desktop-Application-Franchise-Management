@@ -57,33 +57,34 @@ public class ListeFranchiseController extends MenuController implements Initiali
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        UtilisateurDAO gerantDAO = new UtilisateurDAO();
-
-        // Programmation fonctionnelle
-        // Collecteur de flux :
-        // https://www.ionos.fr/digitalguide/sites-internet/developpement-web/les-collectors-de-streams-en-java/
-        // toMap :
-        // https://www.geeksforgeeks.org/java/collectors-tomap-method-in-java-with-examples/
-        //
-        Map<Integer, Utilisateur> gerants = gerantDAO.findAll()
-                .stream()
-                .collect(Collectors.toMap(Utilisateur::getIdUtilisateur, u -> u));
-
-        tcGerant.setCellValueFactory(cellData -> {
-            Utilisateur gerant = gerants.get(cellData.getValue().getIdGerant());
-            return new SimpleStringProperty(
-                    gerant != null ? gerant.getNom() : "Aucun gérant");
-        });
-        tcNomFranchise.setCellValueFactory(new PropertyValueFactory<>("nomFranchise"));
-        tcSiegeSocial.setCellValueFactory(new PropertyValueFactory<>("siegeSocial"));
-        ObservableList<Franchise> data = getFranchiseList();
-        tvFranchises.setItems(data);
-
-        addButtonModifierToTable();
-        addButtonSupprimerToTable();
-
-        // Ajout de la responsivité pour la balise 'TableView'
-        tvFranchises.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        rafraichirApresSuppr();
+//        UtilisateurDAO gerantDAO = new UtilisateurDAO();
+//
+//        // Programmation fonctionnelle
+//        // Collecteur de flux :
+//        // https://www.ionos.fr/digitalguide/sites-internet/developpement-web/les-collectors-de-streams-en-java/
+//        // toMap :
+//        // https://www.geeksforgeeks.org/java/collectors-tomap-method-in-java-with-examples/
+//        //
+//        Map<Integer, Utilisateur> gerants = gerantDAO.findAll()
+//                .stream()
+//                .collect(Collectors.toMap(Utilisateur::getIdUtilisateur, u -> u));
+//
+//        tcGerant.setCellValueFactory(cellData -> {
+//            Utilisateur gerant = gerants.get(cellData.getValue().getIdGerant());
+//            return new SimpleStringProperty(
+//                    gerant != null ? gerant.getNom() : "Aucun gérant");
+//        });
+//        tcNomFranchise.setCellValueFactory(new PropertyValueFactory<>("nomFranchise"));
+//        tcSiegeSocial.setCellValueFactory(new PropertyValueFactory<>("siegeSocial"));
+//        ObservableList<Franchise> data = getFranchiseList();
+//        tvFranchises.setItems(data);
+//
+//        addButtonModifierToTable();
+//        addButtonSupprimerToTable();
+//
+//        // Ajout de la responsivité pour la balise 'TableView'
+//        tvFranchises.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
     }
 
     public void rafraichirApresSuppr() {

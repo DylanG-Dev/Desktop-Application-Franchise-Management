@@ -38,7 +38,7 @@
                 onAction="#ButtonOkOnAction"
                 prefHeight="35.0"
                 prefWidth="120.0"
-                text="Ok"
+                text="OK"
                 textFill="#024010">
                 <font>
                     <Font size="17.0" />

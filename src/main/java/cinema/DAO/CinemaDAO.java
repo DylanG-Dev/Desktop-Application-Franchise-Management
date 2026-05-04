@@ -19,14 +19,17 @@ public class CinemaDAO extends DAO<Cinema> {
         try {
             Connection conn = DBManager.getInstance();
 
+            // Initiliase la variable 'currentUti' de type
+            // 'Utilisateur' avec la session de l'utilisateur actuel
             Utilisateur currentUti = Session.getUtilisateur();
 
             if (currentUti != null) {
+                //
                 String setSql = "SELECT set_config('app.current_id_utilisateur', ?, false)";
 
-                try(PreparedStatement psSet = conn.prepareStatement(setSql)) {
-                    psSet.setString(1, String.valueOf(currentUti.getIdUtilisateur()));
-                    psSet.execute();
+                try(PreparedStatement preparedStatement = conn.prepareStatement(setSql)) {
+                    preparedStatement.setString(1, String.valueOf(currentUti.getIdUtilisateur()));
+                    preparedStatement.execute();
                 }
             }
 

@@ -50,33 +50,35 @@ public class ListeSalleController extends MenuController implements Initializabl
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        CinemaDAO cinemaDAO = new CinemaDAO();
+        rafraichirApresSuppr();
 
-        // Programmation fonctionnelle
-        // Collecteur de flux :
-        // https://www.ionos.fr/digitalguide/sites-internet/developpement-web/les-collectors-de-streams-en-java/
-        // toMap :
-        // https://www.geeksforgeeks.org/java/collectors-tomap-method-in-java-with-examples/
-        //
-        Map<Integer, Cinema> cinemas = cinemaDAO.findAll()
-                .stream()
-                .collect(Collectors.toMap(Cinema::getIdCinema, c -> c));
-
-        tcCinema.setCellValueFactory(cellData -> {
-            Cinema cinema = cinemas.get(cellData.getValue().getIdCinema());
-            return new SimpleStringProperty(
-                    cinema != null ? cinema.getDenomination() : "Aucun cinéma");
-        });
-
-
-        tcNumero.setCellValueFactory(new PropertyValueFactory<>("numero"));
-        tcDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
-        tcNbPlace.setCellValueFactory(new PropertyValueFactory<>("nbPlaces"));
-        ObservableList<Salle> data = getSalleList();
-        tvSalle.setItems(data);
-
-        btnModif();
-        btnSupp();
+//        CinemaDAO cinemaDAO = new CinemaDAO();
+//
+//        // Programmation fonctionnelle
+//        // Collecteur de flux :
+//        // https://www.ionos.fr/digitalguide/sites-internet/developpement-web/les-collectors-de-streams-en-java/
+//        // toMap :
+//        // https://www.geeksforgeeks.org/java/collectors-tomap-method-in-java-with-examples/
+//        //
+//        Map<Integer, Cinema> cinemas = cinemaDAO.findAll()
+//                .stream()
+//                .collect(Collectors.toMap(Cinema::getIdCinema, c -> c));
+//
+//        tcCinema.setCellValueFactory(cellData -> {
+//            Cinema cinema = cinemas.get(cellData.getValue().getIdCinema());
+//            return new SimpleStringProperty(
+//                    cinema != null ? cinema.getDenomination() : "Aucun cinéma");
+//        });
+//
+//
+//        tcNumero.setCellValueFactory(new PropertyValueFactory<>("numero"));
+//        tcDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
+//        tcNbPlace.setCellValueFactory(new PropertyValueFactory<>("nbPlaces"));
+//        ObservableList<Salle> data = getSalleList();
+//        tvSalle.setItems(data);
+//
+//        btnModif();
+//        btnSupp();
     }
 
     public void rafraichirApresSuppr() {

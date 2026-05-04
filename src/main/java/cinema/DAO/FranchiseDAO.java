@@ -73,13 +73,23 @@ public class FranchiseDAO extends DAO<Franchise> {
             Utilisateur currentUti = Session.getUtilisateur();
 
             if (currentUti != null) {
+                // Initiliase une variable de type 'String' en retrouvant
+                // l'id de l'utilisateur de la session actuelle
                 String setSql = "SELECT set_config('app.current_id_utilisateur', ?, false)";
 
+                // prepare la requête préparée avec la connexion à la
+                // base de données paramétré avec l'id utilisateur de la
+                // session actuelle
                 try(PreparedStatement psSet = conn.prepareStatement(setSql)) {
+                    // String configuré avec la valeur de l'id utilisateur
                     psSet.setString(1, String.valueOf(currentUti.getIdUtilisateur()));
+                    // Exécution de la requête préparée
                     psSet.execute();
+                } catch(SQLException e) {
+                    e.printStackTrace();
                 }
             }
+
             String sql = "DELETE FROM franchise WHERE id_franchise = ?;";
             PreparedStatement statement = this.connect.prepareStatement(sql);
             statement.setInt(1, obj.getIdFranchise());

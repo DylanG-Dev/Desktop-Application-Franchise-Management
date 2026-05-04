@@ -24,7 +24,7 @@
 
 
     <!-- Message d'erreur -->
-    <Text fill="#991917" text="Êtes vous sûr de vouloir supprimer cette franchise ? Cela supprimera les cinémas de la franchise, ainsi que les salles des cinémas" textAlignment="CENTER" wrappingWidth="480.0">
+    <Text text="Êtes vous sûr de vouloir supprimer cette franchise ? Cela supprimera les cinémas de la franchise, ainsi que les salles des cinémas" textAlignment="CENTER" wrappingWidth="480.0">
         <font>
             <Font name="Franklin Gothic Medium" size="22.0" />
         </font>

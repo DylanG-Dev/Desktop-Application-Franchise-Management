@@ -46,32 +46,34 @@ public class ListeCinemaController extends MenuController implements Initializab
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        FranchiseDAO franchiseDAO = new FranchiseDAO();
 
-        // Programmation fonctionnelle
-        // Collecteur de flux :
-        // https://www.ionos.fr/digitalguide/sites-internet/developpement-web/les-collectors-de-streams-en-java/
-        // toMap :
-        // https://www.geeksforgeeks.org/java/collectors-tomap-method-in-java-with-examples/
-        //
-        Map<Integer, Franchise> franchises = franchiseDAO.findAll()
-                        .stream()
-                                .collect(Collectors.toMap(Franchise::getIdFranchise, f -> f));
-
-        tcFranchise.setCellValueFactory(cellData -> {
-            Franchise franchise = franchises.get(cellData.getValue().getIdFranchise());
-            return new SimpleStringProperty(
-                franchise != null ? franchise.getNomFranchise() : "Aucune franchise");
-        });
-
-        tcDenomination.setCellValueFactory(new PropertyValueFactory<>("denomination"));
-        tcAdresse.setCellValueFactory(new PropertyValueFactory<>("adresse"));
-        tcVille.setCellValueFactory(new PropertyValueFactory<>("ville"));
-        ObservableList<Cinema> data = getCinema();
-        tvCinema.setItems(data);
-        addButtonModifierToTable();
-        addButtonSupprimerToTable();
-        addButtonSallesToTable();
+        rafraichirApresSuppr();
+//        FranchiseDAO franchiseDAO = new FranchiseDAO();
+//
+//        // Programmation fonctionnelle
+//        // Collecteur de flux :
+//        // https://www.ionos.fr/digitalguide/sites-internet/developpement-web/les-collectors-de-streams-en-java/
+//        // toMap :
+//        // https://www.geeksforgeeks.org/java/collectors-tomap-method-in-java-with-examples/
+//        //
+//        Map<Integer, Franchise> franchises = franchiseDAO.findAll()
+//                        .stream()
+//                                .collect(Collectors.toMap(Franchise::getIdFranchise, f -> f));
+//
+//        tcFranchise.setCellValueFactory(cellData -> {
+//            Franchise franchise = franchises.get(cellData.getValue().getIdFranchise());
+//            return new SimpleStringProperty(
+//                franchise != null ? franchise.getNomFranchise() : "Aucune franchise");
+//        });
+//
+//        tcDenomination.setCellValueFactory(new PropertyValueFactory<>("denomination"));
+//        tcAdresse.setCellValueFactory(new PropertyValueFactory<>("adresse"));
+//        tcVille.setCellValueFactory(new PropertyValueFactory<>("ville"));
+//        ObservableList<Cinema> data = getCinema();
+//        tvCinema.setItems(data);
+//        addButtonModifierToTable();
+//        addButtonSupprimerToTable();
+//        addButtonSallesToTable();
     }
 
     public void rafraichirApresSuppr() {
