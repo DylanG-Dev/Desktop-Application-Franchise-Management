@@ -5,25 +5,15 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import cinema.BO.Cinema;
-import cinema.BO.Franchise;
 import cinema.BO.Salle;
-import cinema.BO.Utilisateur;
 import cinema.DAO.CinemaDAO;
-import cinema.DAO.FranchiseDAO;
 import cinema.DAO.SalleDAO;
-import cinema.DAO.UtilisateurDAO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 
 public class AjouterSalleController extends MenuController implements Initializable {
 
@@ -42,12 +32,17 @@ public class AjouterSalleController extends MenuController implements Initializa
     @FXML
     private Label lblSuccess, lblError;
 
+    // Méthode qui initialise la page
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
+        // Appel de la fonction 'getFranchiseList()' pour remplir
+        // une 'ObservableList' avec toutes les franchises
         ObservableList<Cinema> cinemas = getCinemaList();
 
+        // Mettre toutes les options de franchises dans la 'ListView'
         lvCinema.setItems(cinemas);
+        // Rend invisible les labels d'erreur et de succès
 
         lblSuccess.setVisible(false);
         lblError.setVisible(false);
@@ -57,6 +52,7 @@ public class AjouterSalleController extends MenuController implements Initializa
         lblError.setManaged(false);
     }
 
+    // Fonction qui permet de récupérer toutes les franchises
     private ObservableList<Cinema> getCinemaList() {
 
         CinemaDAO cinemaDAO = new CinemaDAO();
@@ -66,11 +62,14 @@ public class AjouterSalleController extends MenuController implements Initializa
         return list;
     }
 
+    // Méthode qui permet de revenir à la page précédente
     @FXML
     public void bRetourClick(ActionEvent event) {
         Navigation.goBack(bRetour.getScene().getWindow());
     }
 
+    // Méthode qui permet d'enregistrer le cinéma en base de données si tous les
+    // champs sont remplis
     @FXML
     public void bEnregistrerClick(ActionEvent event) {
         int numero = spnrNumero.getValue();
@@ -78,6 +77,7 @@ public class AjouterSalleController extends MenuController implements Initializa
         int nbPlace = spnrNbPlace.getValue();
         Cinema selectCinema = lvCinema.getSelectionModel().getSelectedItem();
 
+        // Condition 'if' qui permet de vérifier que tous les champs soient remplis
         if(!description.trim().isEmpty() && selectCinema != null) {
             int idCinema = selectCinema.getIdCinema();
 
@@ -97,6 +97,7 @@ public class AjouterSalleController extends MenuController implements Initializa
         }
     }
 
+    // Méthode qui permet de remettre tous les champs vident du formulaire
     @FXML
     public void bEffacerClick(ActionEvent event) {
         if (tfDescription != null)
@@ -108,6 +109,8 @@ public class AjouterSalleController extends MenuController implements Initializa
         lvCinema.getSelectionModel().clearSelection();
     }
 
+    // Méthode qui permet d'afficher un message de succès si l'enregistrement en
+    // base de données a bien été effectués
     @FXML
     public void messageSuccess() {
         lblSuccess.setVisible(true);
@@ -116,6 +119,8 @@ public class AjouterSalleController extends MenuController implements Initializa
         lblError.setManaged(false);
     }
 
+    // Méthode qui permet d'afficher un message d'erreur si l'enregistrement en base
+    // de données n'a pas pu être effectué
     @FXML
     public void messageErreur() {
         lblSuccess.setVisible(false);

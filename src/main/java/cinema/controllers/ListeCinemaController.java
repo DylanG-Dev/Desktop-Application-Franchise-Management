@@ -15,18 +15,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 
 import static cinema.controllers.Navigation.setParam;
 
@@ -44,39 +38,14 @@ public class ListeCinemaController extends MenuController implements Initializab
     @FXML
     private Button bRetour;
 
+    // Méthode qui permet d'initialiser les cinémas dans page 'Liste cinémas'
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
-        rafraichirApresSuppr();
-//        FranchiseDAO franchiseDAO = new FranchiseDAO();
-//
-//        // Programmation fonctionnelle
-//        // Collecteur de flux :
-//        // https://www.ionos.fr/digitalguide/sites-internet/developpement-web/les-collectors-de-streams-en-java/
-//        // toMap :
-//        // https://www.geeksforgeeks.org/java/collectors-tomap-method-in-java-with-examples/
-//        //
-//        Map<Integer, Franchise> franchises = franchiseDAO.findAll()
-//                        .stream()
-//                                .collect(Collectors.toMap(Franchise::getIdFranchise, f -> f));
-//
-//        tcFranchise.setCellValueFactory(cellData -> {
-//            Franchise franchise = franchises.get(cellData.getValue().getIdFranchise());
-//            return new SimpleStringProperty(
-//                franchise != null ? franchise.getNomFranchise() : "Aucune franchise");
-//        });
-//
-//        tcDenomination.setCellValueFactory(new PropertyValueFactory<>("denomination"));
-//        tcAdresse.setCellValueFactory(new PropertyValueFactory<>("adresse"));
-//        tcVille.setCellValueFactory(new PropertyValueFactory<>("ville"));
-//        ObservableList<Cinema> data = getCinema();
-//        tvCinema.setItems(data);
-//        addButtonModifierToTable();
-//        addButtonSupprimerToTable();
-//        addButtonSallesToTable();
+        hydrateCinema();
     }
 
-    public void rafraichirApresSuppr() {
+    // Méthode qui permet de récupérer tous les cinémas en base de données
+    public void hydrateCinema() {
         FranchiseDAO franchiseDAO = new FranchiseDAO();
 
         // Programmation fonctionnelle
@@ -105,6 +74,7 @@ public class ListeCinemaController extends MenuController implements Initializab
         addButtonSallesToTable();
     }
 
+    // Fonction qui permet de récupérer tous les cinémas en base de données
     private ObservableList<Cinema> getCinema() {
 
         CinemaDAO cinemaDAO = new CinemaDAO();
@@ -113,10 +83,13 @@ public class ListeCinemaController extends MenuController implements Initializab
         return list;
     }
 
+    // Méthode qui permet de revenir sur la page précédente
     public void bRetourClick(ActionEvent actionEvent) {
         Navigation.goBack(bRetour.getScene().getWindow());
     }
 
+    // Initialisation d'un bouton "Modifier" sur chaque lignes 'cinéma' qui permet de rediriger vers la page de modification
+    // avec les informations du cinéma concerné
     private void addButtonModifierToTable() {
         tcModif.setCellFactory(column -> new TableCell<>() {
             private final Button btn = new Button("Modifier");
@@ -136,7 +109,8 @@ public class ListeCinemaController extends MenuController implements Initializab
         tcModif.setSortable(false);
     }
 
-
+    // Méthode qui permet lors du clique sur le bouton 'Supprimer', d'afficher une popup afin de valider la suppression
+    // pour éviter les suppressions par erreur
     private void addButtonSupprimerToTable() {
         tcSupp.setCellFactory(column -> new TableCell<>() {
             private final Button btn = new Button("Supprimer");
@@ -145,7 +119,7 @@ public class ListeCinemaController extends MenuController implements Initializab
                     Cinema cinema = getTableView().getItems().get(getIndex());
                     setParam("cinema", cinema);
                     Navigation.showPopup("/cinema/views/popup_valid_suppr_cinema.fxml", "Message d'alerte");
-                    rafraichirApresSuppr();
+                    hydrateCinema();
                 });
             }
 
@@ -159,6 +133,8 @@ public class ListeCinemaController extends MenuController implements Initializab
         tcSupp.setSortable(false);
     }
 
+    // Méthode qui permet d'initialiser un bouton 'Voir les salles'
+    // qui permet de voir toutes les salles d'un cinéma
     private void addButtonSallesToTable() {
         tcSalle.setCellFactory(column -> new TableCell<>() {
             private final Button btn = new Button("Voir les salles");

@@ -7,7 +7,6 @@ import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 import cinema.BO.Cinema;
-import cinema.BO.Franchise;
 import cinema.BO.Salle;
 import cinema.DAO.CinemaDAO;
 import cinema.DAO.SalleDAO;
@@ -16,18 +15,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 
 import static cinema.controllers.Navigation.setParam;
 
@@ -48,40 +41,14 @@ public class ListeSalleController extends MenuController implements Initializabl
     @FXML
     private Button bRetour;
 
+    // Méthode qui permet d'initialiser la page
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        rafraichirApresSuppr();
-
-//        CinemaDAO cinemaDAO = new CinemaDAO();
-//
-//        // Programmation fonctionnelle
-//        // Collecteur de flux :
-//        // https://www.ionos.fr/digitalguide/sites-internet/developpement-web/les-collectors-de-streams-en-java/
-//        // toMap :
-//        // https://www.geeksforgeeks.org/java/collectors-tomap-method-in-java-with-examples/
-//        //
-//        Map<Integer, Cinema> cinemas = cinemaDAO.findAll()
-//                .stream()
-//                .collect(Collectors.toMap(Cinema::getIdCinema, c -> c));
-//
-//        tcCinema.setCellValueFactory(cellData -> {
-//            Cinema cinema = cinemas.get(cellData.getValue().getIdCinema());
-//            return new SimpleStringProperty(
-//                    cinema != null ? cinema.getDenomination() : "Aucun cinéma");
-//        });
-//
-//
-//        tcNumero.setCellValueFactory(new PropertyValueFactory<>("numero"));
-//        tcDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
-//        tcNbPlace.setCellValueFactory(new PropertyValueFactory<>("nbPlaces"));
-//        ObservableList<Salle> data = getSalleList();
-//        tvSalle.setItems(data);
-//
-//        btnModif();
-//        btnSupp();
+        hydrateSalle();
     }
 
-    public void rafraichirApresSuppr() {
+    // Méthode qui permet de récupérer toutes les informations afin de charger la page
+    public void hydrateSalle() {
         CinemaDAO cinemaDAO = new CinemaDAO();
 
         // Programmation fonctionnelle
@@ -111,8 +78,8 @@ public class ListeSalleController extends MenuController implements Initializabl
         btnSupp();
     }
 
+    // Fonction retournant une liste de toutes les salles contenues en base de données
     private ObservableList<Salle> getSalleList() {
-
         SalleDAO salleDAO = new SalleDAO();
         List<Salle> salles = salleDAO.findAll();
         ObservableList<Salle> list = FXCollections.observableArrayList();
@@ -122,11 +89,14 @@ public class ListeSalleController extends MenuController implements Initializabl
         return list;
     }
 
+    // Méthode qui permet de revenir en arrière
     public void bRetourClick(ActionEvent actionEvent) {
         Navigation.goBack(bRetour.getScene().getWindow());
     }
 
 
+    // Méthode qui permet lors du clique sur le bouton 'Supprimer', d'afficher une popup afin de valider la suppression
+    // pour éviter les suppressions par erreur
     private void btnSupp() {
         tcSupp.setCellFactory(column -> new TableCell<Salle, Void>() {
             private final Button btn = new Button("Supprimer");
@@ -135,7 +105,7 @@ public class ListeSalleController extends MenuController implements Initializabl
                     Salle salle = getTableView().getItems().get(getIndex());
                     setParam("salle", salle);
                     Navigation.showPopup("/cinema/views/popup_valid_suppr_salle.fxml", "Message d'alerte");
-                    rafraichirApresSuppr();
+                    hydrateSalle();
                 });
             }
             @Override
@@ -146,8 +116,8 @@ public class ListeSalleController extends MenuController implements Initializabl
         });
     }
 
-    // Mettre à jour le prix sans recharger la page
-    // Ajouter un message de validation de suppression
+    // Initialisation d'un bouton "Modifier" sur chaque lignes 'salle' qui permet de rediriger vers la page de modification
+    // avec les informations de la salle concernées
     private void btnModif() {
         tcModif.setCellFactory(column -> new TableCell<Salle, Void>() {
             private final Button btn = new Button("Modifier");

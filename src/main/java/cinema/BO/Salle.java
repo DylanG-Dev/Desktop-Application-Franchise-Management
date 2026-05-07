@@ -6,10 +6,7 @@ public class Salle {
     private String description;
     private int nbPlaces;
     private int idCinema;
-
-    public Salle() {
-    }
-
+    
     // Constructeur pour créer une nouvelle salle pour l'insérer en base de données
     public Salle(int numero, String description, int nbPlaces, int idCinema) {
         this.numero = numero;

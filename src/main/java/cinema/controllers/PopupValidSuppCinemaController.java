@@ -1,9 +1,7 @@
 package cinema.controllers;
 
 import cinema.BO.Cinema;
-import cinema.BO.Salle;
 import cinema.DAO.CinemaDAO;
-import cinema.DAO.SalleDAO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -29,23 +27,22 @@ public class PopupValidSuppCinemaController extends MenuController implements In
         Cinema cinema = getParam("cinema");
     }
 
+    // Méthode qui permet de supprimer le 'cinéma' si appuie sur le bouton 'OK'
     public void ButtonOkOnAction(ActionEvent actionEvent) {
-        try {
-            Cinema cinema = getParam("cinema");
-            CinemaDAO cinemaDAO = new CinemaDAO();
+        Cinema cinema = getParam("cinema");
+        CinemaDAO cinemaDAO = new CinemaDAO();
 
-            System.out.println(cinema);
-            cinemaDAO.delete(cinema);
+        System.out.println(cinema);
+        cinemaDAO.delete(cinema);
 
-            Stage stage = (Stage) ButtonOkOnAction.getScene().getWindow();
-            stage.close();
+        Stage stage = (Stage) ButtonOkOnAction.getScene().getWindow();
+        stage.close();
 
-            Navigation.showPopup("/cinema/views/popup_message_cinema_suppr.fxml", "Validation suppression cinéma");
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        Navigation.showPopup("/cinema/views/popup_message_cinema_suppr.fxml", "Validation suppression cinéma");
+
     }
 
+    // Méthode qui permet de ne pas valider la suppression
     public void ButtonRetourOnAction(ActionEvent actionEvent) {
         Stage stage = (Stage) ButtonRetourOnAction.getScene().getWindow();
         stage.close();

@@ -10,9 +10,6 @@ public class Franchise {
     private SimpleStringProperty siegeSocial = new SimpleStringProperty();
     private int idGerant;
 
-    public Franchise() {
-    }
-
     // Constructeur pour créer une nouvelle franchise pour l'insérer en base de données
     public Franchise(String nomFranchise, String siegeSocial, int idGerant) {
         this.nomFranchise.set(nomFranchise);
@@ -63,7 +60,7 @@ public class Franchise {
 
     @Override
     public String toString() {
-        return nomFranchise.getValue() + ", " + siegeSocial.getValue();
+        return nomFranchise.getValue();
     }
 
 //    @Override

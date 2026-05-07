@@ -13,7 +13,7 @@
         xmlns:fx="http://javafx.com/fxml"
         fx:controller="cinema.controllers.PopupValidSuppSalleController">
 
-        <!-- Contenu principal -->
+    <!-- Contenu principal -->
     <VBox alignment="CENTER" prefWidth="419.0" spacing="30.0">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />

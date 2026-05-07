@@ -13,16 +13,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 
 import static cinema.controllers.Navigation.getParam;
 
@@ -43,6 +37,7 @@ public class ModifierFranchiseController extends MenuController implements Initi
     private int idFranchise;
     private int idGerant;
 
+    // Méthode qui permet d'initialiser la page
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         ObservableList<Utilisateur> utilisateurs = getUtilisateurList();
@@ -56,6 +51,7 @@ public class ModifierFranchiseController extends MenuController implements Initi
         lblError.setManaged(false);
     }
 
+    // Fonction qui retourne une liste de tous les utilisateurs
     private ObservableList<Utilisateur> getUtilisateurList() {
 
         UtilisateurDAO utilisateurDAO = new UtilisateurDAO();
@@ -65,6 +61,7 @@ public class ModifierFranchiseController extends MenuController implements Initi
         return list;
     }
 
+    // Initialisation des attributs de la 'franchise' dans les champs
     public void setAttributes(Franchise franchise) {
 
         tfNomFranchise.setText(franchise.getNomFranchise());
@@ -74,6 +71,7 @@ public class ModifierFranchiseController extends MenuController implements Initi
         this.idFranchise = franchise.getIdFranchise();
     }
 
+    // Méthode qui permet de modifier une 'franchise' si tous les champs sont remplis
     @FXML
     private void bEnregistrerClick(ActionEvent event) {
         String nom = tfNomFranchise.getText();
@@ -96,11 +94,13 @@ public class ModifierFranchiseController extends MenuController implements Initi
         }
     }
 
+    // Méthode qui permet de revenir en arrière
     @FXML
     private void bRetourClick(ActionEvent event) {
         Navigation.goBack(bRetour.getScene().getWindow());
     }
 
+    // Méthode qui permet d'afficher un message d'erreur si tous les champs ne sont pas remplis
     @FXML
     public void messageErreur() {
         lblError.setVisible(true);

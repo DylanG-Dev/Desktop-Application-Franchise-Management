@@ -17,7 +17,6 @@ public class Navigation {
 
     // Initialisation et déclaration des attributs
     private static Stage primaryStage;
-    private static Stage popup;
     private static final Stack<String> historique = new Stack<>();
     private static final Map<String, Object> params = new HashMap<>();
 
@@ -26,6 +25,7 @@ public class Navigation {
         primaryStage = stage;
     }
 
+    // Méthode qui permet d'afficher les popups
     public static void showPopup(String fxmlPath, String title) {
         try {
             Parent root = FXMLLoader.load(Navigation.class.getResource(fxmlPath));

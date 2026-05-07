@@ -12,17 +12,12 @@ import cinema.DAO.SalleDAO;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TextArea;
-import javafx.scene.image.Image;
 import javafx.collections.FXCollections;
-import javafx.stage.Stage;
 
 import static cinema.controllers.Navigation.getParam;
 
@@ -46,6 +41,7 @@ public class ModifierSalleController extends MenuController implements Initializ
     @FXML
     private Button bRetour, bEnregistrer;
 
+    // Méthode qui permet d'initialiser la page
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         ObservableList<Cinema> cinemas = getCinemaList();
@@ -61,6 +57,7 @@ public class ModifierSalleController extends MenuController implements Initializ
         lblError.setManaged(false);
     }
 
+    // Fonction qui retourne une liste de tous les cinémas
     private ObservableList<Cinema> getCinemaList() {
 
         CinemaDAO cinemaDAO = new CinemaDAO();
@@ -73,6 +70,7 @@ public class ModifierSalleController extends MenuController implements Initializ
     // Correction du nom de la méthode nommé 'setAttrinut'
     // par 'setAttributes'
     // Correction de la méthode complète
+    // Initialisation des attributs de la 'salle' dans les champs
     public void setAttributes(Salle salle) {
         spnrNumero.getValueFactory().setValue(salle.getNumero());
         taDescription.setText(salle.getDescription());
@@ -82,6 +80,7 @@ public class ModifierSalleController extends MenuController implements Initializ
         this.idCinema = salle.getIdCinema();
     }
 
+    // Méthode qui permet de modifier une 'salle' si tous les champs sont remplis
     @FXML
     private void bEnregistrerClick(ActionEvent event) {
         // Ajout des attributs pour l'enregistrement
@@ -91,8 +90,7 @@ public class ModifierSalleController extends MenuController implements Initializ
         int nbPlace = spnrNbPlace.getValue();
         Cinema selected = lvCinemaSalle.getSelectionModel().getSelectedItem();
 
-        // Maybe add conditions on value 'numero' which can be equals to the same 'numero' of another 'salle'
-        if (!description.trim().isEmpty()) {
+        if (!description.trim().isEmpty() && selected != null) {
             int idCinema = lvCinemaSalle.getSelectionModel().getSelectedItem().getIdCinema();
 
             // Correction des paramètres de l'objet
@@ -111,11 +109,13 @@ public class ModifierSalleController extends MenuController implements Initializ
         }
     }
 
+    // Méthode qui permet de revenir en arrière
     @FXML
     private void bRetourClick(ActionEvent event) {
         Navigation.goBack(bRetour.getScene().getWindow());
     }
 
+    // Méthode qui permet d'afficher un message d'erreur si tous les champs ne sont pas remplis
     @FXML
     public void messageErreur() {
         lblError.setVisible(true);

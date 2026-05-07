@@ -13,25 +13,37 @@ import cinema.Session;
 
 public class CinemaDAO extends DAO<Cinema> {
 
+    public void setConfig() {
+        // récupère la connexion à la base de données
+        Connection conn = DBManager.getInstance();
+
+        // récupère l'utilisateur actuellement connecté à l'application
+        Utilisateur currentUti = Session.getUtilisateur();
+
+        if (currentUti != null) {
+            // Définit une variable de configuration locale à la session en cours.
+            String setSql = "SELECT set_config('app.current_id_utilisateur', ?, false)";
+
+            // prepare la requête préparée avec la connexion à la
+            // base de données paramétré avec l'id utilisateur de la
+            // session actuelle
+            try(PreparedStatement psSet = conn.prepareStatement(setSql)) {
+                // String configuré avec la valeur de l'id utilisateur
+                psSet.setString(1, String.valueOf(currentUti.getIdUtilisateur()));
+                // Exécution de la requête préparée
+                psSet.execute();
+            } catch(SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     @Override
     public boolean create(Cinema obj) {
         boolean result = false;
         try {
-            Connection conn = DBManager.getInstance();
 
-            // Initiliase la variable 'currentUti' de type
-            // 'Utilisateur' avec la session de l'utilisateur actuel
-            Utilisateur currentUti = Session.getUtilisateur();
-
-            if (currentUti != null) {
-                //
-                String setSql = "SELECT set_config('app.current_id_utilisateur', ?, false)";
-
-                try(PreparedStatement preparedStatement = conn.prepareStatement(setSql)) {
-                    preparedStatement.setString(1, String.valueOf(currentUti.getIdUtilisateur()));
-                    preparedStatement.execute();
-                }
-            }
+            setConfig();
 
             String query = "INSERT INTO cinema (denomination, adresse, ville, id_franchise) VALUES (?,?,?,?);";
             PreparedStatement preparedStatement = this.connect.prepareStatement(query);
@@ -55,18 +67,9 @@ public class CinemaDAO extends DAO<Cinema> {
         String query = "DELETE FROM cinema WHERE id_cinema = ?;";
 
         try (PreparedStatement preparedStatement = this.connect.prepareStatement(query)) {
-            Connection conn = DBManager.getInstance();
 
-            Utilisateur currentUti = Session.getUtilisateur();
+            setConfig();
 
-            if (currentUti != null) {
-                String setSql = "SELECT set_config('app.current_id_utilisateur', ?, false)";
-
-                try(PreparedStatement psSet = conn.prepareStatement(setSql)) {
-                    psSet.setString(1, String.valueOf(currentUti.getIdUtilisateur()));
-                    psSet.execute();
-                }
-            }
             preparedStatement.setInt(1, obj.getIdCinema());
             result = preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {
@@ -81,18 +84,8 @@ public class CinemaDAO extends DAO<Cinema> {
         boolean result = false;
         String query = "UPDATE cinema SET denomination = ?, adresse = ?, ville = ?, id_franchise = ? WHERE id_cinema = ?;";
         try {
-            Connection conn = DBManager.getInstance();
 
-            Utilisateur currentUti = Session.getUtilisateur();
-
-            if (currentUti != null) {
-                String setSql = "SELECT set_config('app.current_id_utilisateur', ?, false)";
-
-                try(PreparedStatement psSet = conn.prepareStatement(setSql)) {
-                    psSet.setString(1, String.valueOf(currentUti.getIdUtilisateur()));
-                    psSet.execute();
-                }
-            }
+            setConfig();
             PreparedStatement preparedStatement = this.connect.prepareStatement(query);
             preparedStatement.setString(1, obj.getDenomination());
             preparedStatement.setString(2, obj.getAdresse());

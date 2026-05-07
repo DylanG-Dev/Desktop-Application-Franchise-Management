@@ -20,9 +20,9 @@ public class PopupValidSuppSalleController extends MenuController implements Ini
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        getParam("salle");
     }
 
+    // Méthode qui permet de supprimer la 'salle' si appuie sur le bouton 'OK'
     public void ButtonOkOnAction(ActionEvent actionEvent) {
         Salle salle = getParam("salle");
 
@@ -35,6 +35,7 @@ public class PopupValidSuppSalleController extends MenuController implements Ini
         Navigation.showPopup("/cinema/views/popup_message_salle_suppr.fxml", "Validation suppression salle");
     }
 
+    // Méthode qui permet de ne pas valider la suppression
     public void ButtonRetourOnAction(ActionEvent actionEvent) {
         Stage stage = (Stage) ButtonRetourOnAction.getScene().getWindow();
         stage.close();

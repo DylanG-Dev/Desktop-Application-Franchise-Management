@@ -5,20 +5,13 @@ import java.util.ResourceBundle;
 
 import cinema.BO.Utilisateur;
 import cinema.DAO.UtilisateurDAO;
-//import cinema.viewModels.ConnexionViewModel;
 import cinema.Session;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -95,10 +88,10 @@ public class ConnexionController implements Initializable {
         }
 
         // Appel de la fonction 'getPassword' de l'instance
-        // 'utilisateurDAO' avec le paremètre 'login',
+        // 'utilisateurDAO' avec le paramètre 'login',
         // stockage du résultat dans la variable bddPassword
         String bddPassword = utilisateurDAO.getPassword(login);
-        if(password == null) {
+        if(bddPassword == null) {
             return null;
         }
 
@@ -111,12 +104,6 @@ public class ConnexionController implements Initializable {
         return null;
     }
 
-    // Fonction qui permet de hacher un mot de passe
-    // saisis par l'utilisateur
-    public static String hash(String password) {
-        return encoder.encode(password);
-    }
-
     // Fonction qui permet de vérifier que les deux mots
     // de passe correspondent
     public static boolean verify(String password, String hash) {
@@ -126,18 +113,14 @@ public class ConnexionController implements Initializable {
     private void showAccueil(String name) {
         // Fonction 'goTo' qui permet de naviguer sur la page d'accueil
         // avec le nom et le prénom de l'utilisateur en paramètre
-//        Navigation.goTo("/cinema/views/page_accueil.fxml", "nameUti", name);
         Navigation.goTo("/cinema/views/page_accueil.fxml", "nameUti", name, bConnexion.getScene().getWindow());
     }
 
+    // Méthode qui permet d'afficher une popup d'erreur si la connexion n'est pas
+    // effectué
     @FXML
     private void showError() {
         Navigation.showPopup("/cinema/views/erreur_connexion.fxml", "Erreur connexion");
-    }
-
-    @FXML
-    private void showResetPassword() {
-        Navigation.showPopup("/cinema/views/reset_password.fxml", "Réinitialiser mot de passe");
     }
 
 }

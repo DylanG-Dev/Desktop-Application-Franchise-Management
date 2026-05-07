@@ -45,6 +45,8 @@ DECLARE
     v_id_utilisateur INTEGER;
 BEGIN
 BEGIN
+    -- récupère l'id utilisateur stocké en variable de session
+    -- paramètre 'true' évitant une erreur si la variable n'existe pas
     v_id_utilisateur := current_setting('app.current_id_utilisateur', true)::INTEGER;
         EXCEPTION WHEN OTHERS THEN
     v_id_utilisateur := NULL;

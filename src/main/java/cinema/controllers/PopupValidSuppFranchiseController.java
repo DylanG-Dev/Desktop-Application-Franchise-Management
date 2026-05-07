@@ -1,9 +1,7 @@
 package cinema.controllers;
 
 import cinema.BO.Franchise;
-import cinema.BO.Salle;
 import cinema.DAO.FranchiseDAO;
-import cinema.DAO.SalleDAO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -22,25 +20,24 @@ public class PopupValidSuppFranchiseController extends MenuController implements
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        getParam("franchise");
     }
 
+    // Méthode qui permet de supprimer la 'franchise' si appuie sur le bouton 'OK'
     public void ButtonOkOnAction(ActionEvent actionEvent) {
-        try {
-            Franchise franchise = getParam("franchise");
 
-            FranchiseDAO franchiseDAO = new FranchiseDAO();
-            franchiseDAO.delete(franchise);
+        Franchise franchise = getParam("franchise");
 
-            Stage stage = (Stage) ButtonOkOnAction.getScene().getWindow();
-            stage.close();
+        FranchiseDAO franchiseDAO = new FranchiseDAO();
+        franchiseDAO.delete(franchise);
 
-            Navigation.showPopup("/cinema/views/popup_message_franchise_suppr.fxml", "Validation suppression franchise");
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        Stage stage = (Stage) ButtonOkOnAction.getScene().getWindow();
+        stage.close();
+
+        Navigation.showPopup("/cinema/views/popup_message_franchise_suppr.fxml", "Validation suppression franchise");
+
     }
 
+    // Méthode qui permet de ne pas valider la suppression
     public void ButtonRetourOnAction(ActionEvent actionEvent) {
         Stage stage = (Stage) ButtonRetourOnAction.getScene().getWindow();
         stage.close();

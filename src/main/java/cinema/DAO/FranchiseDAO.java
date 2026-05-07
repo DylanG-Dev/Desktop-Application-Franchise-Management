@@ -10,22 +10,36 @@ import cinema.Session;
 
 public class FranchiseDAO extends DAO<Franchise> {
 
+    public void setConfig() {
+        // récupère la connexion à la base de données
+        Connection conn = DBManager.getInstance();
+
+        // récupère l'utilisateur actuellement connecté à l'application
+        Utilisateur currentUti = Session.getUtilisateur();
+
+        if (currentUti != null) {
+            // Définit une variable de configuration locale à la session en cours.
+            String setSql = "SELECT set_config('app.current_id_utilisateur', ?, false)";
+
+            // prepare la requête préparée avec la connexion à la
+            // base de données paramétré avec l'id utilisateur de la
+            // session actuelle
+            try(PreparedStatement psSet = conn.prepareStatement(setSql)) {
+                // String configuré avec la valeur de l'id utilisateur
+                psSet.setString(1, String.valueOf(currentUti.getIdUtilisateur()));
+                // Exécution de la requête préparée
+                psSet.execute();
+            } catch(SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     @Override
     public boolean create(Franchise obj) {
         boolean controle = false;
         try {
-            Connection conn = DBManager.getInstance();
-
-            Utilisateur currentUti = Session.getUtilisateur();
-
-            if (currentUti != null) {
-                String setSql = "SELECT set_config('app.current_id_utilisateur', ?, false)";
-
-                try(PreparedStatement psSet = conn.prepareStatement(setSql)) {
-                    psSet.setString(1, String.valueOf(currentUti.getIdUtilisateur()));
-                    psSet.execute();
-                }
-            }
+            setConfig();
 
             // 3 colonnes sont déclarées mais 4 placeholders sont fournis
             // Cela provoquera une erreur lors de l'exécution
@@ -68,27 +82,7 @@ public class FranchiseDAO extends DAO<Franchise> {
         boolean controle = false;
         try {
 
-            Connection conn = DBManager.getInstance();
-
-            Utilisateur currentUti = Session.getUtilisateur();
-
-            if (currentUti != null) {
-                // Initiliase une variable de type 'String' en retrouvant
-                // l'id de l'utilisateur de la session actuelle
-                String setSql = "SELECT set_config('app.current_id_utilisateur', ?, false)";
-
-                // prepare la requête préparée avec la connexion à la
-                // base de données paramétré avec l'id utilisateur de la
-                // session actuelle
-                try(PreparedStatement psSet = conn.prepareStatement(setSql)) {
-                    // String configuré avec la valeur de l'id utilisateur
-                    psSet.setString(1, String.valueOf(currentUti.getIdUtilisateur()));
-                    // Exécution de la requête préparée
-                    psSet.execute();
-                } catch(SQLException e) {
-                    e.printStackTrace();
-                }
-            }
+            setConfig();
 
             String sql = "DELETE FROM franchise WHERE id_franchise = ?;";
             PreparedStatement statement = this.connect.prepareStatement(sql);
@@ -109,18 +103,8 @@ public class FranchiseDAO extends DAO<Franchise> {
     public boolean update(Franchise obj) {
         boolean controle = false;
         try {
-            Connection conn = DBManager.getInstance();
+            setConfig();
 
-            Utilisateur currentUti = Session.getUtilisateur();
-
-            if (currentUti != null) {
-                String setSql = "SELECT set_config('app.current_id_utilisateur', ?, false)";
-
-                try(PreparedStatement psSet = conn.prepareStatement(setSql)) {
-                    psSet.setString(1, String.valueOf(currentUti.getIdUtilisateur()));
-                    psSet.execute();
-                }
-            }
             String query = "UPDATE franchise SET nom_franchise = ?, siege_social = ?, id_gerant = ? WHERE id_franchise = ?";
             PreparedStatement statement = this.connect.prepareStatement(query);
             statement.setString(1, obj.getNomFranchise());

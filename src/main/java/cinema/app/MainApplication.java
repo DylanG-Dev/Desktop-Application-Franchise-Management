@@ -68,7 +68,7 @@ public class MainApplication extends Application {
         // toujours au-dessus des autres fenêtres
         // Cela permet de faire apparaître la fenêtre au dessus
         // de toutes les autres fenêtes avec l'option 'true'
-        // pour le lancement, et d'enlever le une fois que
+        // pour le lancement, et d'enlever l'option une fois que
         // l'application est lancé avec l'option 'false' pour que
         // les utilisateurs puissent réduire la fenêtre
         primaryStage.setAlwaysOnTop(false);

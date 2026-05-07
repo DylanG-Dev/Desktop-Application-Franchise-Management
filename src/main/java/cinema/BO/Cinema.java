@@ -8,10 +8,6 @@ public class Cinema {
     private String ville;
     private int idFranchise;
 
-    // Ajout d'un constructeur par défaut sans affectation
-    public Cinema() {
-    }
-
     // Constructeur pour créer un nouveau cinéma pour l'insérer en base de données
     public Cinema(String denomination, String adresse, String ville, int idFranchise) {
         this.denomination = denomination;
@@ -70,8 +66,8 @@ public class Cinema {
     public String toString() {
         return denomination;
     }
-//    // Ajout d'une fonction toString pour débuguer et
-//    // afficher proprement un objet
+
+
 //    @Override
 //    public String toString() {
 //        return "Cinéma [idCinema=" + idCinema + ", denomination=" + denomination + ", adresse="

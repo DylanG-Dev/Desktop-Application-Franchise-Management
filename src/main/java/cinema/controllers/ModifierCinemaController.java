@@ -12,16 +12,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 import javafx.scene.control.Label;
 
 import static cinema.controllers.Navigation.getParam;
@@ -43,6 +37,7 @@ public class ModifierCinemaController extends MenuController implements Initiali
     private int idCinema;
     private int idFranchise; // stocke l'id de la franchise sélectionnée
 
+    // Méthode qui permet d'initialiser la page
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         ObservableList<Franchise> franchises = getFranchiseList();
@@ -57,6 +52,7 @@ public class ModifierCinemaController extends MenuController implements Initiali
         lblError.setManaged(false);
     }
 
+    // Fonction qui retourne une liste de toutes les franchises
     private ObservableList<Franchise> getFranchiseList() {
 
         FranchiseDAO franchiseDAO = new FranchiseDAO();
@@ -66,6 +62,7 @@ public class ModifierCinemaController extends MenuController implements Initiali
         return list;
     }
 
+    // Initialisation des valeurs du 'cinéma' dans les champs
     public void setAttributs(Cinema cinema) {
         // pré-remplit les champs avec les données actuelles du cinéma
         tfDenomination.setText(cinema.getDenomination());

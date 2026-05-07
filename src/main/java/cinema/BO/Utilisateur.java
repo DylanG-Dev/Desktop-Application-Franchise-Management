@@ -12,9 +12,6 @@ public class Utilisateur {
     private String prenom;
     private String login;
 
-    public Utilisateur() {
-    }
-
     // Correction des affectations du constructeurs qui étaient en désordre
     // ne jamais avoir le mot de passe dans un constructeur 'Utilisateur'
     // Constructeur pour instancier un utilisateur existant en base de données
